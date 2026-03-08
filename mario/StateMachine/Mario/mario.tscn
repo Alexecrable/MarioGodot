@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://bqs6nc06g3ffa"]
+
+[ext_resource type="Script" uid="uid://bht473p5de1mi" path="res://Mario/Mario.cs" id="1_wrvex"]
+[ext_resource type="Texture2D" uid="uid://ci4gdin6okmxf" path="res://Mario/Sprites/Falling/Falling1.png" id="2_wve2w"]
+[ext_resource type="Texture2D" uid="uid://q0sakhhh546p" path="res://Mario/Sprites/Falling/Falling2.png" id="3_nkkps"]
+[ext_resource type="Texture2D" uid="uid://c0giwvnxxfyi1" path="res://Mario/Sprites/Falling/Falling3.png" id="4_p7tcl"]
+[ext_resource type="Texture2D" uid="uid://n8ribbxpufn8" path="res://Mario/Sprites/Falling/Falling4.png" id="5_8g76r"]
+[ext_resource type="Texture2D" uid="uid://dar2wi6yhg1es" path="res://Mario/Sprites/Idle/Idle1.png" id="6_lcelt"]
+[ext_resource type="Texture2D" uid="uid://f65uuo5j1s1d" path="res://Mario/Sprites/Idle/Idle2.png" id="7_ov0sn"]
+[ext_resource type="Texture2D" uid="uid://qefep556bupo" path="res://Mario/Sprites/Idle/Idle3.png" id="8_t7a4b"]
+[ext_resource type="Texture2D" uid="uid://r7nkuolljjg0" path="res://Mario/Sprites/Idle/Idle4.png" id="9_wwp4g"]
+[ext_resource type="Texture2D" uid="uid://5cs83low7lvi" path="res://Mario/Sprites/Idle/Idle5.png" id="10_xgdnb"]
+[ext_resource type="Texture2D" uid="uid://cg4aqdx1xsaia" path="res://Mario/Sprites/Idle/Idle6.png" id="11_hpgai"]
+[ext_resource type="Texture2D" uid="uid://ckag772vcpc0g" path="res://Mario/Sprites/Idle/Idle7.png" id="12_ttriv"]
+[ext_resource type="Texture2D" uid="uid://bkbfdtvai3qwo" path="res://Mario/Sprites/Idle/Idle8.png" id="13_2lmfk"]
+[ext_resource type="Texture2D" uid="uid://8ta0rxyi0jjg" path="res://Mario/Sprites/Idle/Idle9.png" id="14_l35tm"]
+[ext_resource type="Texture2D" uid="uid://buygyow0y0q5o" path="res://Mario/Sprites/Idle/Idle10.png" id="15_p10gk"]
+[ext_resource type="Texture2D" uid="uid://bectintkt7628" path="res://Mario/Sprites/Jumping/Jumping1.png" id="16_f285s"]
+[ext_resource type="Texture2D" uid="uid://dsqjgiy5bjqmq" path="res://Mario/Sprites/Jumping/Jumping2.png" id="17_t8o22"]
+[ext_resource type="Texture2D" uid="uid://cupwxaggusiv1" path="res://Mario/Sprites/Jumping/Jumping3.png" id="18_fqa1s"]
+[ext_resource type="Texture2D" uid="uid://b4ha8yfkvmapq" path="res://Mario/Sprites/Jumping/Jumping4.png" id="19_7e3v7"]
+[ext_resource type="Texture2D" uid="uid://ceh0yrdck00gb" path="res://Mario/Sprites/Jumping/Jumping5.png" id="20_iny55"]
+[ext_resource type="Texture2D" uid="uid://dsneuj0sf2j14" path="res://Mario/Sprites/Running/Running1.png" id="21_uh77e"]
+[ext_resource type="Texture2D" uid="uid://bjjy1rujbre6j" path="res://Mario/Sprites/Running/Running2.png" id="22_hri87"]
+[ext_resource type="Texture2D" uid="uid://cg5w5oaq8fekd" path="res://Mario/Sprites/Running/Running3.png" id="23_6x3wa"]
+[ext_resource type="Texture2D" uid="uid://ny5q6m16guu4" path="res://Mario/Sprites/Running/Running4.png" id="24_41v27"]
+[ext_resource type="Texture2D" uid="uid://blh62yln4ybin" path="res://Mario/Sprites/Running/Running5.png" id="25_d03u2"]
+[ext_resource type="Texture2D" uid="uid://b7fej1lrmve0r" path="res://Mario/Sprites/Running/Running6.png" id="26_bmkff"]
+[ext_resource type="Texture2D" uid="uid://wfn7whda2qak" path="res://Mario/Sprites/Running/Running7.png" id="27_wfcek"]
+[ext_resource type="Texture2D" uid="uid://b5u3h0g7m1rb3" path="res://Mario/Sprites/Running/Running8.png" id="28_vgxia"]
+[ext_resource type="Texture2D" uid="uid://caetyql2vahot" path="res://Mario/Sprites/Running/Running9.png" id="29_8305r"]
+[ext_resource type="Texture2D" uid="uid://daecdjkviae2" path="res://Mario/Sprites/Running/Running10.png" id="30_ol8gr"]
+[ext_resource type="Texture2D" uid="uid://cmud3fc0rntxk" path="res://Mario/Sprites/WallSlide/Falling..png" id="31_nkkps"]
+[ext_resource type="AudioStream" uid="uid://dqjaq376xggn1" path="res://Mario/Sfx/Jump.mp3" id="32_p7tcl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrvex"]
+size = Vector2(10, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vs7sc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wve2w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nkkps")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p7tcl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8g76r")
+}],
+"loop": false,
+"name": &"Falling",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_lcelt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ov0sn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_t7a4b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_wwp4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_xgdnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_hpgai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ttriv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_2lmfk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_l35tm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_p10gk")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_f285s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_t8o22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_fqa1s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_7e3v7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_iny55")
+}],
+"loop": false,
+"name": &"Jumping",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_uh77e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_hri87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_6x3wa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_41v27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_d03u2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_bmkff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_wfcek")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vgxia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_8305r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_ol8gr")
+}],
+"loop": true,
+"name": &"Running",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_nkkps")
+}],
+"loop": true,
+"name": &"WallSlide",
+"speed": 5.0
+}]
+
+[sub_resource type="Curve" id="Curve_nkkps"]
+_data = [Vector2(0.216783, 0.860115), 0.0, 0.0, 0, 0, Vector2(0.828671, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_p7tcl"]
+curve = SubResource("Curve_nkkps")
+
+[sub_resource type="Gradient" id="Gradient_p7tcl"]
+offsets = PackedFloat32Array(0, 0.888462)
+colors = PackedColorArray(0.572988, 0.572988, 0.572988, 1, 0.929715, 0.929715, 0.929715, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8g76r"]
+gradient = SubResource("Gradient_p7tcl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lcelt"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2, 14, 1)
+angle_min = 1.07288e-05
+angle_max = 360.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_8g76r")
+alpha_curve = SubResource("CurveTexture_p7tcl")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p7tcl"]
+size = Vector2(10, 2)
+
+[node name="Mario" type="CharacterBody2D" unique_id=1121828311]
+collision_layer = 2
+script = ExtResource("1_wrvex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=534852152]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_wrvex")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2444093]
+z_index = 1
+position = Vector2(0, -16)
+scale = Vector2(0.666667, 0.5)
+sprite_frames = SubResource("SpriteFrames_vs7sc")
+animation = &"Idle"
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1333984708]
+position = Vector2(0, -15)
+zoom = Vector2(2, 2)
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1420790582]
+position = Vector2(4, -28)
+rotation = -0.13962634
+target_position = Vector2(0, 28)
+
+[node name="RayCast2D2" type="RayCast2D" parent="." unique_id=1095277486]
+position = Vector2(-3.999999, -28)
+rotation = 0.13962634
+target_position = Vector2(0, 28)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2055623270]
+position = Vector2(6, -14)
+emitting = false
+amount = 100
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_lcelt")
+
+[node name="SFXPlayer" type="AudioStreamPlayer2D" parent="." unique_id=1537890403]
+stream = ExtResource("32_p7tcl")
+playback_type = 1
+
+[node name="HitBox" type="Area2D" parent="." unique_id=118383199]
+position = Vector2(0, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1209167452]
+scale = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_p7tcl")
