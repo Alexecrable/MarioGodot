@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://deipgsxx0i6h8"]
 
-[ext_resource type="Script" uid="uid://dgkvapb8dahsb" path="res://PowerUps/Powerup.cs" id="1_jh0k6"]
-[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://PowerUps/Sprites/BeerWalk1.png" id="2_hd7iv"]
-[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://PowerUps/Sprites/BeerWalk2.png" id="3_xirc5"]
-[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://PowerUps/Sprites/BeerWalk3.png" id="4_rb0a0"]
-[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://PowerUps/Sprites/BeerWalk4.png" id="5_hhvw5"]
-[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://PowerUps/Sprites/BeerWalk5.png" id="6_ou3dn"]
-[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://PowerUps/Sprites/BeerWalk6.png" id="7_hmfbd"]
+[ext_resource type="Script" uid="uid://dgkvapb8dahsb" path="res://StateMachine/PowerUps/Powerup.cs" id="1_jh0k6"]
+[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/Sprites/BeerWalk1.png" id="2_hd7iv"]
+[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/Sprites/BeerWalk2.png" id="3_xirc5"]
+[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/Sprites/BeerWalk3.png" id="4_rb0a0"]
+[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://StateMachine/PowerUps/Sprites/BeerWalk4.png" id="5_hhvw5"]
+[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://StateMachine/PowerUps/Sprites/BeerWalk5.png" id="6_ou3dn"]
+[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://StateMachine/PowerUps/Sprites/BeerWalk6.png" id="7_hmfbd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
 animations = [{

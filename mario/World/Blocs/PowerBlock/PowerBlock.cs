@@ -16,8 +16,8 @@ public partial class PowerBlock : StaticBody2D
 	{
 		area = GetNode<Area2D>("Area2D");
 		sprite = GetNode<Sprite2D>("Sprite2D");
-		shroom = ResourceLoader.Load<PackedScene>("res://PowerUps/Shroom.tscn").Instantiate<BeerWalker>();
-		emptyTexture = ResourceLoader.Load<Texture2D>("res://World/Blocs/EmptyPowerBlock.jpg");
+		shroom = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();
+		emptyTexture = ResourceLoader.Load<Texture2D>("res://World/Blocs/PowerBlock/Sprites/EmptyPowerBlock.jpg");
 		//jumpTween.SetLoops();
 		GD.Print("setloops");
 		isEmpty = false;

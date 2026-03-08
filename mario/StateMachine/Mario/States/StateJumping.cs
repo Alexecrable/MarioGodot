@@ -13,7 +13,7 @@ public partial class StateJumping : MarioState
         timer.WaitTime = mario.jumpTime;
         timer.Timeout += timerEnd;
         timer.OneShot = true;
-        jumpSFX = ResourceLoader.Load<AudioStreamMP3>("res://Mario/Sfx/Jump.mp3");
+        jumpSFX = ResourceLoader.Load<AudioStreamMP3>("res://StateMachine/Mario/Sounds/Jump.mp3");
 
         jumpSFX.Loop = false;
 

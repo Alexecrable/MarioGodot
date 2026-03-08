@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Mario"
 run/main_scene="uid://5ap6q416syu"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
-config/icon="res://Mario/icon.svg"
+config/icon="res://StateMachine/Mario/icon.svg"
 
 [display]
 

@@ -7,7 +7,7 @@ public partial class StateWallSlide : MarioState
     private AudioStreamMP3 wallSlideSFX;
     public StateWallSlide(Mario _mario) : base(_mario)
     {
-        wallSlideSFX = GD.Load<AudioStreamMP3>("res://Mario/Sfx/WallSlide.mp3");
+        wallSlideSFX = GD.Load<AudioStreamMP3>("res://StateMachine/Mario/Sounds/WallSlide.mp3");
         wallSlideSFX.Loop = true;
         wallSlideSFX.LoopOffset = 0.3;
         

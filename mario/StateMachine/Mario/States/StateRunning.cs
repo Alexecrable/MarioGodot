@@ -27,6 +27,7 @@ public partial class StateRunning : MarioState
     {
         GD.Print("enter running");
         mario.animation.Animation = "Running";
+        mario.animation.Modulate = new Color(0,0,1);
         mario.animation.Play();
         mario.SetGoingNeutral();
         isCoyote = false;
@@ -36,6 +37,7 @@ public partial class StateRunning : MarioState
     override public void Exit(int _stateID)
     {
         GD.Print("stopp coyoteTimer exiting running");
+        mario.animation.Modulate = new Color(1,1,1);
         coyoteTimer.Stop();
     }
 
