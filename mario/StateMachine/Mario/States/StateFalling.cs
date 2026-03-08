@@ -13,7 +13,6 @@ public partial class StateFalling : MarioState
 
     override public void Enter(int _stateID)
     {
-        GD.Print("enter fall");
         mario.animation.Animation = "Falling";
         mario.animation.Play();
 
@@ -103,7 +102,6 @@ public partial class StateFalling : MarioState
                             }
                             
                         }
-                        GD.Print("new speed " + mario.currentHorizontalVelocity);
                         EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
                     }
                 }

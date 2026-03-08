@@ -22,7 +22,6 @@ public partial class Goomba : Ennemi
         
         notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
         skin = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        hitBox = GetNode<Area2D>("HitBox");
         skin.Animation = "WALK";
         skin.Pause();
         InitState();
@@ -66,6 +65,11 @@ public partial class Goomba : Ennemi
     public VisibleOnScreenNotifier2D getNotifier()
     {
         return notifier;
+    }
+
+    public override void MakeHit()
+    {
+        EmitSignal(SignalName.Hit);
     }
 
 

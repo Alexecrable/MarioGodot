@@ -1,0 +1,15 @@
+TileMap <- Mario | Ennemis | Pouvoirs
+
+Mario -> Ennemis | Pouvoirs | Blocs
+
+Blocs -> Ennemis (pour les tuer)
+
+Ennemis -> Ennemis (pr collision)
+
+Murs à koopa ?
+
+1 : TileMap | tout ?
+2 : Blocs | 4 
+3 : Mario | 1 2 4 5
+4 : Ennemis | 1 2(P)
+5 : Pouvoirs | 1 2(P) 

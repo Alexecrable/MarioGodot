@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bssa0r021xjuj"]
 
-[ext_resource type="Script" uid="uid://bs5l6jkxkeks" path="res://World/Blocs/PowerBlock.cs" id="1_aln6j"]
-[ext_resource type="Texture2D" uid="uid://d1nv3k4ct0evl" path="res://World/Blocs/PowerBlock.jpg" id="1_u3fpq"]
+[ext_resource type="Script" uid="uid://bs5l6jkxkeks" path="res://World/Blocs/PowerBlock/PowerBlock.cs" id="1_aln6j"]
+[ext_resource type="Texture2D" uid="uid://d1nv3k4ct0evl" path="res://World/Blocs/PowerBlock/Sprites/PowerBlock.jpg" id="1_u3fpq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6j"]
 size = Vector2(32, 32)
@@ -10,6 +10,8 @@ size = Vector2(32, 32)
 size = Vector2(32, 4)
 
 [node name="PowerBlock" type="StaticBody2D" unique_id=318698517 groups=["Blocks"]]
+collision_layer = 2
+collision_mask = 8
 script = ExtResource("1_aln6j")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1291149728]
@@ -19,9 +21,9 @@ texture = ExtResource("1_u3fpq")
 shape = SubResource("RectangleShape2D_aln6j")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=955446535]
-collision_layer = 7
-collision_mask = 7
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=224498250 groups=["Blocks", "Blockss"]]
-position = Vector2(0, 14)
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_de7fl")

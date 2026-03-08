@@ -13,7 +13,6 @@ public partial class StateTransform : MarioState
 
     override public void Enter(int _stateID)
     {
-        GD.Print("enter fall");
         mario.animation.Animation = "Transforming";
         mario.animation.Play();
 
@@ -37,7 +36,6 @@ public partial class StateTransform : MarioState
 
         if (mario.maxHorizontalVelocity > mario.currentHorizontalVelocity * (mario.rightInput - mario.leftInput))
         {
-            GD.Print("lololol " + mario.airborneHorizontalAccel);
             mario.currentHorizontalVelocity += mario.airborneHorizontalAccel * (mario.rightInput - mario.leftInput) * (float)delta;
         }
         mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
@@ -94,7 +92,6 @@ public partial class StateTransform : MarioState
                             }
                             
                         }
-                        GD.Print("new speed " + mario.currentHorizontalVelocity);
                         EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
                     }
                 }

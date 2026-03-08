@@ -19,7 +19,6 @@ public partial class PowerBlock : StaticBody2D
 		shroom = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();
 		emptyTexture = ResourceLoader.Load<Texture2D>("res://World/Blocs/PowerBlock/Sprites/EmptyPowerBlock.jpg");
 		//jumpTween.SetLoops();
-		GD.Print("setloops");
 		isEmpty = false;
 	}
 
@@ -30,7 +29,6 @@ public partial class PowerBlock : StaticBody2D
 			shroom.Position = Position + new Vector2(0,-30);
 
 			CallDeferred("add_sibling", shroom);
-			GD.Print("collided");
 
 			jumpTween = CreateTween();
 			jumpTween.SetTrans(Tween.TransitionType.Linear);

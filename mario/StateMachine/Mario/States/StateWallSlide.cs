@@ -20,12 +20,10 @@ public partial class StateWallSlide : MarioState
     {
         mario.sfxPlayer.Stream = wallSlideSFX;
         mario.SetGoingDown();
-        GD.Print("enter wallslide");
         mario.animation.Animation = "WallSlide";
         mario.animation.Play();
         mario.Velocity = new Vector2(0, 100);
         mario.currentHorizontalVelocity = 0;
-        GD.Print("wall direction");
         mario.animation.FlipH = mario.raycastLeft.IsColliding();
         mario.particles.Emitting = true;
         if (mario.animation.FlipH)
@@ -57,10 +55,7 @@ public partial class StateWallSlide : MarioState
         bool marioGoesRight = mario.rightInput - mario.leftInput > 0;
         bool marioGoesLeft = mario.rightInput - mario.leftInput < 0;
         bool marioGrabsWall = (mario.raycastLeft.IsColliding() && marioGoesLeft) || (mario.raycastRight.IsColliding() && marioGoesRight);
-        GD.Print("climbLog :"+
-                "\n\tMarioRight : " + marioGoesRight +
-                "\n\tMarioLeft : " + marioGoesLeft +
-                "\n\tMarioGrabs : " + marioGrabsWall);
+        
         if (!marioGrabsWall)
         {
             //falling
@@ -72,7 +67,6 @@ public partial class StateWallSlide : MarioState
         {
             if (mario.IsOnFloor())
             {
-                GD.Print("le probleme");
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.IDLE);
             }
             else
@@ -82,7 +76,6 @@ public partial class StateWallSlide : MarioState
                     mario.animation.FlipH = !mario.animation.FlipH;
                     mario.currentHorizontalVelocity = mario.raycastRight.IsColliding() ? -mario.speed : mario.speed;
                     EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
-                    GD.Print("new speed " + mario.currentHorizontalVelocity + " " + mario.speed);
                 }
 
             }

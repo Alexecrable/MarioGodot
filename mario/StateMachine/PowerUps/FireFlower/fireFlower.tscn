@@ -39,7 +39,8 @@ radius = 9.0
 height = 32.0
 
 [node name="FireFlower" type="CharacterBody2D" unique_id=1116609167]
-collision_layer = 0
+collision_layer = 16
+collision_mask = 3
 script = ExtResource("1_mpmov")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1434454301]
@@ -50,10 +51,3 @@ frame_progress = 0.165424
 shape = SubResource("CapsuleShape2D_b5ej4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=80484720]
-
-[node name="Area2D" type="Area2D" parent="." unique_id=169909486]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1531639201]
-shape = SubResource("CapsuleShape2D_b5ej4")

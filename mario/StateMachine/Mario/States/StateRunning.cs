@@ -19,13 +19,11 @@ public partial class StateRunning : MarioState
     // Called when the node enters the scene tree for the first time.
     private void CoyoteEnd()
     {
-        GD.Print("coyote ENDING");
         EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
     }
 
     override public void Enter(int _stateID)
     {
-        GD.Print("enter running");
         mario.animation.Animation = "Running";
         mario.animation.Modulate = new Color(0,0,1);
         mario.animation.Play();
@@ -36,7 +34,6 @@ public partial class StateRunning : MarioState
 
     override public void Exit(int _stateID)
     {
-        GD.Print("stopp coyoteTimer exiting running");
         mario.animation.Modulate = new Color(1,1,1);
         coyoteTimer.Stop();
     }
@@ -67,7 +64,6 @@ public partial class StateRunning : MarioState
         {
             if (!isRunning)
             {
-                GD.Print("gotoidle");
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.IDLE);
             }
             else

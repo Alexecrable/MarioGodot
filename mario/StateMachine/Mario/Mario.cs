@@ -40,18 +40,14 @@ public enum StateEnum
 	public RayCast2D raycastRight;
 	public RayCast2D raycastLeft;
 	public AudioStreamPlayer2D sfxPlayer;
-	private Area2D hitBox;
-	private bool isHitting;
+	private Area2D headBox, feetBox;
+	private bool isHittingUp, isHittingDown;
 
 	
 	public override void _Ready()
 	{
 
 		yVelocity = startingGravity;
-						GD.Print("sfx2");
-
-		
-						GD.Print("sfx3");
 
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		camera = GetNode<Camera2D>("Camera2D");
@@ -60,25 +56,44 @@ public enum StateEnum
 		particles = GetNode<GpuParticles2D>("GPUParticles2D");
 		particles.Emitting = false;
 		sfxPlayer = GetNode<AudioStreamPlayer2D>("SFXPlayer");
-		hitBox = GetNode<Area2D>("HitBox");
-		hitBox.BodyEntered += Hitting;
-		isHitting = false;
+		headBox = GetNode<Area2D>("HeadBox");
+		headBox.BodyEntered += HittingUp;
+		feetBox = GetNode<Area2D>("FeetBox");
+		feetBox.BodyEntered += HittingDown;
+		
+		isHittingUp = false;
+
 		InitStates();
 
 	}
 
-	private void Hitting(Node _body)
+	private void HittingUp(Node _body)
 	{
-
-		GD.Print("bodddd " + _body.GetGroups());
 		
-		
-		if (_body.IsInGroup("Blocks") && !IsGoingDown() && !isHitting)
+		//headBox.Monitoring = false;
+		if (!isHittingUp)
 		{
-			isHitting = true;
+			isHittingUp = true;
+			
 			PowerBlock powerBlock = (PowerBlock)_body;
 			powerBlock.Collision();
 		}
+		
+	}
+
+	private void HittingDown(Node _body)
+	{
+		
+		//headBox.Monitoring = false;
+		if (!isHittingDown)
+		{
+			isHittingDown = true;
+			
+			Ennemi ennemi = (Ennemi)_body;
+			ennemi.MakeHit();
+			ChangeState((int)StateEnum.JUMP);
+		}
+		
 	}
 
 	private void InitStates()
@@ -141,28 +156,32 @@ public enum StateEnum
 
 	public void SetGoingUp()
 	{
-		GD.Print("goingUp");
-		hitBox.Position = new Vector2(0,-28);
+		headBox.SetDeferred("monitoring",true);
+		feetBox.SetDeferred("monitoring",false);
 		//head.SetDeferred("monitorable", _decision);
-		isHitting = false;
+		isHittingUp = false;
+		isHittingDown = false;
 	}
 
 	public void SetGoingDown()
 	{
-		GD.Print("GoingDown");
-		hitBox.Position = new Vector2(0,0);
-		isHitting = false;
+		headBox.SetDeferred("monitoring",false);
+		feetBox.SetDeferred("monitoring",true);
+		isHittingUp = false;
+		isHittingDown = false;
+
 	}
 	public bool IsGoingDown()
 	{
-		return (hitBox.Position.Y == 0) ? true : false;
+		return feetBox.Monitoring;
 	}
 
 	public void SetGoingNeutral()
 	{
-		isHitting = false;
-		GD.Print("goingNeutral");
-		hitBox.Position = new Vector2(0,-14);
+		isHittingUp = false;
+		isHittingDown = false;
+		headBox.SetDeferred("monitoring",false);
+		feetBox.SetDeferred("monitoring",false);
 	}
 
 	

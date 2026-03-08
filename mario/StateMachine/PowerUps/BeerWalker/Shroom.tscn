@@ -40,7 +40,8 @@ height = 32.0
 
 [node name="Shroom" type="CharacterBody2D" unique_id=1242023083]
 z_index = -11
-collision_layer = 0
+collision_layer = 16
+collision_mask = 3
 floor_block_on_wall = false
 script = ExtResource("1_aqyfy")
 
@@ -57,10 +58,3 @@ scale = Vector2(0.21875, 0.43749997)
 shape = SubResource("CapsuleShape2D_b5ej4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1105015707]
-
-[node name="Area2D" type="Area2D" parent="." unique_id=1694463549]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=384754668]
-shape = SubResource("CapsuleShape2D_b5ej4")

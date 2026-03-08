@@ -16,6 +16,8 @@ public partial class GoombaStateDie : GoombaState
     public override void Enter(int _previousStateId)
     {
         goomba.skin.Animation = "DIE";
+        goomba.CollisionLayer = 0;
+        goomba.Velocity = new Vector2(0,0);
         deathTimer.Start();
     }
 

@@ -181,10 +181,11 @@ color_ramp = SubResource("GradientTexture1D_8g76r")
 alpha_curve = SubResource("CurveTexture_p7tcl")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7tcl"]
-size = Vector2(10, 2)
+size = Vector2(10, 0.5)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
-collision_layer = 2
+collision_layer = 4
+collision_mask = 27
 script = ExtResource("1_wrvex")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=534852152]
@@ -224,11 +225,22 @@ process_material = SubResource("ParticleProcessMaterial_lcelt")
 stream = ExtResource("32_p7tcl")
 playback_type = 1
 
-[node name="HitBox" type="Area2D" parent="." unique_id=118383199]
-position = Vector2(0, -14)
-collision_layer = 8
-collision_mask = 8
+[node name="HeadBox" type="Area2D" parent="." unique_id=118383199]
+position = Vector2(0, -28)
+collision_layer = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1209167452]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadBox" unique_id=1209167452]
+scale = Vector2(1, 5)
+shape = SubResource("RectangleShape2D_p7tcl")
+
+[node name="FeetBox" type="Area2D" parent="." unique_id=679397512]
+position = Vector2(0, -14)
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FeetBox" unique_id=456504442]
+position = Vector2(0, 14)
 scale = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_p7tcl")

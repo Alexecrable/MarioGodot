@@ -70,6 +70,10 @@ public partial class Koopa : Ennemi
         return notifier;
     }
 
+    public override void MakeHit()
+    {
+        EmitSignal(SignalName.Hit);
+    }
 
 
 

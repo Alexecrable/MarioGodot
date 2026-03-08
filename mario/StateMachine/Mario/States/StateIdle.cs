@@ -12,7 +12,6 @@ public partial class StateIdle : MarioState
 
     override public void Enter(int _stateID)
     {
-        GD.Print("enter Idle");
         mario.animation.Animation = "Idle";
                 mario.animation.Play();
 
