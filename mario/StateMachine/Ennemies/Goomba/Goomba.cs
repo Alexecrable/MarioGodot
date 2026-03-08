@@ -2,22 +2,29 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Runtime.CompilerServices;
-
-public partial class Goomba : Ennemi
-{
-    public enum GoombaStateEnum
+ public enum GoombaStateEnum
     {
         IDLE = 0,
         WALK = 1,
         DIE = 2
     }
+public partial class Goomba : Ennemi
+{
+   
 
     private Array<GoombaState> states;
     private VisibleOnScreenNotifier2D notifier;
-
+    public int currentYVelocity = 0;
+    public int currentXVelocity = 0;
 
     public override void _Ready()
     {
+        
+        notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
+        skin = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        hitBox = GetNode<Area2D>("HitBox");
+        skin.Animation = "WALK";
+        skin.Pause();
         InitState();
     }
 

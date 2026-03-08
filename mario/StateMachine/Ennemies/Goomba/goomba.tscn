@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dkfmegrjiy0gt"]
 
+[ext_resource type="Script" uid="uid://o4f4obd58ejv" path="res://StateMachine/Ennemies/Goomba/Goomba.cs" id="1_ns1iw"]
 [ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_fx8us"]
 [ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk2.png" id="3_5vw13"]
 [ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk3.png" id="4_46kax"]
@@ -29,29 +30,56 @@ animations = [{
 "texture": ExtResource("7_15lv3")
 }],
 "loop": true,
-"name": &"default",
+"name": &"DIE",
 "speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fx8us")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5vw13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_46kax")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_u4tls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_10qgo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_15lv3")
+}],
+"loop": true,
+"name": &"WALK",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 9.0
+radius = 8.0
 height = 32.0
 
 [node name="Goomba" type="CharacterBody2D" unique_id=819979439]
 collision_layer = 0
+script = ExtResource("1_ns1iw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1455411747]
 sprite_frames = SubResource("SpriteFrames_x11xh")
-frame_progress = 0.165424
+animation = &"DIE"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=616647000]
 shape = SubResource("CapsuleShape2D_b5ej4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1182538822]
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1892744100]
-collision_layer = 0
-collision_mask = 2
+[node name="HitBox" type="Area2D" parent="." unique_id=1892744100]
+collision_layer = 8
+collision_mask = 8
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1201458958]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox" unique_id=1201458958]
 shape = SubResource("CapsuleShape2D_b5ej4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1424409436]
+rect = Rect2(-16, -23, 32, 46)

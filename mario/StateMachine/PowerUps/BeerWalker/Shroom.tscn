@@ -1,16 +1,12 @@
 [gd_scene format=3 uid="uid://bxiuuinjflccb"]
 
 [ext_resource type="Script" uid="uid://cgeu3mykctyr0" path="res://StateMachine/PowerUps/BeerWalker/BeerWalker.cs" id="1_aqyfy"]
-[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/Sprites/BeerWalk1.png" id="3_andna"]
-[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/Sprites/BeerWalk2.png" id="4_kbafp"]
-[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/Sprites/BeerWalk3.png" id="5_a60je"]
-[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://StateMachine/PowerUps/Sprites/BeerWalk4.png" id="6_12nsp"]
-[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://StateMachine/PowerUps/Sprites/BeerWalk5.png" id="7_e1k7u"]
-[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://StateMachine/PowerUps/Sprites/BeerWalk6.png" id="8_vphrf"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 9.0
-height = 32.0
+[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="3_andna"]
+[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk2.png" id="4_kbafp"]
+[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk3.png" id="5_a60je"]
+[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk4.png" id="6_12nsp"]
+[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk5.png" id="7_e1k7u"]
+[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk6.png" id="8_vphrf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xvjah"]
 animations = [{
@@ -38,11 +34,20 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
+radius = 9.0
+height = 32.0
+
 [node name="Shroom" type="CharacterBody2D" unique_id=1242023083]
 z_index = -11
 collision_layer = 0
 floor_block_on_wall = false
 script = ExtResource("1_aqyfy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=517381357]
+position = Vector2(0, 30)
+sprite_frames = SubResource("SpriteFrames_xvjah")
+frame_progress = 0.6112652
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=213823572]
 position = Vector2(0, -9.536743e-07)
@@ -59,8 +64,3 @@ collision_mask = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=384754668]
 shape = SubResource("CapsuleShape2D_b5ej4")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=517381357]
-position = Vector2(0, 30)
-sprite_frames = SubResource("SpriteFrames_xvjah")
-frame_progress = 0.6112652

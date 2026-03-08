@@ -1,10 +1,11 @@
 [gd_scene format=4 uid="uid://5ap6q416syu"]
 
 [ext_resource type="Script" uid="uid://b2o56mnq4o6th" path="res://World/World.cs" id="1_3f78f"]
-[ext_resource type="Texture2D" uid="uid://1k3q3ba8yak1" path="res://World/tiles.png" id="1_f3sb7"]
+[ext_resource type="Texture2D" uid="uid://1k3q3ba8yak1" path="res://World/Tiles/tiles.png" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://bqs6nc06g3ffa" path="res://StateMachine/Mario/mario.tscn" id="2_fj7yv"]
-[ext_resource type="Script" uid="uid://c1wrl5dw80ebs" path="res://World/TileMapLayer.cs" id="4_k8do8"]
-[ext_resource type="PackedScene" uid="uid://bssa0r021xjuj" path="res://World/Blocs/PowerBlock.tscn" id="6_bkhv4"]
+[ext_resource type="Script" uid="uid://c1wrl5dw80ebs" path="res://World/Tiles/TileMapLayer.cs" id="4_k8do8"]
+[ext_resource type="PackedScene" uid="uid://bssa0r021xjuj" path="res://World/Blocs/PowerBlock/PowerBlock.tscn" id="6_bkhv4"]
+[ext_resource type="PackedScene" uid="uid://dkfmegrjiy0gt" path="res://StateMachine/Ennemies/Goomba/goomba.tscn" id="6_yf0ba"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3f78f"]
 texture = ExtResource("1_f3sb7")
@@ -47,3 +48,6 @@ position = Vector2(208, 496)
 
 [node name="PowerBlock3" parent="." unique_id=1955494065 instance=ExtResource("6_bkhv4")]
 position = Vector2(240, 496)
+
+[node name="Goomba" parent="." unique_id=819979439 instance=ExtResource("6_yf0ba")]
+position = Vector2(209, 400)

@@ -3,7 +3,7 @@ using System;
 using Godot.Collections;
 
 
-public abstract partial class Powerup : CharacterBody2D
+public abstract partial class Powerup : CharacterBody2D, IStateMachine
 {
 
 	public enum StateEnum
@@ -35,12 +35,12 @@ public abstract partial class Powerup : CharacterBody2D
 		AddChild(spawnTimer);
 		skin.Pause();
 
-		InitStates();
+		InitState();
 		spawnTimer.Start();
 
 	}
 
-	private void InitStates()
+	public void InitState()
 	{
 		states = [
 			new StateSpawn(this),
@@ -57,7 +57,7 @@ public abstract partial class Powerup : CharacterBody2D
 
 
 
-	private void ChangeState(int stateIndex)
+	public void ChangeState(int stateIndex)
 	{
 		states[currentStateIndex].exit();
 		currentStateIndex = stateIndex;

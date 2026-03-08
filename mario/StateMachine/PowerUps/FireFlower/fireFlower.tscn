@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0qvmjoe5qivc"]
 
-[ext_resource type="Script" uid="uid://dgkvapb8dahsb" path="res://StateMachine/PowerUps/Powerup.cs" id="1_hx6yh"]
+[ext_resource type="Script" uid="uid://b3keio7caxajf" path="res://StateMachine/PowerUps/FireFlower/FireFlower.cs" id="1_mpmov"]
 [ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_wphrv"]
 [ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk2.png" id="3_0leof"]
 [ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk3.png" id="4_unu47"]
@@ -38,22 +38,22 @@ animations = [{
 radius = 9.0
 height = 32.0
 
-[node name="Powerup" type="CharacterBody2D"]
+[node name="FireFlower" type="CharacterBody2D" unique_id=1116609167]
 collision_layer = 0
-script = ExtResource("1_hx6yh")
+script = ExtResource("1_mpmov")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1434454301]
 sprite_frames = SubResource("SpriteFrames_x11xh")
 frame_progress = 0.165424
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1723374662]
 shape = SubResource("CapsuleShape2D_b5ej4")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=80484720]
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=169909486]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1531639201]
 shape = SubResource("CapsuleShape2D_b5ej4")
