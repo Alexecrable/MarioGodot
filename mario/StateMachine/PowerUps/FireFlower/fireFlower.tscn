@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://0qvmjoe5qivc"]
+
+[ext_resource type="Script" uid="uid://dgkvapb8dahsb" path="res://StateMachine/PowerUps/Powerup.cs" id="1_hx6yh"]
+[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_wphrv"]
+[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk2.png" id="3_0leof"]
+[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk3.png" id="4_unu47"]
+[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk4.png" id="5_3uhc3"]
+[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk5.png" id="6_j82lq"]
+[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk6.png" id="7_7xy0g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wphrv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0leof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_unu47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3uhc3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j82lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7xy0g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
+radius = 9.0
+height = 32.0
+
+[node name="Powerup" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_hx6yh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_x11xh")
+frame_progress = 0.165424
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_b5ej4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_b5ej4")

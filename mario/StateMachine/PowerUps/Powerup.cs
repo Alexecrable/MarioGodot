@@ -3,7 +3,7 @@ using System;
 using Godot.Collections;
 
 
-public partial class Powerup : CharacterBody2D
+public abstract partial class Powerup : CharacterBody2D
 {
 
 	public enum StateEnum

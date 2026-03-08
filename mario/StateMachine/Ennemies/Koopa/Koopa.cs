@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 public partial class Koopa : Ennemi
 {
+
+    [Export]
+    private int baseExportTest = 3;
     public enum KoopaStateEnum
     {
         IDLE = 0,
