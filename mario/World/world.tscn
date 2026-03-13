@@ -42,6 +42,8 @@ script = ExtResource("4_k8do8")
 
 [node name="PowerBlock" parent="." unique_id=318698517 instance=ExtResource("6_bkhv4")]
 position = Vector2(176, 496)
+collision_layer = 255
+collision_mask = 255
 
 [node name="PowerBlock2" parent="." unique_id=703721575 instance=ExtResource("6_bkhv4")]
 position = Vector2(208, 496)
@@ -51,3 +53,12 @@ position = Vector2(240, 496)
 
 [node name="Goomba" parent="." unique_id=819979439 instance=ExtResource("6_yf0ba")]
 position = Vector2(256, 302)
+
+[node name="Goomba2" parent="." unique_id=837894170 instance=ExtResource("6_yf0ba")]
+position = Vector2(224, 302)
+
+[node name="Goomba3" parent="." unique_id=1980707649 instance=ExtResource("6_yf0ba")]
+position = Vector2(192, 302)
+
+[node name="Goomba4" parent="." unique_id=1824327577 instance=ExtResource("6_yf0ba")]
+position = Vector2(160, 302)

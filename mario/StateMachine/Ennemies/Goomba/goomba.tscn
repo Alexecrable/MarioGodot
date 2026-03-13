@@ -1,65 +1,106 @@
 [gd_scene format=3 uid="uid://dkfmegrjiy0gt"]
 
 [ext_resource type="Script" uid="uid://o4f4obd58ejv" path="res://StateMachine/Ennemies/Goomba/Goomba.cs" id="1_ns1iw"]
-[ext_resource type="Texture2D" uid="uid://bq7l7eb3jxsfc" path="res://StateMachine/Ennemies/Goomba/Sprites/Die/goomb.png" id="2_bikku"]
-[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_fx8us"]
-[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk2.png" id="3_5vw13"]
-[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk3.png" id="4_46kax"]
-[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk4.png" id="5_u4tls"]
-[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk5.png" id="6_10qgo"]
-[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk6.png" id="7_15lv3"]
+[ext_resource type="Texture2D" uid="uid://djxxrnd1uodbc" path="res://StateMachine/Ennemies/Goomba/Sprites/Die/Goombdie1.png" id="2_3gs6k"]
+[ext_resource type="Texture2D" uid="uid://m1ifak7xvff7" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk1.png" id="3_n7sjy"]
+[ext_resource type="Texture2D" uid="uid://dednjtimw7p3a" path="res://StateMachine/Ennemies/Goomba/Sprites/Die/Goombdie2.png" id="3_qmmba"]
+[ext_resource type="Texture2D" uid="uid://cvh2q1fu6t3jl" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk2.png" id="4_b0jor"]
+[ext_resource type="Texture2D" uid="uid://xnpjwa030ao5" path="res://StateMachine/Ennemies/Goomba/Sprites/Die/Goombdie3.png" id="4_e3tbb"]
+[ext_resource type="Texture2D" uid="uid://mpv48kmdh831" path="res://StateMachine/Ennemies/Goomba/Sprites/Die/Goombdie4.png" id="5_huosm"]
+[ext_resource type="Texture2D" uid="uid://btaowvo5rj1nx" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk3.png" id="5_jmugj"]
+[ext_resource type="Texture2D" uid="uid://cx2ktpnbet1a3" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk4.png" id="6_3gs6k"]
+[ext_resource type="Texture2D" uid="uid://b7nco7uggbjsa" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk5.png" id="7_qmmba"]
+[ext_resource type="Texture2D" uid="uid://cpk272s68j720" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk6.png" id="8_e3tbb"]
+[ext_resource type="Texture2D" uid="uid://dajl856fo4167" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk7.png" id="9_huosm"]
+[ext_resource type="Texture2D" uid="uid://dyn3b2bhfswst" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk8.png" id="10_0r87e"]
+[ext_resource type="Texture2D" uid="uid://cn4srmf8r3nnr" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk9.png" id="11_rbo4n"]
+[ext_resource type="Texture2D" uid="uid://dd0vmsm2v4n1s" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk10.png" id="12_38no6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_bikku")
+"texture": ExtResource("2_3gs6k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qmmba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e3tbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_huosm")
 }],
-"loop": true,
+"loop": false,
 "name": &"DIE",
-"speed": 16.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_fx8us")
+"texture": ExtResource("3_n7sjy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_5vw13")
+"texture": ExtResource("4_b0jor")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_46kax")
+"texture": ExtResource("5_jmugj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_u4tls")
+"texture": ExtResource("6_3gs6k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_10qgo")
+"texture": ExtResource("7_qmmba")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_15lv3")
+"texture": ExtResource("8_e3tbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_huosm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0r87e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rbo4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_38no6")
 }],
 "loop": true,
 "name": &"WALK",
-"speed": 5.0
+"speed": 9.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 8.0
+radius = 13.0
 height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qmmba"]
+radius = 13.038404
 
 [node name="Goomba" type="CharacterBody2D" unique_id=819979439]
 collision_layer = 8
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("1_ns1iw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1455411747]
 sprite_frames = SubResource("SpriteFrames_x11xh")
-animation = &"DIE"
+animation = &"WALK"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=616647000]
+position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_b5ej4")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1182538822]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1424409436]
 rect = Rect2(-16, -23, 32, 46)
+
+[node name="Chapeau" type="RigidBody2D" parent="." unique_id=1297845076]
+position = Vector2(-6, -8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Chapeau" unique_id=473815014]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chapeau" unique_id=1295237062]
+position = Vector2(3, 1)
+shape = SubResource("CircleShape2D_qmmba")

@@ -9,7 +9,6 @@ public partial class GoombaStateDie : GoombaState
         deathTimer = new Timer();
         deathTimer.WaitTime = 2;
         deathTimer.Timeout +=deathTimerTimeout;
-
         AddChild(deathTimer);
     }
 
@@ -17,7 +16,21 @@ public partial class GoombaStateDie : GoombaState
     {
         goomba.skin.Animation = "DIE";
         goomba.CollisionLayer = 0;
+        goomba.CollisionMask = 0;
         goomba.Velocity = new Vector2(0,0);
+        goomba.chapeau.CollisionMask = 3;
+
+        goomba.chapeau.SetDeferred("freeze",false);
+        float rand = (GD.Randf()*2) - 1;
+        GD.Print("rand " + rand );
+        goomba.chapeau.CallDeferred("apply_impulse",new Vector2(150 * rand,-120));
+        goomba.chapeau.CallDeferred("apply_torque",50000*rand);
+        goomba.chapeau.CallDeferred("reparent",goomba.GetParent());
+        //goomba.chapeau.Position = goomba.Position;
+        GD.Print("ololol",goomba.chapeau.Position);
+        
+        //goomba.chapeau.Reparent(goomba.GetParent());
+
         deathTimer.Start();
     }
 
@@ -33,6 +46,7 @@ public partial class GoombaStateDie : GoombaState
 
     private void deathTimerTimeout()
     {
+
         goomba.QueueFree();
         //
         

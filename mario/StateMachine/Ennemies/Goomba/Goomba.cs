@@ -10,7 +10,10 @@ using System.Runtime.CompilerServices;
     }
 public partial class Goomba : Ennemi
 {
-   
+    public RigidBody2D chapeau;
+    public Sprite2D chapeauSkin;
+    private Texture2D chapeauText;
+
 
     private Array<GoombaState> states;
     private VisibleOnScreenNotifier2D notifier;
@@ -22,6 +25,12 @@ public partial class Goomba : Ennemi
         
         notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
         skin = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+        chapeau = GetNode<RigidBody2D>("Chapeau");
+        chapeauSkin = chapeau.GetNode<Sprite2D>("Sprite2D");
+        uint choixpeau = (GD.Randi() % 6) + 1;
+        chapeauText = ResourceLoader.Load<Texture2D>("res://StateMachine/Ennemies/Goomba/Sprites/Hats/Goombhat"+choixpeau+".png");
+        chapeauSkin.Texture = chapeauText;
+        chapeau.Freeze = true;
         skin.Animation = "WALK";
         skin.Pause();
         InitState();
