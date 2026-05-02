@@ -3,9 +3,9 @@ using System;
 
 public partial class GoombaStateWalk : GoombaState
 {
-	private bool flipBufferActive;
+    private bool flipBufferActive;
     private Timer flipBufferTimer;
-	public GoombaStateWalk(Goomba _goomba) : base(_goomba)
+    public GoombaStateWalk(Goomba _goomba) : base(_goomba)
     {
         VisibleOnScreenNotifier2D notifier = goomba.getNotifier();
         notifier.ScreenExited += ScreenExited;
@@ -22,6 +22,7 @@ public partial class GoombaStateWalk : GoombaState
         flipBufferActive = false;
     }
 
+    
     public override void Enter(int _previousStateId)
     {
         goomba.skin.Play();
@@ -31,27 +32,27 @@ public partial class GoombaStateWalk : GoombaState
     public override void Exit(int _previousStateId)
     {
     }
-	
-	public override void PhysicsProcess(double _delta)
+
+    public override void PhysicsProcess(double _delta)
     {
         goomba.currentYVelocity = goomba.IsOnFloor() ? 0 : 200;
-        if (goomba.IsOnWall() && !flipBufferActive){
+        if (goomba.IsOnWall() && !flipBufferActive)
+        {
             flipGoomb();
-            flipBufferTimer.Start();
-            flipBufferActive = true;
+
         }
         goomba.Velocity = new Vector2(goomba.currentXVelocity, goomba.currentYVelocity);
-        
+
     }
 
 
     private void flipGoomb()
     {
         goomba.currentXVelocity = -goomba.currentXVelocity;
-        goomba.skin.FlipH = !goomba.skin.FlipH;
-        goomba.chapeauSkin.FlipH = !goomba.chapeauSkin.FlipH;
-        goomba.chapeau.Position = new Vector2(-goomba.chapeau.Position.X,goomba.chapeau.Position.Y);
-        
+        goomba.Scale = new Vector2(-goomba.Scale.X, goomba.Scale.Y);
+        flipBufferTimer.Start();
+        flipBufferActive = true;
+
     }
 
     private void ScreenExited()

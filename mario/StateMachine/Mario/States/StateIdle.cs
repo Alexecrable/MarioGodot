@@ -13,9 +13,9 @@ public partial class StateIdle : MarioState
     override public void Enter(int _stateID)
     {
         mario.animation.Animation = "Idle";
-                mario.animation.Play();
+        mario.animation.Play();
 
-        mario.yVelocity = mario.startingGravity; 
+        mario.yVelocity = mario.startingGravity;
         mario.SetGoingNeutral();
     }
 
@@ -27,18 +27,17 @@ public partial class StateIdle : MarioState
     override public void PhysicsProcess(double delta)
     {
 
-        
-         mario.currentHorizontalVelocity = (mario.rightInput - mario.leftInput) * mario.speed;
-		mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
 
-        bool isRunning = mario.rightInput + mario.leftInput > 0;
+        mario.currentHorizontalVelocity = (mario.rightInput - mario.leftInput) * mario.speed;
+        mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
+
         if (!mario.IsOnFloor())
         {
             EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
         }
         else
         {
-            if (isRunning)
+            if (mario.IsRunning())
             {
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.MOVE);
             }
@@ -53,7 +52,7 @@ public partial class StateIdle : MarioState
         }
     }
 
-   
+
 
 
 

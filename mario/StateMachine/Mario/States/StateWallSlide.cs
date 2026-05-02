@@ -52,11 +52,8 @@ public partial class StateWallSlide : MarioState
 
 
         //GD.Print("floor " + mario.IsOnFloor());
-        bool marioGoesRight = mario.rightInput - mario.leftInput > 0;
-        bool marioGoesLeft = mario.rightInput - mario.leftInput < 0;
-        bool marioGrabsWall = (mario.raycastLeft.IsColliding() && marioGoesLeft) || (mario.raycastRight.IsColliding() && marioGoesRight);
-        
-        if (!marioGrabsWall)
+       
+        if (!mario.IsGrabbingWall())
         {
             //falling
             mario.yVelocity = 100;

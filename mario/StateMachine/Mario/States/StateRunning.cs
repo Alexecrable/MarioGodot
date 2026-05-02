@@ -41,7 +41,6 @@ public partial class StateRunning : MarioState
     override public void PhysicsProcess(double delta)
     {
        
-        bool isRunning = mario.rightInput + mario.leftInput > 0;
         mario.currentHorizontalVelocity = (mario.rightInput - mario.leftInput) * mario.speed;
 		mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
         if (mario.rightInput - mario.leftInput < 0)
@@ -62,7 +61,7 @@ public partial class StateRunning : MarioState
         }
         else
         {
-            if (!isRunning)
+            if (!mario.IsRunning())
             {
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.IDLE);
             }

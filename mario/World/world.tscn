@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c1wrl5dw80ebs" path="res://World/Tiles/TileMapLayer.cs" id="4_k8do8"]
 [ext_resource type="PackedScene" uid="uid://bssa0r021xjuj" path="res://World/Blocs/PowerBlock/PowerBlock.tscn" id="6_bkhv4"]
 [ext_resource type="PackedScene" uid="uid://dkfmegrjiy0gt" path="res://StateMachine/Ennemies/Goomba/goomba.tscn" id="6_yf0ba"]
+[ext_resource type="PackedScene" uid="uid://exebicq4g8pb" path="res://StateMachine/Ennemies/Koopa/koopa.tscn" id="7_yf0ba"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3f78f"]
 texture = ExtResource("1_f3sb7")
@@ -30,7 +31,7 @@ sources/1 = SubResource("TileSetAtlasSource_3f78f")
 script = ExtResource("1_3f78f")
 
 [node name="Mario" parent="." unique_id=690808613 instance=ExtResource("2_fj7yv")]
-position = Vector2(42, 483)
+position = Vector2(878, 557)
 startJumpGravity = -400
 jumpTime = 0.2
 
@@ -62,3 +63,6 @@ position = Vector2(192, 302)
 
 [node name="Goomba4" parent="." unique_id=1824327577 instance=ExtResource("6_yf0ba")]
 position = Vector2(160, 302)
+
+[node name="Koopa" parent="." unique_id=328616508 instance=ExtResource("7_yf0ba")]
+position = Vector2(381, 541)

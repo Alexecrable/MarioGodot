@@ -3,9 +3,11 @@ using System;
 
 public partial class StateFalling : MarioState
 {
+
+    
     public StateFalling(Mario _mario) : base(_mario)
     {
-
+        
     }
 
 
@@ -15,6 +17,7 @@ public partial class StateFalling : MarioState
     {
         mario.animation.Animation = "Falling";
         mario.animation.Play();
+            
 
 
     }
@@ -37,7 +40,6 @@ public partial class StateFalling : MarioState
         {
             mario.yVelocity += mario.gravityAccel * (float)_delta;
         }
-        bool isRunning = mario.rightInput + mario.leftInput > 0;
 
         if (mario.maxHorizontalVelocity > mario.currentHorizontalVelocity * (mario.rightInput - mario.leftInput))
         {
@@ -47,13 +49,14 @@ public partial class StateFalling : MarioState
         {
             mario.yVelocity = 10;
             mario.SetGoingDown();
+            GD.Print("mari  " + mario.yVelocity);
         }
         mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
         //GD.Print("floor " + mario.IsOnFloor());
         if (mario.IsOnFloor())
         {
 
-            if (isRunning)
+            if (mario.IsRunning())
             {
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.MOVE);
 
@@ -67,10 +70,7 @@ public partial class StateFalling : MarioState
         {
             if (mario.IsOnWall())
             {
-                bool marioGoesRight = mario.rightInput - mario.leftInput > 0;
-                bool marioGoesLeft = mario.rightInput - mario.leftInput < 0;
-                bool marioGrabsWall = (mario.raycastLeft.IsColliding() && marioGoesLeft) || (mario.raycastRight.IsColliding() && marioGoesRight);
-                if (mario.Velocity.Y > 0 && marioGrabsWall)
+               if (mario.Velocity.Y > 0 && mario.IsGrabbingWall())
                 {
                     EmitSignal(SignalName.Finished, (int)Mario.StateEnum.WALLSLIDE);
                 }

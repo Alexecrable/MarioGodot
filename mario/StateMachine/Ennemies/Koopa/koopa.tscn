@@ -1,68 +1,237 @@
 [gd_scene format=3 uid="uid://exebicq4g8pb"]
 
 [ext_resource type="Script" uid="uid://d1lp6c8ihbpl2" path="res://StateMachine/Ennemies/Koopa/Koopa.cs" id="1_8764f"]
-[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_jk14r"]
-[ext_resource type="Texture2D" uid="uid://dko6y6one8f7k" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk2.png" id="3_kl3ax"]
-[ext_resource type="Texture2D" uid="uid://j0unce5ogcaa" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk3.png" id="4_11m16"]
-[ext_resource type="Texture2D" uid="uid://bnhan1vyas1fx" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk4.png" id="5_rcgk7"]
-[ext_resource type="Texture2D" uid="uid://2cbadnwccvva" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk5.png" id="6_4vipa"]
-[ext_resource type="Texture2D" uid="uid://ds28u2ghjowgo" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk6.png" id="7_pwh6p"]
+[ext_resource type="Texture2D" uid="uid://bfhifou7n7moe" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell1.png" id="2_r1dl4"]
+[ext_resource type="Texture2D" uid="uid://d2mrqipit3nsb" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell2.png" id="3_rkqiv"]
+[ext_resource type="Texture2D" uid="uid://bwfusogvkhmnr" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell3.png" id="4_o3h2m"]
+[ext_resource type="Texture2D" uid="uid://stvt1p2fyg76" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell4.png" id="5_xbxt1"]
+[ext_resource type="Texture2D" uid="uid://ddpi84fhl5hvd" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell5.png" id="6_p6egs"]
+[ext_resource type="Texture2D" uid="uid://dk0hqoo8uxv8t" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell6.png" id="7_nfh7r"]
+[ext_resource type="Texture2D" uid="uid://b5glsbtlc4w40" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell7.png" id="8_w6yra"]
+[ext_resource type="Texture2D" uid="uid://fpo6dmco4l48" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell8.png" id="9_xt4kt"]
+[ext_resource type="Texture2D" uid="uid://db8iwb7oc78hx" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Angry1.png" id="10_klqky"]
+[ext_resource type="Texture2D" uid="uid://dvijucwvwhjri" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy1.png" id="11_5uriu"]
+[ext_resource type="Texture2D" uid="uid://coq3apan4r65j" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy2.png" id="12_ls82i"]
+[ext_resource type="Texture2D" uid="uid://dm004s78axtjh" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy3.png" id="13_jxdim"]
+[ext_resource type="Texture2D" uid="uid://dj5dp3l4wj2ns" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy4.png" id="14_nps33"]
+[ext_resource type="Texture2D" uid="uid://bglppt1k8268x" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy5.png" id="15_etx4n"]
+[ext_resource type="Texture2D" uid="uid://dc0l17qp5ibyh" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy6.png" id="16_rv83b"]
+[ext_resource type="Texture2D" uid="uid://clldwg2d1cvig" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy7.png" id="17_76bxy"]
+[ext_resource type="Texture2D" uid="uid://bok6vqisi62ep" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy8.png" id="18_tfeg1"]
+[ext_resource type="Texture2D" uid="uid://bemelc0umiiq0" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked1.png" id="19_k7wbr"]
+[ext_resource type="Texture2D" uid="uid://b6mwwxb60vs11" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked2.png" id="20_qef2i"]
+[ext_resource type="Texture2D" uid="uid://yx7hd84eiwfa" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked3.png" id="21_obtx2"]
+[ext_resource type="Texture2D" uid="uid://drv8dqt2y8ht3" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked4.png" id="22_fekj0"]
+[ext_resource type="Texture2D" uid="uid://18um6yi527pk" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked5.png" id="23_m4ooi"]
+[ext_resource type="Texture2D" uid="uid://c6ofs0p53kkqc" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked6.png" id="24_0v375"]
+[ext_resource type="Texture2D" uid="uid://710bh1fsevk4" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked7.png" id="25_1m5wu"]
+[ext_resource type="Texture2D" uid="uid://b834fjyf05ice" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Shcoked8.png" id="26_o0dy7"]
+[ext_resource type="Texture2D" uid="uid://ckr5gckvqks11" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs1.png" id="27_4olx3"]
+[ext_resource type="Texture2D" uid="uid://d4mw7lrv33dxp" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs2.png" id="28_lnrdd"]
+[ext_resource type="Texture2D" uid="uid://i3rkekvpjom1" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs3.png" id="29_ruqek"]
+[ext_resource type="Texture2D" uid="uid://du43o6dw6r5vx" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs4.png" id="30_hnkk6"]
+[ext_resource type="Texture2D" uid="uid://dl7ahaensaub1" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs5.png" id="31_tobnp"]
+[ext_resource type="Texture2D" uid="uid://dvybhr8qceg4f" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs6.png" id="32_hic3g"]
+[ext_resource type="Texture2D" uid="uid://dww1nwh0n7sa1" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs7.png" id="33_ubiew"]
+[ext_resource type="Texture2D" uid="uid://c2uv65rjl5l16" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs8.png" id="34_qos4f"]
+[ext_resource type="Texture2D" uid="uid://c7cph1us2dl0n" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Head1.png" id="35_61joq"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
+radius = 17.0
+height = 34.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b4ds4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_jk14r")
+"texture": ExtResource("2_r1dl4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_kl3ax")
+"texture": ExtResource("3_rkqiv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_11m16")
+"texture": ExtResource("4_o3h2m")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_rcgk7")
+"texture": ExtResource("5_xbxt1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_4vipa")
+"texture": ExtResource("6_p6egs")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_pwh6p")
+"texture": ExtResource("7_nfh7r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_w6yra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xt4kt")
 }],
 "loop": true,
-"name": &"DIE",
-"speed": 16.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"SHELL",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"WAKEUP",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"WALK",
+"name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 9.0
-height = 32.0
+[sub_resource type="SpriteFrames" id="SpriteFrames_vbiwy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_klqky")
+}],
+"loop": false,
+"name": &"ANGRY",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_5uriu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ls82i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jxdim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_nps33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_etx4n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_rv83b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_76bxy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_tfeg1")
+}],
+"loop": true,
+"name": &"NORMAL",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_k7wbr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_qef2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_obtx2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_fekj0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_m4ooi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_0v375")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_1m5wu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_o0dy7")
+}],
+"loop": false,
+"name": &"SHOCKED",
+"speed": 12.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y82nw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_4olx3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_lnrdd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_ruqek")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_hnkk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_tobnp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_hic3g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_ubiew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_qos4f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 14.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1dl4"]
+size = Vector2(177, 87)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkqiv"]
+size = Vector2(24, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3h2m"]
+size = Vector2(40, 32)
 
 [node name="Koopa" type="CharacterBody2D" unique_id=328616508]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_8764f")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2055402043]
-sprite_frames = SubResource("SpriteFrames_x11xh")
-animation = &"WAKEUP"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1782300844]
 shape = SubResource("CapsuleShape2D_b5ej4")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=442787335]
+[node name="Shell" type="AnimatedSprite2D" parent="." unique_id=1506461069]
+sprite_frames = SubResource("SpriteFrames_b4ds4")
+
+[node name="Body" type="Node2D" parent="." unique_id=140164978]
+position = Vector2(23, 0)
+
+[node name="Eyes" type="AnimatedSprite2D" parent="Body" unique_id=2055402043]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_vbiwy")
+animation = &"NORMAL"
+frame = 1
+frame_progress = 0.35612202
+
+[node name="Legs" type="AnimatedSprite2D" parent="Body" unique_id=1294299623]
+sprite_frames = SubResource("SpriteFrames_y82nw")
+frame_progress = 0.8322563
+
+[node name="Head" type="Sprite2D" parent="Body" unique_id=1019860108]
+texture = ExtResource("35_61joq")
+
+[node name="MarioLookArea" type="Area2D" parent="." unique_id=91085734]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarioLookArea" unique_id=1503645649]
+position = Vector2(78.5, -20.5)
+shape = SubResource("RectangleShape2D_r1dl4")
+
+[node name="Notifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1824997888]
+rect = Rect2(-10, -10, 33, 20)
+
+[node name="TurnAroundArea" type="Area2D" parent="." unique_id=1732208472]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TurnAroundArea" unique_id=589183979]
+position = Vector2(36, 7)
+shape = SubResource("RectangleShape2D_rkqiv")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=768057703]
+collision_layer = 34824
+collision_mask = 34820
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=379434496]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_o3h2m")

@@ -4,7 +4,7 @@ using System;
 public abstract partial class KoopaState : State
 {
 	
-    private Koopa koopa;
+    public Koopa koopa;
 
     public KoopaState(Koopa _koopa)
     {

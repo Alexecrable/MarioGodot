@@ -3,8 +3,20 @@ using System;
 
 public partial class StateHurt : MarioState
 {
+
+    private Vector2 VelocitySave;
+    private Timer hurtTimer;
+    private Tween tween;
+    private int previousStateId;
+
     public StateHurt(Mario _mario) : base(_mario)
     {
+        hurtTimer = new Timer();
+        hurtTimer.WaitTime = 1;
+        hurtTimer.Timeout += HurtTimeOut;
+        hurtTimer.OneShot = true;
+        AddChild(hurtTimer);
+        hurtTimer.ProcessMode = Node.ProcessModeEnum.WhenPaused;
 
     }
 
@@ -13,91 +25,45 @@ public partial class StateHurt : MarioState
 
     override public void Enter(int _stateID)
     {
-        mario.animation.Animation = "Falling";
-        mario.animation.Play();
-
-
+        VelocitySave = mario.Velocity;
+        previousStateId = _stateID;
+        //mario.animation.Pause();
+        //mario.Velocity = new Vector2(0, 0);
+        //tween = CreateTween();
+        //tween.SetTrans(Tween.TransitionType.Sine);
+        //tween.SetLoops();
+        //tween.TweenProperty(mario.animation, "modulate", new Color(0, 0, 0), 0.2);
+        //tween.TweenProperty(mario.animation, "modulate", new Color(1, 1, 1), 0.2);
+        switch (mario.currentPowerUpIndex)
+        {
+            case (int)Mario.PowerEnum.BASE : mario.Scale = new Vector2(1,1);
+            break;
+            case (int)Mario.PowerEnum.FIRE : ;
+            break;
+        
+        }
+        GetTree().Paused = true;
+        hurtTimer.Start();
     }
 
+    private void HurtTimeOut()
+    {
+        GetTree().Paused = false;
 
+        EmitSignal(SignalName.Finished, previousStateId);
+    }
 
     override public void Exit(int _stateID)
     {
-
+        //mario.Velocity = VelocitySave;
+        //tween.Stop();
+        //GetTree().Paused = false;
     }
 
     override public void PhysicsProcess(double delta)
     {
 
-        if (mario.yVelocity < mario.terminalGravity)
-        {
-            mario.yVelocity += mario.gravityAccel * (float)delta;
-        }
-        bool isRunning = mario.rightInput + mario.leftInput > 0;
 
-        if (mario.maxHorizontalVelocity > mario.currentHorizontalVelocity * (mario.rightInput - mario.leftInput))
-        {
-            mario.currentHorizontalVelocity += mario.airborneHorizontalAccel * (mario.rightInput - mario.leftInput) * (float)delta;
-        }
-        mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
-        //GD.Print("floor " + mario.IsOnFloor());
-        if (mario.IsOnFloor())
-        {
-
-            if (isRunning)
-            {
-                EmitSignal(SignalName.Finished, (int)Mario.StateEnum.MOVE);
-
-            }
-            else
-            {
-                EmitSignal(SignalName.Finished, (int)Mario.StateEnum.IDLE);
-            }
-        }
-        else
-        {
-            if (mario.IsOnWall())
-            {
-                bool marioGoesRight = mario.rightInput - mario.leftInput > 0;
-                bool marioGoesLeft = mario.rightInput - mario.leftInput < 0;
-                bool marioGrabsWall = (mario.raycastLeft.IsColliding() && marioGoesLeft) || (mario.raycastRight.IsColliding() && marioGoesRight);
-                if (mario.Velocity.Y > 0 && marioGrabsWall)
-                {
-                    EmitSignal(SignalName.Finished, (int)Mario.StateEnum.WALLSLIDE);
-                }
-                else
-                {
-                    if (mario.jumpInput > 0)
-                    {
-                        mario.animation.FlipH = !mario.animation.FlipH;
-                        if (mario.raycastLeft.IsColliding())
-                        {
-                            if (mario.raycastRight.IsColliding())
-                            {
-                                mario.currentHorizontalVelocity = 0;
-                            }
-                            else
-                            {
-                                mario.currentHorizontalVelocity = mario.speed;
-                            }
-                        }
-                        else
-                        {
-                            if (mario.raycastRight.IsColliding())
-                            {
-                                mario.currentHorizontalVelocity = -mario.speed;
-                            }
-                            else
-                            {
-                                mario.currentHorizontalVelocity = 0;
-                            }
-                            
-                        }
-                        EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
-                    }
-                }
-            }
-        }
 
     }
 

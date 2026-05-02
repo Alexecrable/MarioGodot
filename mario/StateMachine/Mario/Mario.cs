@@ -2,19 +2,27 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Security.AccessControl;
 
 public partial class Mario : CharacterBody2D
 {
 	// Called when the node enters the scene tree for the first time.
-public enum StateEnum
-{
-	IDLE = 0,
-	JUMP = 1,
-	FALL = 2,
-	MOVE = 3,
-	WALLSLIDE = 4
-}
+	public enum PowerEnum
+	{
+		BASE = 0,
+		BIG = 1,
+		FIRE = 2
+	}
+	public enum StateEnum
+	{
+		IDLE = 0,
+		JUMP = 1,
+		FALL = 2,
+		MOVE = 3,
+		WALLSLIDE = 4,
+		HURT = 5
+	}
 
 	[Export]
 	public int
@@ -35,17 +43,24 @@ public enum StateEnum
 	public GpuParticles2D particles;
 
 	public AnimatedSprite2D animation;
-	
+	private Tween tween;
+
 	private Camera2D camera;
 	public RayCast2D raycastRight;
 	public RayCast2D raycastLeft;
 	public AudioStreamPlayer2D sfxPlayer;
-	private Area2D headBox, feetBox;
+	private Area2D headBox, feetBox, hurtBox;
 	private bool isHittingUp, isHittingDown;
+	private Timer invincibilityTimer;
+	public int currentPowerUpIndex;
 
-	
 	public override void _Ready()
 	{
+
+
+
+		currentPowerUpIndex = 1;
+		Scale = new Vector2(1, 1.5f);
 
 		yVelocity = startingGravity;
 
@@ -60,40 +75,80 @@ public enum StateEnum
 		headBox.BodyEntered += HittingUp;
 		feetBox = GetNode<Area2D>("FeetBox");
 		feetBox.BodyEntered += HittingDown;
-		
+		hurtBox = GetNode<Area2D>("HurtBox");
+		hurtBox.BodyEntered += GetHurt;
+
+
 		isHittingUp = false;
 
 		InitStates();
 
+		invincibilityTimer = new Timer();
+		invincibilityTimer.WaitTime = 3;
+		invincibilityTimer.Timeout += InvincibilityEnd;
+		invincibilityTimer.OneShot = true;
+		AddChild(invincibilityTimer);
 	}
 
 	private void HittingUp(Node _body)
 	{
-		
+
 		//headBox.Monitoring = false;
 		if (!isHittingUp)
 		{
 			isHittingUp = true;
-			
+
 			PowerBlock powerBlock = (PowerBlock)_body;
 			powerBlock.Collision();
 		}
-		
+
 	}
 
 	private void HittingDown(Node _body)
 	{
-		
+		GD.Print("hittt" + _body);
 		//headBox.Monitoring = false;
 		if (!isHittingDown)
 		{
 			isHittingDown = true;
-			
-			Ennemi ennemi = (Ennemi)_body;
-			ennemi.MakeHit();
+
+			//Ennemi ennemi = (Ennemi)_body;
+			//ennemi.MakeHit();
 			ChangeState((int)StateEnum.JUMP);
 		}
-		
+
+	}
+
+	private void GetHurt(Node _body)
+	{
+		if (currentPowerUpIndex == 0)
+		{
+			Die();
+		}
+		else
+		{
+			currentPowerUpIndex--;
+			hurtBox.Monitoring = false;
+			invincibilityTimer.Start();
+			ChangeState((int)StateEnum.HURT);
+			tween = CreateTween();
+			tween.SetTrans(Tween.TransitionType.Sine);
+			tween.SetLoops();
+			tween.TweenProperty(animation, "modulate", new Color(0, 0, 0), 0.2);
+			tween.TweenProperty(animation, "modulate", new Color(1, 1, 1), 0.2);
+		}
+	}
+
+	private void InvincibilityEnd()
+	{
+		hurtBox.Monitoring = true;
+		tween.Stop();
+		animation.Modulate = new Color(1,1,1);
+	}
+
+	private void Die()
+	{
+		QueueFree();
 	}
 
 	private void InitStates()
@@ -104,7 +159,8 @@ public enum StateEnum
 			new StateJumping(this),
 			new StateFalling(this),
 			new StateRunning(this),
-			new StateWallSlide(this)
+			new StateWallSlide(this),
+			new StateHurt(this)
 			];
 
 		foreach (MarioState state in states)
@@ -117,10 +173,11 @@ public enum StateEnum
 
 	private void ChangeState(int stateIndex)
 	{
+
 		int lastIndex = currentStateIndex;
 		states[currentStateIndex].Exit(stateIndex);
 		currentStateIndex = stateIndex;
-		states[currentStateIndex].Enter(lastIndex); 
+		states[currentStateIndex].Enter(lastIndex);
 
 	}
 
@@ -128,7 +185,7 @@ public enum StateEnum
 	public override void _Process(double delta)
 	{
 		camera.GlobalPosition = new Vector2(Position.X + 30, 450);
-		
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -138,11 +195,11 @@ public enum StateEnum
 		states[currentStateIndex].PhysicsProcess(delta);
 
 
-		
-		
+
+
 		MoveAndSlide();
-		
-		
+
+
 	}
 
 	private void takeInputs()
@@ -150,14 +207,14 @@ public enum StateEnum
 		rightInput = Input.GetActionStrength("right");
 		leftInput = Input.GetActionStrength("left");
 		jumpInput = Input.GetActionStrength("jump");
-		
+
 	}
 
 
 	public void SetGoingUp()
 	{
-		headBox.SetDeferred("monitoring",true);
-		feetBox.SetDeferred("monitoring",false);
+		headBox.SetDeferred("monitoring", true);
+		feetBox.SetDeferred("monitoring", false);
 		//head.SetDeferred("monitorable", _decision);
 		isHittingUp = false;
 		isHittingDown = false;
@@ -165,8 +222,8 @@ public enum StateEnum
 
 	public void SetGoingDown()
 	{
-		headBox.SetDeferred("monitoring",false);
-		feetBox.SetDeferred("monitoring",true);
+		headBox.SetDeferred("monitoring", false);
+		feetBox.SetDeferred("monitoring", true);
 		isHittingUp = false;
 		isHittingDown = false;
 
@@ -180,12 +237,29 @@ public enum StateEnum
 	{
 		isHittingUp = false;
 		isHittingDown = false;
-		headBox.SetDeferred("monitoring",false);
-		feetBox.SetDeferred("monitoring",false);
+		headBox.SetDeferred("monitoring", false);
+		feetBox.SetDeferred("monitoring", false);
 	}
 
-	
-	
+
+	public bool IsGrabbingWall()
+	{
+		bool marioGoesRight = rightInput - leftInput > 0;
+		bool marioGoesLeft = rightInput - leftInput < 0;
+		bool marioGrabsWall = (raycastLeft.IsColliding() && marioGoesLeft) || (raycastRight.IsColliding() && marioGoesRight);
+		return marioGrabsWall;
+	}
+
+	public bool IsRunning()
+	{
+		bool isRunning = rightInput + leftInput > 0;
+		return isRunning;
+	}
+
+
+
+
+
 
 
 }
