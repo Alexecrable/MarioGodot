@@ -52,6 +52,7 @@ public partial class StateJumping : MarioState
     override public void Exit(int _stateID)
     {
         //mario.SetHeadActivated(false);
+        GD.Print("exitJump");
     }
 
     override public void PhysicsProcess(double delta)
@@ -61,7 +62,7 @@ public partial class StateJumping : MarioState
             mario.currentHorizontalVelocity += mario.airborneHorizontalAccel * (mario.rightInput - mario.leftInput) * (float)delta;
         }
         
-
+        GD.Print(mario.jumpInput);
         if (mario.jumpInput == 0)
         {
             timer.Stop();
@@ -77,7 +78,7 @@ public partial class StateJumping : MarioState
 
         }
         mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
-
+        GD.Print(mario.Velocity);
     }
 
 

@@ -4,10 +4,13 @@ using System;
 public partial class StateFalling : MarioState
 {
 
+    private MovementComponent movementComponent;
     
-    public StateFalling(Mario _mario) : base(_mario)
+    public StateFalling(Mario _mario, MovementComponent _movement) : base(_mario)
     {
-        
+        movementComponent = _movement;
+                GD.Print("mariogravAccel" + mario.gravityAccel);
+
     }
 
 
@@ -17,9 +20,12 @@ public partial class StateFalling : MarioState
     {
         mario.animation.Animation = "Falling";
         mario.animation.Play();
-            
-
-
+        movementComponent.SetxAccel(mario.airborneHorizontalAccel);
+        movementComponent.SetyAccel(mario.gravityAccel);
+        movementComponent.SetMaxSpeedX(mario.maxHorizontalVelocity);
+        movementComponent.SetMaxSpeedY(mario.terminalGravity);
+        movementComponent.CurrentXSpeed = mario.currentHorizontalVelocity;
+        movementComponent.SetCurrentYVel(mario.yVelocity);
     }
 
 
@@ -31,27 +37,22 @@ public partial class StateFalling : MarioState
 
     override public void PhysicsProcess(double _delta)
     {
-
+        GD.Print("falling");
         if (!mario.IsGoingDown() && mario.yVelocity > 0)
         {
             mario.SetGoingDown();
         }
-        if (mario.yVelocity < mario.terminalGravity)
-        {
-            mario.yVelocity += mario.gravityAccel * (float)_delta;
-        }
-
-        if (mario.maxHorizontalVelocity > mario.currentHorizontalVelocity * (mario.rightInput - mario.leftInput))
-        {
-            mario.currentHorizontalVelocity += mario.airborneHorizontalAccel * (mario.rightInput - mario.leftInput) * (float)_delta;
-        }
+        
+        movementComponent.AccelerateToSpeedX(_delta);
+        movementComponent.AccelerateToSpeedY(_delta);
+        
         if (mario.IsOnCeiling())
         {
-            mario.yVelocity = 10;
+            movementComponent.SetCurrentYVel(10);
             mario.SetGoingDown();
             GD.Print("mari  " + mario.yVelocity);
         }
-        mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
+        movementComponent.Advance(_delta);
         //GD.Print("floor " + mario.IsOnFloor());
         if (mario.IsOnFloor())
         {
@@ -83,22 +84,23 @@ public partial class StateFalling : MarioState
                         {
                             if (mario.raycastRight.IsColliding())
                             {
-                                mario.currentHorizontalVelocity = 0;
+                                movementComponent.CurrentXSpeed = 0;
                             }
                             else
                             {
                                 mario.currentHorizontalVelocity = mario.speed;
+                                movementComponent.CurrentXSpeed = mario.speed;
                             }
                         }
                         else
                         {
                             if (mario.raycastRight.IsColliding())
                             {
-                                mario.currentHorizontalVelocity = -mario.speed;
+                                movementComponent.CurrentXSpeed = -mario.speed;
                             }
                             else
                             {
-                                mario.currentHorizontalVelocity = 0;
+                                movementComponent.CurrentXSpeed = 0;
                             }
                             
                         }

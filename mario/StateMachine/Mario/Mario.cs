@@ -23,7 +23,8 @@ public partial class Mario : CharacterBody2D
 		WALLSLIDE = 4,
 		HURT = 5
 	}
-
+	InputComponent inputComponent;
+	MovementComponent movementComponent;
 	[Export]
 	public int
 		speed = 250,
@@ -63,7 +64,8 @@ public partial class Mario : CharacterBody2D
 		Scale = new Vector2(1, 1.5f);
 
 		yVelocity = startingGravity;
-
+		inputComponent = GetNode<InputComponent>("InputComponent");
+		movementComponent = GetNode<MovementComponent>("MovementComponent");
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		camera = GetNode<Camera2D>("Camera2D");
 		raycastLeft = GetNode<RayCast2D>("RayCast2D2");
@@ -88,6 +90,8 @@ public partial class Mario : CharacterBody2D
 		invincibilityTimer.Timeout += InvincibilityEnd;
 		invincibilityTimer.OneShot = true;
 		AddChild(invincibilityTimer);
+
+		movementComponent.Init(this);
 	}
 
 	private void HittingUp(Node _body)
@@ -157,7 +161,7 @@ public partial class Mario : CharacterBody2D
 		states = [
 			new StateIdle(this),
 			new StateJumping(this),
-			new StateFalling(this),
+			new StateFalling(this, movementComponent),
 			new StateRunning(this),
 			new StateWallSlide(this),
 			new StateHurt(this)
@@ -190,7 +194,13 @@ public partial class Mario : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		takeInputs();
+		inputComponent.takeInputs();
+		leftInput = inputComponent.getLeftInput();
+		rightInput = inputComponent.getRightInput();
+		jumpInput = inputComponent.getJumpInput();
+		
+		movementComponent.SetDirection(inputComponent.getLeftInput(), inputComponent.getRightInput());
+		
 
 		states[currentStateIndex].PhysicsProcess(delta);
 
@@ -202,13 +212,7 @@ public partial class Mario : CharacterBody2D
 
 	}
 
-	private void takeInputs()
-	{
-		rightInput = Input.GetActionStrength("right");
-		leftInput = Input.GetActionStrength("left");
-		jumpInput = Input.GetActionStrength("jump");
-
-	}
+	
 
 
 	public void SetGoingUp()

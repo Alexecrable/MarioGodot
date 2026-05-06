@@ -27,7 +27,7 @@ public partial class StateIdle : MarioState
     override public void PhysicsProcess(double delta)
     {
 
-
+        GD.Print("idle");
         mario.currentHorizontalVelocity = (mario.rightInput - mario.leftInput) * mario.speed;
         mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
 
