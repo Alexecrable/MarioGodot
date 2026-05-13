@@ -4,20 +4,20 @@ using System;
 public partial class KoopaStateWalk : KoopaState
 {
     private bool flipBufferActive;
+    private float velocitySave;
     private Timer flipBufferTimer;
-    public KoopaStateWalk(Koopa _koopa) : base(_koopa)
+    private VisibleOnScreenNotifier2D notifier;
+    public KoopaStateWalk(Koopa _koopa, MovementComponent _movementComponent) : base(_koopa, _movementComponent)
     {
-        VisibleOnScreenNotifier2D notifier = koopa.getNotifier();
-        notifier.ScreenExited += ScreenExited;
-        koopa.turnAroundArea.BodyExited += TurnAreaExited;
-        
+        notifier = koopa.getNotifier();
+
+        velocitySave = koopa.xVel;
         flipBufferActive = false;
         flipBufferTimer = new Timer();
         flipBufferTimer.WaitTime = 0.1;
         AddChild(flipBufferTimer);
         flipBufferTimer.Timeout += FlipBufferEnd;
 
-        koopa.hurtBox.BodyEntered += HitBoxTouched;
     }
     private void TurnAreaExited(Node _body)
     {
@@ -28,7 +28,8 @@ public partial class KoopaStateWalk : KoopaState
     private void FlipKoopa()
     {
         koopa.Scale = new Vector2(-koopa.Scale.X, koopa.Scale.Y);
-        koopa.xVel = -koopa.xVel;
+        movementComponent.CurrentSpeedX = -movementComponent.CurrentSpeedX;
+        movementComponent.Advance();
         flipBufferTimer.Start();
         flipBufferActive = true;
     }
@@ -39,15 +40,28 @@ public partial class KoopaStateWalk : KoopaState
 
     public override void Enter(int _previousStateId)
     {
+        GD.Print("enter state : Walk" + this.Name);
         koopa.legs.Play();
         koopa.eyes.Play();
-        koopa.Velocity = new Vector2(koopa.xVel, koopa.IsOnFloor() ? 0 : 200);
+        movementComponent.CurrentSpeedX = velocitySave;
+        movementComponent.Advance();
+        koopa.turnAroundArea.BodyExited += TurnAreaExited;
+        notifier.ScreenExited += ScreenExited;
+        koopa.hurtBox.AreaEntered += HitBoxTouched;
+
+
 
 
     }
 
     public override void Exit(int _previousStateId)
     {
+        velocitySave = movementComponent.CurrentSpeedX;
+        koopa.turnAroundArea.BodyExited -= TurnAreaExited;
+        notifier.ScreenExited -= ScreenExited;
+        koopa.hurtBox.AreaEntered -= HitBoxTouched;
+
+
     }
 
     public override void PhysicsProcess(double _delta)
@@ -58,7 +72,6 @@ public partial class KoopaStateWalk : KoopaState
 
 
         }
-        koopa.Velocity = new Vector2(koopa.xVel, koopa.IsOnFloor() ? 0 : 200);
 
     }
 
@@ -72,7 +85,8 @@ public partial class KoopaStateWalk : KoopaState
 
     private void HitBoxTouched(Node _body)
     {
-        GD.Print("ici");
+        GD.Print("enter state: ici" + _body.Name + koopa.hurtBox.CollisionLayer + koopa.hurtBox.CollisionMask);
+
         EmitSignal(SignalName.Finished, (int)KoopaStateEnum.SHELL_IDLE);
     }
 }

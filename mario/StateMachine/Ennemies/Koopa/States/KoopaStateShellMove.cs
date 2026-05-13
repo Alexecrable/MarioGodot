@@ -3,10 +3,10 @@ using System;
 
 public partial class KoopaStateShellMove : KoopaState
 {
-	private bool flipBufferActive;
+    private bool flipBufferActive;
     private Timer flipBufferTimer;
 
-    public KoopaStateShellMove(Koopa _koopa) : base(_koopa)
+    public KoopaStateShellMove(Koopa _koopa, MovementComponent _movementComponent) : base(_koopa, _movementComponent)
     {
         koopa = _koopa;
         flipBufferActive = false;
@@ -19,32 +19,33 @@ public partial class KoopaStateShellMove : KoopaState
 
     public override void Enter(int _previousStateId)
     {
-        
+        GD.Print("enter state : ShellMove" + this.Name);
+
     }
 
     public override void Exit(int _previousStateId)
     {
     }
-	public override void PhysicsProcess(double _delta)
+    public override void PhysicsProcess(double _delta)
     {
-         if (koopa.IsOnWall() && !flipBufferActive)
+        if (koopa.IsOnWall() && !flipBufferActive)
         {
-            GD.Print("xddd");
+            GD.Print("enter state : xddd");
             FlipKoopa();
 
 
         }
-        koopa.Velocity = new Vector2(koopa.xVel, koopa.IsOnFloor() ? 0 : 200);
+        movementComponent.CurrentSpeedY = (koopa.IsOnFloor()) ? 0 : 200;
+        movementComponent.Advance();
+
+
 
     }
     private void FlipKoopa()
     {
         koopa.Scale = new Vector2(-koopa.Scale.X, koopa.Scale.Y);
-        koopa.xVel = -koopa.xVel;
-        if(koopa.xVel > 0)
-        {
-            
-        }
+        movementComponent.CurrentSpeedX = -movementComponent.CurrentSpeedX;
+
         flipBufferTimer.Start();
         flipBufferActive = true;
     }
@@ -52,5 +53,5 @@ public partial class KoopaStateShellMove : KoopaState
     {
         flipBufferActive = false;
     }
-	
+
 }

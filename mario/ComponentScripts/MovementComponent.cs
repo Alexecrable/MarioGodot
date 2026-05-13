@@ -5,8 +5,14 @@ using System.Dynamic;
 public partial class MovementComponent : Node
 {
 
-	private float direction, isJumping, maxSpeedX, maxSpeedY, xAccel, yAccel, currentySpeed;
-	public float CurrentXSpeed{get; set;}
+	private float direction, wantsToJump;
+	public float CurrentSpeedX{get; set;}
+	public float CurrentSpeedY{get; set;}
+	public float MaxSpeedX{get; set;}
+	public float MaxSpeedY{get; set;}
+	public float BaseSpeedX{get; set;}
+	public float AccelX{get; set;}
+	public float AccelY{get; set;}
 	
 
 
@@ -22,48 +28,56 @@ public partial class MovementComponent : Node
 	public void Init(CharacterBody2D _body)
 	{
 		body = _body;
-		maxSpeedX = 0;
-		maxSpeedY = 0;
-		xAccel = 0;
-		yAccel = 0;
-		CurrentXSpeed = 0;
-		currentySpeed = 0;
+		BaseSpeedX = 250;
+		MaxSpeedX = 300;
+		MaxSpeedY = 700;
+		AccelX = 700;
+		AccelY = 2000;
+		CurrentSpeedX = 250;
+		CurrentSpeedY = 20;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public void Advance(double _delta)
+	public void Advance()
 	{
-		GD.Print("je suis làaaa");
-		body.Velocity = new Vector2(CurrentXSpeed, currentySpeed);
-		GD.Print(body.Velocity);
+		body.Velocity = new Vector2(CurrentSpeedX, CurrentSpeedY);
+	}
+
+	public bool IsOnCeiling()
+	{
+		return body.IsOnCeiling();
+	}
+
+	public void SpeedX()
+	{
+		CurrentSpeedX = BaseSpeedX * direction;
 	}
 
 	public void AccelerateToSpeedX(double _delta)
 	{
-		GD.Print("maxSpeed : " + maxSpeedX);
-		GD.Print("current : " + CurrentXSpeed * direction);
-		if(maxSpeedX > CurrentXSpeed * direction)
+		GD.Print("maxSpeed : " + MaxSpeedX);
+		GD.Print("current : " + CurrentSpeedX * direction);
+		CurrentSpeedX += AccelX * direction * (float) _delta;
+		if(MaxSpeedX < CurrentSpeedX * direction)
 		{
-			CurrentXSpeed += xAccel * direction * (float) _delta;
-		}
-		else
-		{
-			CurrentXSpeed = maxSpeedX * direction;
+			CurrentSpeedX = MaxSpeedX * direction;
 		}
 	}
+
+	
 
 
 	public void AccelerateToSpeedY(double _delta)
 	{
-		GD.Print(maxSpeedY, currentySpeed, yAccel);
-		if(maxSpeedY > currentySpeed)
+		GD.Print(MaxSpeedY, CurrentSpeedY, AccelY);
+		if(MaxSpeedY > CurrentSpeedY)
 		{
-			currentySpeed += yAccel * (float) _delta;
+			CurrentSpeedY += AccelY * (float) _delta;
 			
 		}
 		else
 		{
-			currentySpeed = maxSpeedY;
+			CurrentSpeedY = MaxSpeedY;
 		}
 	}
 	public void SetDirection(float _leftInput, float _rightInput)
@@ -71,34 +85,22 @@ public partial class MovementComponent : Node
 		direction = _rightInput -_leftInput;
 	}
 
-	public void SetCurrentYVel(float _yVel)
-	{
-		currentySpeed = _yVel;
-	}
-
-
-	public void SetxAccel(float _xAccel)
-	{
-		xAccel = _xAccel;
-	}
-
-	public void SetyAccel(float _yAccel)
-	{
-		yAccel = _yAccel;
-	}
-
-
-	public void SetMaxSpeedX(float _maxSpeedX)
-	{
-		maxSpeedX = _maxSpeedX;
-	}
-
-	public void SetMaxSpeedY(float _maxSpeedY)
-	{
-		maxSpeedY = _maxSpeedY;
-	}
+	
 	public void SetJump(float _jumpInput)
 	{
-		isJumping = _jumpInput;
+		wantsToJump = _jumpInput;
+		GD.Print("wantsToJump ???" + wantsToJump);
 	}
+
+	public bool WantsJump()
+	{
+		return wantsToJump == 1;
+	}
+
+	public bool IsMoving()
+	{
+		return direction != 0;
+	}
+
+	
 }

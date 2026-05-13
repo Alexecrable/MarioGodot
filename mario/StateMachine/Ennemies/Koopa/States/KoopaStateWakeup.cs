@@ -4,16 +4,14 @@ using System;
 public partial class KoopaStateWakeUp : KoopaState
 {
 	
-    private Koopa koopa;
 
-    public KoopaStateWakeUp(Koopa _koopa) : base(_koopa)
+    public KoopaStateWakeUp(Koopa _koopa, MovementComponent _movementComponent) : base(_koopa, _movementComponent)
     {
-        koopa = _koopa;
     }
 
     public override void Enter(int _previousStateId)
     {
-        throw new NotImplementedException();
+        GD.Print("enter state : WakeUp" + this.Name);
     }
 
     public override void Exit(int _previousStateId)

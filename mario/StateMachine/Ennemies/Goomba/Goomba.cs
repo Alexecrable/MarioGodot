@@ -17,6 +17,7 @@ public partial class Goomba : Ennemi
 
     private Array<GoombaState> states;
     private VisibleOnScreenNotifier2D notifier;
+    private MovementComponent movementComponent;
     public int currentYVelocity = 0;
     public int currentXVelocity = 0;
 
@@ -32,6 +33,8 @@ public partial class Goomba : Ennemi
         chapeauSkin.Texture = chapeauText;
         chapeau.Freeze = true;
         skin.Animation = "WALK";
+        movementComponent = GetNode<MovementComponent>("MovementComponent");
+        movementComponent.Init(this);
         skin.Pause();
         InitState();
     }
@@ -39,9 +42,9 @@ public partial class Goomba : Ennemi
     public override void InitState()
     {
         states = [
-            new GoombaStateIdle(this),
-            new GoombaStateWalk(this),
-            new GoombaStateDie(this)
+            new GoombaStateIdle(this,movementComponent),
+            new GoombaStateWalk(this, movementComponent),
+            new GoombaStateDie(this, movementComponent)
         ];
 
         foreach (GoombaState state in states)

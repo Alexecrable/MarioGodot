@@ -4,7 +4,7 @@ using System;
 public partial class GoombaStateDie : GoombaState
 {
 	private Timer deathTimer;
-	public GoombaStateDie(Goomba _goomba) : base(_goomba)
+	public GoombaStateDie(Goomba _goomba, MovementComponent _movementComponent) : base(_goomba, _movementComponent)
     {
         deathTimer = new Timer();
         deathTimer.WaitTime = 2;
@@ -17,7 +17,11 @@ public partial class GoombaStateDie : GoombaState
         goomba.skin.Animation = "DIE";
         goomba.CollisionLayer = 0;
         goomba.CollisionMask = 0;
-        goomba.Velocity = new Vector2(0,0);
+        movementComponent.CurrentSpeedX = 0;
+        movementComponent.CurrentSpeedY = 0;
+        movementComponent.Advance();
+
+
         goomba.chapeau.CollisionMask = 3;
 
         goomba.chapeau.SetDeferred("freeze",false);

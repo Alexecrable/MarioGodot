@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dyn3b2bhfswst" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk8.png" id="10_0r87e"]
 [ext_resource type="Texture2D" uid="uid://cn4srmf8r3nnr" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk9.png" id="11_rbo4n"]
 [ext_resource type="Texture2D" uid="uid://dd0vmsm2v4n1s" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk10.png" id="12_38no6"]
+[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="16_qmmba"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
 animations = [{
@@ -104,3 +105,7 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chapeau" unique_id=1295237062]
 position = Vector2(3, 1)
 shape = SubResource("CircleShape2D_qmmba")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1067364918]
+script = ExtResource("16_qmmba")
+metadata/_custom_type_script = "uid://bdywv15qsbvuj"

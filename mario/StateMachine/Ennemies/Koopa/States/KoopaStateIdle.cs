@@ -4,7 +4,7 @@ using System;
 public partial class KoopaStateIdle : KoopaState
 {
 
-	public KoopaStateIdle(Koopa _koopa) : base(_koopa)
+    public KoopaStateIdle(Koopa _koopa, MovementComponent _movementComponent) : base(_koopa, _movementComponent)
     {
         VisibleOnScreenNotifier2D notifier = koopa.getNotifier();
         notifier.ScreenEntered += ScreenEntered;
@@ -12,13 +12,17 @@ public partial class KoopaStateIdle : KoopaState
 
     public override void Enter(int _previousStateId)
     {
+        GD.Print("enter state : Idle" + this.Name);
+
+        movementComponent.CurrentSpeedX = 0;
+        movementComponent.Advance();
     }
     public override void Exit(int _previousStateId)
     {
-        
+
     }
-	
-	public override void PhysicsProcess(double _delta)
+
+    public override void PhysicsProcess(double _delta)
     {
     }
 

@@ -4,11 +4,13 @@ using System;
 public abstract partial class KoopaState : State
 {
 	
-    public Koopa koopa;
+    protected Koopa koopa;
+    protected MovementComponent movementComponent;
 
-    public KoopaState(Koopa _koopa)
+    public KoopaState(Koopa _koopa, MovementComponent _movementComponent)
     {
         koopa = _koopa;
+        movementComponent = _movementComponent;
     }
 
 	

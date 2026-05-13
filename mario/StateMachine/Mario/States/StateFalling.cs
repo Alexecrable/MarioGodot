@@ -20,12 +20,8 @@ public partial class StateFalling : MarioState
     {
         mario.animation.Animation = "Falling";
         mario.animation.Play();
-        movementComponent.SetxAccel(mario.airborneHorizontalAccel);
-        movementComponent.SetyAccel(mario.gravityAccel);
-        movementComponent.SetMaxSpeedX(mario.maxHorizontalVelocity);
-        movementComponent.SetMaxSpeedY(mario.terminalGravity);
-        movementComponent.CurrentXSpeed = mario.currentHorizontalVelocity;
-        movementComponent.SetCurrentYVel(mario.yVelocity);
+        mario.feetBox.CollisionLayer = 4;
+        mario.feetBox.CollisionMask = 8;
     }
 
 
@@ -48,11 +44,11 @@ public partial class StateFalling : MarioState
         
         if (mario.IsOnCeiling())
         {
-            movementComponent.SetCurrentYVel(10);
+            movementComponent.CurrentSpeedY = 10;
             mario.SetGoingDown();
             GD.Print("mari  " + mario.yVelocity);
         }
-        movementComponent.Advance(_delta);
+        movementComponent.Advance();
         //GD.Print("floor " + mario.IsOnFloor());
         if (mario.IsOnFloor())
         {
@@ -84,23 +80,23 @@ public partial class StateFalling : MarioState
                         {
                             if (mario.raycastRight.IsColliding())
                             {
-                                movementComponent.CurrentXSpeed = 0;
+                                movementComponent.CurrentSpeedX = 0;
                             }
                             else
                             {
                                 mario.currentHorizontalVelocity = mario.speed;
-                                movementComponent.CurrentXSpeed = mario.speed;
+                                movementComponent.CurrentSpeedX = mario.speed;
                             }
                         }
                         else
                         {
                             if (mario.raycastRight.IsColliding())
                             {
-                                movementComponent.CurrentXSpeed = -mario.speed;
+                                movementComponent.CurrentSpeedX = -mario.speed;
                             }
                             else
                             {
-                                movementComponent.CurrentXSpeed = 0;
+                                movementComponent.CurrentSpeedX = 0;
                             }
                             
                         }

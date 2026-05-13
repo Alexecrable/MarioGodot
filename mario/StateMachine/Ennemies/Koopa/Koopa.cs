@@ -48,6 +48,7 @@ public partial class Koopa : Ennemi
     private VisibleOnScreenNotifier2D notifier;
     public AnimatedSprite2D legs,eyes,shell;
     public Area2D marioNotif, hurtBox;
+    private MovementComponent movementComponent;
     public int xVel;
 
 
@@ -62,7 +63,9 @@ public partial class Koopa : Ennemi
         marioNotif.BodyExited += MarioLost;
         turnAroundArea = GetNode<Area2D>("TurnAroundArea");
         hurtBox = GetNode<Area2D>("HurtBox");
-        
+        movementComponent = GetNode<MovementComponent>("MovementComponent");
+        movementComponent.Init(this);
+        movementComponent.CurrentSpeedY = 200;
         xVel = 50;
         InitState();
     }
@@ -72,13 +75,17 @@ public partial class Koopa : Ennemi
 
     private void MarioLost(Node body)
     {
-        
+        GD.Print("deconnexion");
+        if(eyes.Animation == "SHOCKED")
+        {
         eyes.AnimationFinished -= ShockFinish;
+        }
         eyes.Animation = "NORMAL";
         eyes.Play();
     }
     private void MarioSpotted(Node body)
     {
+        GD.Print("connection");
         eyes.AnimationFinished += ShockFinish;
         eyes.Animation = "SHOCKED";
         eyes.Play();
@@ -86,6 +93,7 @@ public partial class Koopa : Ennemi
 
     private void ShockFinish()
     {
+        GD.Print("shocked !!!");
         eyes.AnimationFinished -= ShockFinish;
         eyes.Pause();
         eyes.Animation = "ANGRY";
@@ -94,12 +102,12 @@ public partial class Koopa : Ennemi
     public override void InitState()
     {
         states = [
-            new KoopaStateIdle(this),
-            new KoopaStateWalk(this),
-            new KoopaStateDie(this),
-            new KoopaStateShellIdle(this),
-            new KoopaStateShellMove(this),
-            new KoopaStateWakeUp(this)
+            new KoopaStateIdle(this, movementComponent),
+            new KoopaStateWalk(this, movementComponent),
+            new KoopaStateDie(this, movementComponent),
+            new KoopaStateShellIdle(this, movementComponent),
+            new KoopaStateShellMove(this, movementComponent),
+            new KoopaStateWakeUp(this, movementComponent)
         ];
 
         foreach (KoopaState state in states)

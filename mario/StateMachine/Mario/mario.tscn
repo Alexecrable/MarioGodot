@@ -184,10 +184,10 @@ color_ramp = SubResource("GradientTexture1D_8g76r")
 alpha_curve = SubResource("CurveTexture_p7tcl")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7tcl"]
-size = Vector2(10, 0.5)
+size = Vector2(17, 1.05)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_380el"]
-size = Vector2(10, 25)
+size = Vector2(10, 21)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
 collision_layer = 4
@@ -242,11 +242,11 @@ shape = SubResource("RectangleShape2D_p7tcl")
 
 [node name="FeetBox" type="Area2D" parent="." unique_id=679397512]
 position = Vector2(0, -14)
-collision_layer = 34820
-collision_mask = 34824
+collision_layer = 4
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FeetBox" unique_id=456504442]
-position = Vector2(0, 14)
+position = Vector2(-0.5, 12.625)
 scale = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_p7tcl")
 

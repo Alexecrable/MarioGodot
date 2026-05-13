@@ -15,6 +15,8 @@ public partial class StateTransform : MarioState
     {
         mario.animation.Animation = "Transforming";
         mario.animation.Play();
+        mario.feetBox.CollisionLayer = 0;
+        mario.feetBox.CollisionMask = 0;
 
     }
 

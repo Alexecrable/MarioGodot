@@ -50,7 +50,7 @@ public partial class Mario : CharacterBody2D
 	public RayCast2D raycastRight;
 	public RayCast2D raycastLeft;
 	public AudioStreamPlayer2D sfxPlayer;
-	private Area2D headBox, feetBox, hurtBox;
+	public Area2D headBox, feetBox, hurtBox;
 	private bool isHittingUp, isHittingDown;
 	private Timer invincibilityTimer;
 	public int currentPowerUpIndex;
@@ -77,8 +77,10 @@ public partial class Mario : CharacterBody2D
 		headBox.BodyEntered += HittingUp;
 		feetBox = GetNode<Area2D>("FeetBox");
 		feetBox.BodyEntered += HittingDown;
+		feetBox.AreaEntered += HittingDownArea;
 		hurtBox = GetNode<Area2D>("HurtBox");
 		hurtBox.BodyEntered += GetHurt;
+		hurtBox.AreaEntered += GetHurt;
 
 
 		isHittingUp = false;
@@ -116,8 +118,21 @@ public partial class Mario : CharacterBody2D
 		{
 			isHittingDown = true;
 
-			//Ennemi ennemi = (Ennemi)_body;
-			//ennemi.MakeHit();
+			Ennemi ennemi = (Ennemi)_body;
+			ennemi.MakeHit();
+			ChangeState((int)StateEnum.JUMP);
+		}
+
+	}
+
+	private void HittingDownArea(Node _body)
+	{
+		GD.Print("hittt" + _body);
+		//headBox.Monitoring = false;
+		if (!isHittingDown)
+		{
+			isHittingDown = true;
+
 			ChangeState((int)StateEnum.JUMP);
 		}
 
@@ -159,12 +174,12 @@ public partial class Mario : CharacterBody2D
 	{
 
 		states = [
-			new StateIdle(this),
-			new StateJumping(this),
+			new StateIdle(this, movementComponent),
+			new StateJumping(this, movementComponent),
 			new StateFalling(this, movementComponent),
-			new StateRunning(this),
-			new StateWallSlide(this),
-			new StateHurt(this)
+			new StateRunning(this, movementComponent),
+			new StateWallSlide(this, movementComponent),
+			new StateHurt(this, movementComponent)
 			];
 
 		foreach (MarioState state in states)
@@ -200,7 +215,7 @@ public partial class Mario : CharacterBody2D
 		jumpInput = inputComponent.getJumpInput();
 		
 		movementComponent.SetDirection(inputComponent.getLeftInput(), inputComponent.getRightInput());
-		
+		movementComponent.SetJump(inputComponent.getJumpInput());
 
 		states[currentStateIndex].PhysicsProcess(delta);
 

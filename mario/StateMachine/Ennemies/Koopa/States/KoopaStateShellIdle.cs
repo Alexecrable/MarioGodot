@@ -5,32 +5,42 @@ public partial class KoopaStateShellIdle : KoopaState
 {
     Node2D koopaBody;
     private bool flipBufferActive;
-    private Timer flipBufferTimer;
+    private Timer flipBufferTimer, enterStateDelay;
     private bool isShell;
 
 
-    public KoopaStateShellIdle(Koopa _koopa) : base(_koopa)
+    public KoopaStateShellIdle(Koopa _koopa, MovementComponent _movementComponent) : base(_koopa, _movementComponent)
     {
         koopa = _koopa;
         koopaBody = koopa.GetNode<Node2D>("Body");
-        koopa.CollisionLayer = 0;
-        koopa.hurtBox.BodyEntered += Hittt;
+        enterStateDelay = new Timer();
+        enterStateDelay.WaitTime = 0.1;
+        enterStateDelay.Timeout += EndDelay;
+        AddChild(enterStateDelay);
+        
         isShell = false;
+
+    }
+
+    private void EndDelay()
+    {
+        koopa.hurtBox.CollisionLayer = 8;   
+        koopa.hurtBox.CollisionMask = 4;
     }
 
     private void Hittt(Node2D _body)
     {
-        if (_body.Name == "Mario" && isShell)
+        if (_body.Name == "FeetBox" && isShell)
         {
             if (_body.GlobalPosition.X < koopa.GlobalPosition.X)
             {
-                koopa.xVel = 100;
+                movementComponent.CurrentSpeedX = 100;
                 koopa.Scale = new Vector2(1, 1);
                 koopa.shell.Play();
             }
             else
             {
-                koopa.xVel = -100;
+                movementComponent.CurrentSpeedX = -100;
                 koopa.Scale = new Vector2(-1, 1);
                 koopa.shell.PlayBackwards();
             }
@@ -42,16 +52,21 @@ public partial class KoopaStateShellIdle : KoopaState
     }
     public override void Enter(int _previousStateId)
     {
+        GD.Print("enter state : ShellIdle" + this.Name);
         koopaBody.Hide();
-        koopa.Velocity = new Vector2(0, 0);
-        koopa.CollisionLayer = 0;
+        movementComponent.CurrentSpeedX = 0;
+        movementComponent.Advance();
         isShell = true;
+        koopa.hurtBox.CollisionLayer = 0;
+        koopa.hurtBox.CollisionMask = 0;
+        enterStateDelay.Start();
+        koopa.hurtBox.AreaEntered += Hittt;
     }
 
 
     public override void Exit(int _previousStateId)
     {
-        koopa.CollisionLayer = 8;
+        koopa.hurtBox.AreaEntered -= Hittt;
     }
 
 
