@@ -5,7 +5,7 @@ using Godot.Collections;
 
 public partial class StateMove : PowerState
 {
-    public StateMove(Powerup _powerUp) : base(_powerUp)
+    public StateMove(Powerup _powerUp, MovementComponent _movementComponent) : base(_powerUp, _movementComponent)
     {
        
     }
@@ -13,8 +13,8 @@ public partial class StateMove : PowerState
     public override void enter()
     {
         powerUp.GetSprite().Play();
-        powerUp.currentXVelocity = 200;
-        powerUp.CollisionMask = 1;
+        powerUp.CollisionMask = 3;
+        movementComponent.CurrentSpeedX = powerUp.xVelocity;
     }
     public override void exit()
     {
@@ -22,7 +22,7 @@ public partial class StateMove : PowerState
     }
     public override void PhysicsProcess(double delta)
     {
-        powerUp.currentYVelocity = powerUp.IsOnFloor() ? 0 : 200;
+        movementComponent.CurrentSpeedY = powerUp.IsOnFloor() ? 0 : 200;
        
 
     }

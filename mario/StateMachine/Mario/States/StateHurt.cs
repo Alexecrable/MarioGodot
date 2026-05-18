@@ -43,7 +43,7 @@ public partial class StateHurt : MarioState
         {
             case (int)Mario.PowerEnum.BASE : mario.Scale = new Vector2(1,1);
             break;
-            case (int)Mario.PowerEnum.FIRE : ;
+            case (int)Mario.PowerEnum.BIG : mario.animation.Modulate = new Color(0,0,0);
             break;
         
         }

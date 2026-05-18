@@ -39,11 +39,14 @@ public partial class Mario : CharacterBody2D
 	[Export]
 	public float jumpTime = 1;
 	public float yVelocity, rightInput, leftInput, jumpInput, currentHorizontalVelocity = 250;
+	public bool actionInput;
 	private int currentStateIndex;
 	private Array<MarioState> states;
 	public GpuParticles2D particles;
 
+	private HurtComponent hurtComponent;
 	public AnimatedSprite2D animation;
+	public Sprite2D chapeau;
 	private Tween tween;
 
 	private Camera2D camera;
@@ -52,12 +55,15 @@ public partial class Mario : CharacterBody2D
 	public AudioStreamPlayer2D sfxPlayer;
 	public Area2D headBox, feetBox, hurtBox;
 	private bool isHittingUp, isHittingDown;
-	private Timer invincibilityTimer;
+	private Timer invincibilityTimer, fireTimer;
 	public int currentPowerUpIndex;
+	PackedScene fireScene;
+	
 
 	public override void _Ready()
 	{
 
+		fireTimer = new Timer();
 
 
 		currentPowerUpIndex = 1;
@@ -76,13 +82,12 @@ public partial class Mario : CharacterBody2D
 		headBox = GetNode<Area2D>("HeadBox");
 		headBox.BodyEntered += HittingUp;
 		feetBox = GetNode<Area2D>("FeetBox");
-		feetBox.BodyEntered += HittingDown;
 		feetBox.AreaEntered += HittingDownArea;
 		hurtBox = GetNode<Area2D>("HurtBox");
-		hurtBox.BodyEntered += GetHurt;
 		hurtBox.AreaEntered += GetHurt;
-
-
+		chapeau = GetNode<Sprite2D>("Chapeau");
+		fireScene = ResourceLoader.Load<PackedScene>("res://World/FireBall.tscn");
+		
 		isHittingUp = false;
 
 		InitStates();
@@ -105,25 +110,12 @@ public partial class Mario : CharacterBody2D
 			isHittingUp = true;
 
 			PowerBlock powerBlock = (PowerBlock)_body;
-			powerBlock.Collision();
+			powerBlock.Collision(currentPowerUpIndex);
 		}
 
 	}
 
-	private void HittingDown(Node _body)
-	{
-		GD.Print("hittt" + _body);
-		//headBox.Monitoring = false;
-		if (!isHittingDown)
-		{
-			isHittingDown = true;
-
-			Ennemi ennemi = (Ennemi)_body;
-			ennemi.MakeHit();
-			ChangeState((int)StateEnum.JUMP);
-		}
-
-	}
+	
 
 	private void HittingDownArea(Node _body)
 	{
@@ -138,8 +130,9 @@ public partial class Mario : CharacterBody2D
 
 	}
 
-	private void GetHurt(Node _body)
+	private void GetHurt(Node _area)
 	{
+		GD.Print("mario hurt " + _area.Name);
 		if (currentPowerUpIndex == 0)
 		{
 			Die();
@@ -147,7 +140,8 @@ public partial class Mario : CharacterBody2D
 		else
 		{
 			currentPowerUpIndex--;
-			hurtBox.Monitoring = false;
+			hurtBox.SetDeferred("monitoring",false);
+			//hurtBox.Monitoring = false;
 			invincibilityTimer.Start();
 			ChangeState((int)StateEnum.HURT);
 			tween = CreateTween();
@@ -156,6 +150,28 @@ public partial class Mario : CharacterBody2D
 			tween.TweenProperty(animation, "modulate", new Color(0, 0, 0), 0.2);
 			tween.TweenProperty(animation, "modulate", new Color(1, 1, 1), 0.2);
 		}
+	}
+
+	public Texture2D GetHat(Texture2D _texture)
+	{
+		Texture2D textToReturn = chapeau.Texture;
+		chapeau.Texture = _texture;
+		
+		return textToReturn;
+	}
+	public void GetPower(int _powerId)
+	{
+		currentPowerUpIndex = _powerId;
+
+		switch (currentPowerUpIndex)
+        {
+            case (int)Mario.PowerEnum.BIG : Scale = new Vector2(1,1.5f);
+            break;
+            case (int)Mario.PowerEnum.FIRE : animation.Modulate = new Color(1,0,1);
+			Scale = new Vector2(1,1.5f);
+            break;
+        
+        }
 	}
 
 	private void InvincibilityEnd()
@@ -179,7 +195,7 @@ public partial class Mario : CharacterBody2D
 			new StateFalling(this, movementComponent),
 			new StateRunning(this, movementComponent),
 			new StateWallSlide(this, movementComponent),
-			new StateHurt(this, movementComponent)
+			new StateHurt(this, movementComponent),
 			];
 
 		foreach (MarioState state in states)
@@ -213,15 +229,22 @@ public partial class Mario : CharacterBody2D
 		leftInput = inputComponent.getLeftInput();
 		rightInput = inputComponent.getRightInput();
 		jumpInput = inputComponent.getJumpInput();
-		
+		actionInput = inputComponent.getActionInput();
 		movementComponent.SetDirection(inputComponent.getLeftInput(), inputComponent.getRightInput());
 		movementComponent.SetJump(inputComponent.getJumpInput());
 
 		states[currentStateIndex].PhysicsProcess(delta);
+		GD.Print("CLICK " + actionInput);
+		if(actionInput && currentPowerUpIndex == (int)PowerEnum.FIRE)
+		{
+			FireBall fireBall = fireScene.Instantiate<FireBall>();
+			AddSibling(fireBall);
+			int direction = (animation.FlipH) ? -1 : 1;
+			fireBall.Position = Position + new Vector2(30 * direction, -30);
+			fireBall.SetDirection(direction);
+		}
 
-
-
-
+		GD.Print("marioscale " + Scale);
 		MoveAndSlide();
 
 
@@ -274,6 +297,8 @@ public partial class Mario : CharacterBody2D
 		bool isRunning = rightInput + leftInput > 0;
 		return isRunning;
 	}
+
+
 
 
 

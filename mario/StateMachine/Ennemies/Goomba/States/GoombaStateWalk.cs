@@ -10,7 +10,6 @@ public partial class GoombaStateWalk : GoombaState
     {
         VisibleOnScreenNotifier2D notifier = goomba.getNotifier();
         notifier.ScreenExited += ScreenExited;
-        goomba.Hit += HitBoxTouched;
         flipBufferActive = false;
         flipBufferTimer = new Timer();
         flipBufferTimer.WaitTime = 0.1;
@@ -29,12 +28,14 @@ public partial class GoombaStateWalk : GoombaState
     {
         goomba.skin.Play();
         movementComponent.CurrentSpeedX = velocitySave;
+        goomba.hurtBox.AreaEntered += HitBoxTouched;
     }
 
     public override void Exit(int _previousStateId)
     {
         velocitySave = movementComponent.CurrentSpeedX;
         GD.Print("Screen Goomb " + movementComponent.CurrentSpeedX);
+        goomba.hurtBox.AreaEntered -= HitBoxTouched;
     }
 
     public override void PhysicsProcess(double _delta)
@@ -65,7 +66,7 @@ public partial class GoombaStateWalk : GoombaState
         
     }
 
-    private void HitBoxTouched()
+    private void HitBoxTouched(Node _Area)
     {
         EmitSignal(SignalName.Finished, (int)GoombaStateEnum.DIE);
     }

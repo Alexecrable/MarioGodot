@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b24d1qxar6imt"]
+
+[ext_resource type="Texture2D" uid="uid://d08gmchrm6mun" path="res://StateMachine/PowerUps/FireFlower/Sprites/Fleur2.png" id="1_phsrq"]
+[ext_resource type="Script" uid="uid://dcqsnnhf3euqb" path="res://World/FireBall.cs" id="1_qjq3w"]
+[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="3_bexrn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjq3w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bexrn"]
+radius = 12.0415945
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1987974662]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_qjq3w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1371935430]
+shape = SubResource("CircleShape2D_qjq3w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=76060853]
+texture = ExtResource("1_phsrq")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=680438172]
+script = ExtResource("3_bexrn")
+metadata/_custom_type_script = "uid://bdywv15qsbvuj"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2070984878]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1649037045]
+shape = SubResource("CircleShape2D_bexrn")

@@ -10,13 +10,14 @@ using System.Runtime.CompilerServices;
     }
 public partial class Goomba : Ennemi
 {
-    public RigidBody2D chapeau;
+    public Chapeau chapeau;
     public Sprite2D chapeauSkin;
     private Texture2D chapeauText;
 
 
     private Array<GoombaState> states;
     private VisibleOnScreenNotifier2D notifier;
+    public Area2D hurtBox;
     private MovementComponent movementComponent;
     public int currentYVelocity = 0;
     public int currentXVelocity = 0;
@@ -26,7 +27,7 @@ public partial class Goomba : Ennemi
         
         notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
         skin = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        chapeau = GetNode<RigidBody2D>("Chapeau");
+        chapeau = GetNode<Chapeau>("Chapeau");
         chapeauSkin = chapeau.GetNode<Sprite2D>("Sprite2D");
         uint choixpeau = (GD.Randi() % 6) + 1;
         chapeauText = ResourceLoader.Load<Texture2D>("res://StateMachine/Ennemies/Goomba/Sprites/Hats/Goombhat"+choixpeau+".png");
@@ -35,6 +36,7 @@ public partial class Goomba : Ennemi
         skin.Animation = "WALK";
         movementComponent = GetNode<MovementComponent>("MovementComponent");
         movementComponent.Init(this);
+        hurtBox = GetNode<Area2D>("HurtBox");
         skin.Pause();
         InitState();
     }
@@ -79,9 +81,9 @@ public partial class Goomba : Ennemi
         return notifier;
     }
 
-    public override void MakeHit()
+    public override void InstaKill()
     {
-        EmitSignal(SignalName.Hit);
+        ChangeState((int)GoombaStateEnum.DIE);
     }
 
 

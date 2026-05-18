@@ -32,10 +32,15 @@ public partial class StateWallSlide : MarioState
         if (mario.animation.FlipH)
         {
             mario.particles.Position = new Vector2(-6, -14);
+            mario.chapeau.Offset = new Vector2(10,-3);
+            mario.chapeau.FlipH = false;
         }
         else
         {
             mario.particles.Position = new Vector2(6, -14);
+            mario.chapeau.Offset = new Vector2(-10,-3);
+            mario.chapeau.FlipH = true;
+
         }
         mario.sfxPlayer.Play();
 
@@ -44,13 +49,13 @@ public partial class StateWallSlide : MarioState
 
     }
 
-
+// 10 3
 
     override public void Exit(int _stateID)
     {
         mario.particles.Emitting = false;
         mario.sfxPlayer.Stop();
-
+        mario.chapeau.Offset = new Vector2(0,0);
     }
 
     override public void PhysicsProcess(double delta)

@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dyn3b2bhfswst" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk8.png" id="10_0r87e"]
 [ext_resource type="Texture2D" uid="uid://cn4srmf8r3nnr" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk9.png" id="11_rbo4n"]
 [ext_resource type="Texture2D" uid="uid://dd0vmsm2v4n1s" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk10.png" id="12_38no6"]
+[ext_resource type="Script" uid="uid://d0qwnsqts7v33" path="res://World/Chapeau.cs" id="16_e3tbb"]
 [ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="16_qmmba"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
@@ -79,9 +80,12 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qmmba"]
 radius = 13.038404
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmmba"]
+size = Vector2(26, 30)
+
 [node name="Goomba" type="CharacterBody2D" unique_id=819979439]
-collision_layer = 8
-collision_mask = 11
+collision_layer = 16
+collision_mask = 19
 script = ExtResource("1_ns1iw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1455411747]
@@ -99,6 +103,7 @@ rect = Rect2(-16, -23, 32, 46)
 position = Vector2(-6, -8)
 collision_layer = 0
 collision_mask = 0
+script = ExtResource("16_e3tbb")
 
 [node name="Sprite2D" type="Sprite2D" parent="Chapeau" unique_id=473815014]
 
@@ -106,6 +111,22 @@ collision_mask = 0
 position = Vector2(3, 1)
 shape = SubResource("CircleShape2D_qmmba")
 
+[node name="Area2D" type="Area2D" parent="Chapeau" unique_id=629388292]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Chapeau/Area2D" unique_id=1091538690]
+position = Vector2(3, 1)
+shape = SubResource("CircleShape2D_qmmba")
+
 [node name="MovementComponent" type="Node" parent="." unique_id=1067364918]
 script = ExtResource("16_qmmba")
 metadata/_custom_type_script = "uid://bdywv15qsbvuj"
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=938043319]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=922681933]
+position = Vector2(-3, 1)
+shape = SubResource("RectangleShape2D_qmmba")

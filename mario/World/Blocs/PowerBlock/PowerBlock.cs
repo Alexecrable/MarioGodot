@@ -7,8 +7,7 @@ public partial class PowerBlock : StaticBody2D
 	private Sprite2D sprite;
 	private Tween jumpTween;
 	private Area2D area;
-	private Powerup powerUp;
-	private BeerWalker shroom;
+	private Powerup powerup;
 	private Texture2D emptyTexture;
 	private bool isEmpty;
 
@@ -16,19 +15,29 @@ public partial class PowerBlock : StaticBody2D
 	{
 		area = GetNode<Area2D>("Area2D");
 		sprite = GetNode<Sprite2D>("Sprite2D");
-		shroom = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();
 		emptyTexture = ResourceLoader.Load<Texture2D>("res://World/Blocs/PowerBlock/Sprites/EmptyPowerBlock.jpg");
 		//jumpTween.SetLoops();
+
 		isEmpty = false;
 	}
 
-	public void Collision()
+	public void Collision(int _currentPowerUpIndex)
 	{
+		if (_currentPowerUpIndex == (int)Mario.PowerEnum.BASE)
+		{
+			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();
+
+		}
+		else
+		{
+			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//FireFlower/fireFlower.tscn").Instantiate<FireFlower>();
+
+		}
 		if (!isEmpty)
 		{
-			shroom.Position = Position + new Vector2(0,-30);
-
-			CallDeferred("add_sibling", shroom);
+			powerup.Position = Position + new Vector2(0, -30);
+			GD.Print("collision");
+			CallDeferred("add_sibling", powerup);
 
 			jumpTween = CreateTween();
 			jumpTween.SetTrans(Tween.TransitionType.Linear);
@@ -39,11 +48,28 @@ public partial class PowerBlock : StaticBody2D
 			jumpTween.Parallel().TweenProperty(sprite, "scale", new Vector2(1, 1), 0.1);
 			jumpTween.Finished += MakeEmpty;
 			isEmpty = true;
+			TryToKill();
 		}
 
 
 	}
 
+	private void TryToKill()
+	{
+		GD.Print("trytokill");
+		foreach (CharacterBody2D body in area.GetOverlappingBodies())
+		{
+			try
+			{
+				Ennemi ennemi = (Ennemi)body;
+				ennemi.InstaKill();
+			}
+			catch (Exception e)
+			{
+				GD.Print(body + " n'est pas un ennemi ? " + e);
+			}
+		}
+	}
 
 	private void MakeEmpty()
 	{

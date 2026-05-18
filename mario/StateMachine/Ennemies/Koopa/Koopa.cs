@@ -143,9 +143,9 @@ public partial class Koopa : Ennemi
         return notifier;
     }
 
-    public override void MakeHit()
+    public override void InstaKill()
     {
-        //EmitSignal(SignalName.Hit);
+       ChangeState((int)KoopaStateEnum.DIE);
     }
 
 

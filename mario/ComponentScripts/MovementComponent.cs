@@ -18,6 +18,7 @@ public partial class MovementComponent : Node
 
 	private CharacterBody2D body;
 	// Called when the node enters the scene tree for the first time.
+	
 	public override void _Ready()
 	{
 		direction = 0;
@@ -40,6 +41,7 @@ public partial class MovementComponent : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void Advance()
 	{
+		GD.Print("POWER " + body.Name + " : " + CurrentSpeedX + " | " + CurrentSpeedY);
 		body.Velocity = new Vector2(CurrentSpeedX, CurrentSpeedY);
 	}
 
@@ -69,7 +71,7 @@ public partial class MovementComponent : Node
 
 	public void AccelerateToSpeedY(double _delta)
 	{
-		GD.Print(MaxSpeedY, CurrentSpeedY, AccelY);
+		GD.Print("accel Y " + MaxSpeedY, CurrentSpeedY, AccelY);
 		if(MaxSpeedY > CurrentSpeedY)
 		{
 			CurrentSpeedY += AccelY * (float) _delta;
@@ -89,7 +91,6 @@ public partial class MovementComponent : Node
 	public void SetJump(float _jumpInput)
 	{
 		wantsToJump = _jumpInput;
-		GD.Print("wantsToJump ???" + wantsToJump);
 	}
 
 	public bool WantsJump()

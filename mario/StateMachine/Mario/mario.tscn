@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://b6ladm51dcuxd" path="res://StateMachine/Ennemies/Goomba/Sprites/Hats/Goombhat1.png" id="33_380el"]
 [ext_resource type="Script" uid="uid://ppyisw4b1lw0" path="res://ComponentScripts/InputComponent.cs" id="34_nvpig"]
 [ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="35_vx0sn"]
+[ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="36_alf4d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wrvex"]
 size = Vector2(10, 30)
@@ -183,6 +184,9 @@ scale_max = 5.0
 color_ramp = SubResource("GradientTexture1D_8g76r")
 alpha_curve = SubResource("CurveTexture_p7tcl")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vx0sn"]
+size = Vector2(10, 1.05)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7tcl"]
 size = Vector2(17, 1.05)
 
@@ -190,9 +194,15 @@ size = Vector2(17, 1.05)
 size = Vector2(10, 21)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
-collision_layer = 4
-collision_mask = 19
+collision_layer = 132
+collision_mask = 131
 script = ExtResource("1_wrvex")
+
+[node name="Chapeau" type="Sprite2D" parent="." unique_id=648267001]
+z_index = 2
+position = Vector2(-0.62499934, -26)
+scale = Vector2(0.46093747, 0.42187497)
+texture = ExtResource("33_380el")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=534852152]
 position = Vector2(0, -15)
@@ -203,7 +213,7 @@ z_index = 1
 position = Vector2(0, -16)
 scale = Vector2(0.666667, 0.5)
 sprite_frames = SubResource("SpriteFrames_vs7sc")
-animation = &"Idle"
+animation = &"WallSlide"
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1333984708]
@@ -238,7 +248,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadBox" unique_id=1209167452]
 scale = Vector2(1, 5)
-shape = SubResource("RectangleShape2D_p7tcl")
+shape = SubResource("RectangleShape2D_vx0sn")
 
 [node name="FeetBox" type="Area2D" parent="." unique_id=679397512]
 position = Vector2(0, -14)
@@ -249,12 +259,6 @@ collision_mask = 8
 position = Vector2(-0.5, 12.625)
 scale = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_p7tcl")
-
-[node name="Chapeau" type="Sprite2D" parent="." unique_id=648267001]
-z_index = 1
-position = Vector2(-0.62499934, -26)
-scale = Vector2(0.4609375, 0.42187497)
-texture = ExtResource("33_380el")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1118445141]
 position = Vector2(0, -14)
@@ -273,3 +277,9 @@ metadata/_custom_type_script = "uid://ppyisw4b1lw0"
 [node name="MovementComponent" type="Node" parent="." unique_id=1014503488]
 script = ExtResource("35_vx0sn")
 metadata/_custom_type_script = "uid://bdywv15qsbvuj"
+
+[node name="HurtComponent" type="Area2D" parent="." unique_id=1006124545]
+script = ExtResource("36_alf4d")
+metadata/_custom_type_script = "uid://dycv4om62lp72"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtComponent" unique_id=86307866]

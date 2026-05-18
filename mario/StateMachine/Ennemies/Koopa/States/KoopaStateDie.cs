@@ -12,15 +12,16 @@ public partial class KoopaStateDie : KoopaState
     public override void Enter(int _previousStateId)
     {
         GD.Print("enter state : Die" + this.Name);
+        koopa.QueueFree();
     }
 
     public override void Exit(int _previousStateId)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public override void PhysicsProcess(double _delta)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

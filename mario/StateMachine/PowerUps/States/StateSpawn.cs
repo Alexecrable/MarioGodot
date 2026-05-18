@@ -5,7 +5,7 @@ using Godot.Collections;
 
 public partial class StateSpawn : PowerState
 {
-    public StateSpawn(Powerup _powerUp) : base(_powerUp)
+    public StateSpawn(Powerup _powerUp, MovementComponent _movementComponent) : base(_powerUp, _movementComponent)
     {
         
     }
