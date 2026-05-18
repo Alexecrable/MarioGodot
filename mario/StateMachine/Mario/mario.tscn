@@ -260,15 +260,6 @@ position = Vector2(-0.5, 12.625)
 scale = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_p7tcl")
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=1118445141]
-position = Vector2(0, -14)
-collision_layer = 0
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=963571265]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_380el")
-
 [node name="InputComponent" type="Node" parent="." unique_id=1991858405]
 unique_name_in_owner = true
 script = ExtResource("34_nvpig")
@@ -282,4 +273,6 @@ metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 script = ExtResource("36_alf4d")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtComponent" unique_id=86307866]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=963571265]
+position = Vector2(0, -14.5)
+shape = SubResource("RectangleShape2D_380el")

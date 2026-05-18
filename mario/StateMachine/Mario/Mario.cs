@@ -53,12 +53,12 @@ public partial class Mario : CharacterBody2D
 	public RayCast2D raycastRight;
 	public RayCast2D raycastLeft;
 	public AudioStreamPlayer2D sfxPlayer;
-	public Area2D headBox, feetBox, hurtBox;
+	public Area2D headBox, feetBox;
 	private bool isHittingUp, isHittingDown;
 	private Timer invincibilityTimer, fireTimer;
 	public int currentPowerUpIndex;
 	PackedScene fireScene;
-	
+
 
 	public override void _Ready()
 	{
@@ -83,11 +83,11 @@ public partial class Mario : CharacterBody2D
 		headBox.BodyEntered += HittingUp;
 		feetBox = GetNode<Area2D>("FeetBox");
 		feetBox.AreaEntered += HittingDownArea;
-		hurtBox = GetNode<Area2D>("HurtBox");
-		hurtBox.AreaEntered += GetHurt;
 		chapeau = GetNode<Sprite2D>("Chapeau");
 		fireScene = ResourceLoader.Load<PackedScene>("res://World/FireBall.tscn");
-		
+		hurtComponent = GetNode<HurtComponent>("HurtComponent");
+		hurtComponent.Hurt += GetHurt;
+
 		isHittingUp = false;
 
 		InitStates();
@@ -130,9 +130,9 @@ public partial class Mario : CharacterBody2D
 
 	}
 
-	private void GetHurt(Node _area)
+	private void GetHurt()
 	{
-		GD.Print("mario hurt " + _area.Name);
+		GD.Print("mario hurt ");
 		if (currentPowerUpIndex == 0)
 		{
 			Die();
@@ -140,8 +140,7 @@ public partial class Mario : CharacterBody2D
 		else
 		{
 			currentPowerUpIndex--;
-			hurtBox.SetDeferred("monitoring",false);
-			//hurtBox.Monitoring = false;
+			hurtComponent.SetDeferred("monitoring", false);
 			invincibilityTimer.Start();
 			ChangeState((int)StateEnum.HURT);
 			tween = CreateTween();
@@ -164,21 +163,24 @@ public partial class Mario : CharacterBody2D
 		currentPowerUpIndex = _powerId;
 
 		switch (currentPowerUpIndex)
-        {
-            case (int)Mario.PowerEnum.BIG : Scale = new Vector2(1,1.5f);
-            break;
-            case (int)Mario.PowerEnum.FIRE : animation.Modulate = new Color(1,0,1);
-			Scale = new Vector2(1,1.5f);
-            break;
-        
-        }
+		{
+			case (int)Mario.PowerEnum.BIG:
+				Scale = new Vector2(1, 1.5f);
+				break;
+			case (int)Mario.PowerEnum.FIRE:
+				animation.Modulate = new Color(1, 0, 1);
+				Scale = new Vector2(1, 1.5f);
+				break;
+
+		}
 	}
 
 	private void InvincibilityEnd()
 	{
-		hurtBox.Monitoring = true;
+		
+		hurtComponent.SetDeferred("monitoring", true);
 		tween.Stop();
-		animation.Modulate = new Color(1,1,1);
+		animation.Modulate = new Color(1, 1, 1);
 	}
 
 	private void Die()
@@ -235,7 +237,7 @@ public partial class Mario : CharacterBody2D
 
 		states[currentStateIndex].PhysicsProcess(delta);
 		GD.Print("CLICK " + actionInput);
-		if(actionInput && currentPowerUpIndex == (int)PowerEnum.FIRE)
+		if (actionInput && currentPowerUpIndex == (int)PowerEnum.FIRE)
 		{
 			FireBall fireBall = fireScene.Instantiate<FireBall>();
 			AddSibling(fireBall);
