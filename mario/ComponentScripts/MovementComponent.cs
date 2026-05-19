@@ -35,7 +35,7 @@ public partial class MovementComponent : Node
 		AccelX = 700;
 		AccelY = 2000;
 		CurrentSpeedX = 250;
-		CurrentSpeedY = 20;
+		CurrentSpeedY = 0;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

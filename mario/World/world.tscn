@@ -35,8 +35,6 @@ script = ExtResource("1_3f78f")
 
 [node name="Mario" parent="." unique_id=690808613 instance=ExtResource("2_fj7yv")]
 position = Vector2(330, 247)
-startJumpGravity = -400
-jumpTime = 0.2
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=177785411]
 z_index = -6
@@ -104,6 +102,7 @@ position = Vector2(456, 264)
 position = Vector2(432, 360)
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1102385432]
+visible = false
 z_index = -8
 scroll_scale = Vector2(0.5, 0.5)
 

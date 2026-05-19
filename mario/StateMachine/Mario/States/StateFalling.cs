@@ -33,11 +33,11 @@ public partial class StateFalling : MarioState
 
     override public void PhysicsProcess(double _delta)
     {
-        GD.Print("falling");
-        if (!mario.IsGoingDown() && mario.yVelocity > 0)
-        {
-            mario.SetGoingDown();
-        }
+        //GD.Print("falling");
+        //if (!mario.IsGoingDown() && mario.yVelocity > 0)
+        //{
+        //    mario.SetGoingDown();
+        //}
         
         movementComponent.AccelerateToSpeedX(_delta);
         movementComponent.AccelerateToSpeedY(_delta);
@@ -45,7 +45,7 @@ public partial class StateFalling : MarioState
         if (mario.IsOnCeiling())
         {
             movementComponent.CurrentSpeedY = 10;
-            mario.SetGoingDown();
+            //mario.SetGoingDown();
             GD.Print("mari  " + mario.yVelocity);
         }
         movementComponent.Advance();

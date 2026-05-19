@@ -40,7 +40,7 @@ public partial class StateJumping : MarioState
 
         mario.animation.Play();
         mario.sfxPlayer.Play();
-        mario.SetGoingUp();
+        //mario.SetGoingUp();
         timer.Start();
         movementComponent.CurrentSpeedY = mario.startJumpGravity;
 
@@ -78,7 +78,7 @@ public partial class StateJumping : MarioState
         {
             timer.Stop();
             movementComponent.CurrentSpeedY = 0;
-            mario.SetGoingDown();
+            //mario.SetGoingDown();
             EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
 
         }

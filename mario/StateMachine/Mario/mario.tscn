@@ -270,6 +270,8 @@ script = ExtResource("35_vx0sn")
 metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 
 [node name="HurtComponent" type="Area2D" parent="." unique_id=1006124545]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("36_alf4d")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 

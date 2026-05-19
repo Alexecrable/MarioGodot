@@ -21,7 +21,7 @@ public partial class StateWallSlide : MarioState
     override public void Enter(int _stateID)
     {
         mario.sfxPlayer.Stream = wallSlideSFX;
-        mario.SetGoingDown();
+        //mario.SetGoingDown();
         mario.animation.Animation = "WallSlide";
         mario.animation.Play();
         movementComponent.CurrentSpeedX = 0;

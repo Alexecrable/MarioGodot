@@ -29,7 +29,7 @@ public partial class StateRunning : MarioState
         mario.animation.Animation = "Running";
        // mario.animation.Modulate = new Color(0,0,1);
         mario.animation.Play();
-        mario.SetGoingNeutral();
+        //mario.SetGoingNeutral();
         isCoyote = false;
         movementComponent.CurrentSpeedY = mario.startingGravity;
         movementComponent.CurrentSpeedX = mario.speed;

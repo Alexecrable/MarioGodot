@@ -21,7 +21,7 @@ public partial class StateIdle : MarioState
 
         
         movementComponent.CurrentSpeedY = 0;
-        mario.SetGoingNeutral();
+        //mario.SetGoingNeutral();
 
         mario.feetBox.CollisionLayer = 0;
         mario.feetBox.CollisionMask = 0;
