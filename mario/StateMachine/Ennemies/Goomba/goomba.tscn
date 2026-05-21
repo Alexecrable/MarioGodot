@@ -84,7 +84,7 @@ radius = 13.038404
 size = Vector2(26, 30)
 
 [node name="Goomba" type="CharacterBody2D" unique_id=819979439]
-collision_layer = 16
+collision_layer = 272
 collision_mask = 19
 script = ExtResource("1_ns1iw")
 

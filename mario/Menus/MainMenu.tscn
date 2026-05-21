@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dyflrgjc8i516"]
+
+[ext_resource type="Script" uid="uid://byuu324yipj71" path="res://Menus/MainMenu.cs" id="1_3g7qx"]
+
+[node name="MainMenu" type="Node2D" unique_id=1785195608]
+script = ExtResource("1_3g7qx")
+
+[node name="Label" type="Label" parent="." unique_id=1285323367]
+offset_left = 572.0
+offset_top = 252.0
+offset_right = 648.0
+offset_bottom = 275.0
+text = "BONJOUR"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="." unique_id=1266955376]
+offset_left = 595.0
+offset_top = 365.0
+offset_right = 701.0
+offset_bottom = 455.0
+text = "JOUE"
+metadata/_edit_use_anchors_ = true

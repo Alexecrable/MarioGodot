@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using Godot.Collections;
-public abstract partial class Ennemi : CharacterBody2D, IStateMachine
+public abstract partial class Ennemi : CharacterBody2D, IStateMachine, IInstaKillableObject
 {
     [Export]
     private int xdddddd = 32;

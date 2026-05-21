@@ -1,9 +1,5 @@
 using Godot;
 using Godot.Collections;
-using System;
-using System.Collections.Generic;
-using System.Net.Mail;
-using System.Security.AccessControl;
 
 
 /// BUGS
@@ -12,7 +8,7 @@ using System.Security.AccessControl;
 /// -> Couleur var créée, mais c degueu, idealement je fais un etat powerUp pour casser l'invincibilité et faire ça proprement
 /// 
 /// CHapeau de Mario pas toujours dans la bonne dir
-public partial class Mario : CharacterBody2D
+public partial class Mario : CharacterBody2D, IInstaKillableObject
 {
 
 	public enum PowerEnum
@@ -59,6 +55,7 @@ public partial class Mario : CharacterBody2D
 		isHittingDown,
 		isHittingUp = false;
 	private Array<MarioState> states;
+	private Array<FireBall> fireBalls;
 
 	//// Misc. ////
 	public GpuParticles2D particles;
@@ -69,10 +66,9 @@ public partial class Mario : CharacterBody2D
 	private Camera2D camera;
 	public RayCast2D raycastRight, raycastLeft;
 	public AudioStreamPlayer2D sfxPlayer;
-	PackedScene fireScene;
 
 	private Timer invincibilityTimer, fireTimer;
-	private Color currentColor = new Color(1,1,1);
+	private Color currentColor = new Color(1, 1, 1);
 	/////////
 
 
@@ -102,7 +98,6 @@ public partial class Mario : CharacterBody2D
 		headBox = GetNode<Area2D>("HeadBox");
 		feetBox = GetNode<Area2D>("FeetBox");
 		chapeau = GetNode<Sprite2D>("Chapeau");
-		fireScene = ResourceLoader.Load<PackedScene>("res://World/FireBall.tscn");
 
 
 		Scale = new Vector2(1, 1.5f);
@@ -118,6 +113,24 @@ public partial class Mario : CharacterBody2D
 		AddChild(invincibilityTimer);
 		ConnectSignals();
 		InitStates();
+		InitFireBalls();
+
+	}
+
+	private void InitFireBalls()
+	{
+		PackedScene fireScene = ResourceLoader.Load<PackedScene>("res://World/FireBall.tscn");
+
+		fireBalls = [
+			fireScene.Instantiate<FireBall>(),
+			fireScene.Instantiate<FireBall>(),
+		];
+		foreach (FireBall fireBall in fireBalls)
+		{
+			CallDeferred("add_sibling", fireBall);
+			///AddSibling(fireBall);
+		}
+
 	}
 
 	private void ConnectSignals()
@@ -165,16 +178,20 @@ public partial class Mario : CharacterBody2D
 
 	}
 
+	public void InstaKill()
+	{
+		Die();
+	}
+
 	private void GetHurt()
 	{
 		if (currentPowerUpIndex == 0)
 		{
-			DisconnectSignals();
 			Die();
 		}
 		else
 		{
-			currentColor = new Color(1,1,1);
+			currentColor = new Color(1, 1, 1);
 			animation.Modulate = currentColor;
 			currentPowerUpIndex--;
 			hurtComponent.SetDeferred("monitoring", false);
@@ -185,7 +202,7 @@ public partial class Mario : CharacterBody2D
 			tween.SetLoops();
 			tween.TweenProperty(animation, "modulate", new Color(0, 0, 0), 0.2);
 			tween.TweenProperty(animation, "modulate", new Color(1, 1, 1), 0.2);
-			
+
 		}
 	}
 
@@ -199,7 +216,7 @@ public partial class Mario : CharacterBody2D
 	public void GetPower(int _powerId)
 	{
 		currentPowerUpIndex = _powerId;
-		if(invincibilityTimer.TimeLeft > 0)
+		if (invincibilityTimer.TimeLeft > 0)
 		{
 			invincibilityTimer.Stop();
 
@@ -218,6 +235,8 @@ public partial class Mario : CharacterBody2D
 		}
 	}
 
+
+
 	private void InvincibilityEnd()
 	{
 
@@ -228,6 +247,7 @@ public partial class Mario : CharacterBody2D
 
 	private void Die()
 	{
+		DisconnectSignals();
 		QueueFree();
 	}
 
@@ -322,14 +342,31 @@ public partial class Mario : CharacterBody2D
 		}
 	}
 
-
+	public override void _ExitTree()
+	{
+		GD.Print("Mario : LEAVE");
+		//base._ExitTree();
+	}
 	private void LaunchFireBall()
 	{
-		FireBall fireBall = fireScene.Instantiate<FireBall>();
-		AddSibling(fireBall);
-		int direction = (animation.FlipH) ? -1 : 1;
-		fireBall.Position = Position + new Vector2(30 * direction, -30);
-		fireBall.SetDirection(direction);
+
+
+		//Prevoie si une boule lancée apres disaparait avant
+		//pour etre reutilisée direct
+		//pourrait etre gourmand si on a des millins de boules ?
+
+		//Pb : la fire Ball disappear en boucle si touche le wall ??
+		GD.Print("Fireballs : " + fireBalls);
+		foreach (FireBall fireBall in fireBalls)
+		{
+			if (!fireBall.Used)
+			{
+				int direction = (animation.FlipH) ? -1 : 1;
+				Vector2 position = Position + new Vector2(30 * direction, -30);
+				fireBall.Launch(position, direction);
+				break;
+			}
+		}
 	}
 
 

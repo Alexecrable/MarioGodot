@@ -184,7 +184,7 @@ size = Vector2(24, 34)
 size = Vector2(40, 32)
 
 [node name="Koopa" type="CharacterBody2D" unique_id=328616508]
-collision_layer = 16
+collision_layer = 272
 collision_mask = 19
 script = ExtResource("1_8764f")
 

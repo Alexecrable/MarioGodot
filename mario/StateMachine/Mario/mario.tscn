@@ -194,7 +194,7 @@ size = Vector2(17, 1.05)
 size = Vector2(10, 21)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
-collision_layer = 132
+collision_layer = 388
 collision_mask = 131
 script = ExtResource("1_wrvex")
 

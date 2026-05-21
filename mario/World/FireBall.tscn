@@ -26,7 +26,7 @@ metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2070984878]
 collision_layer = 0
-collision_mask = 16
+collision_mask = 272
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1649037045]
 shape = SubResource("CircleShape2D_bexrn")

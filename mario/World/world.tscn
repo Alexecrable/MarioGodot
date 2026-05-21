@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bxiuuinjflccb" path="res://StateMachine/PowerUps/BeerWalker/Shroom.tscn" id="8_eidgh"]
 [ext_resource type="PackedScene" uid="uid://0qvmjoe5qivc" path="res://StateMachine/PowerUps/FireFlower/fireFlower.tscn" id="9_oe8m4"]
 [ext_resource type="Texture2D" uid="uid://dk7ibcxbthm36" path="res://World/bg.jpg" id="10_w47uh"]
+[ext_resource type="Script" uid="uid://r2pleltpd1em" path="res://World/DeathFloor.cs" id="11_lo5ox"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3f78f"]
 texture = ExtResource("1_f3sb7")
@@ -29,6 +30,9 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_3f78f")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w47uh"]
+size = Vector2(2864, 98)
 
 [node name="World" type="Node2D" unique_id=864100633]
 script = ExtResource("1_3f78f")
@@ -109,3 +113,13 @@ scroll_scale = Vector2(0.5, 0.5)
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1429001002]
 position = Vector2(600, 144)
 texture = ExtResource("10_w47uh")
+
+[node name="DeathFloor" type="Area2D" parent="." unique_id=785883863]
+position = Vector2(0, 55)
+collision_layer = 256
+collision_mask = 256
+script = ExtResource("11_lo5ox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathFloor" unique_id=1430439460]
+position = Vector2(640, 592)
+shape = SubResource("RectangleShape2D_w47uh")

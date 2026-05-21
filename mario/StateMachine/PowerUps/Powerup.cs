@@ -3,7 +3,7 @@ using System;
 using Godot.Collections;
 
 
-public abstract partial class Powerup : CharacterBody2D, IStateMachine
+public abstract partial class Powerup : CharacterBody2D, IStateMachine, IInstaKillableObject
 {
 
 	public enum StateEnum
@@ -79,6 +79,11 @@ public abstract partial class Powerup : CharacterBody2D, IStateMachine
 		currentStateIndex = stateIndex;
 		states[currentStateIndex].enter();
 
+	}
+
+	public void InstaKill()
+	{
+		QueueFree();
 	}
 
 	public override void _Process(double delta)
