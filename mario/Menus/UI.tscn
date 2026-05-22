@@ -50,4 +50,4 @@ offset_bottom = -127.0
 text = "Time : 999"
 
 [node name="Timer" type="Timer" parent="Control" unique_id=129628056]
-autostart = true
+process_mode = 1

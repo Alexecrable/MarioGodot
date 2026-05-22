@@ -18,14 +18,23 @@ public partial class Ui : CanvasLayer
 		ScoreLabel = control.GetNode<Label>("Score");
 		timeLeft = 999;
 		timer.Timeout += timeUpdate;
+		timer.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		GD.Print("Canvas : Je SUI SOU " + control.Position + " | " + control.GlobalPosition);
+		
 	}
-
+	public void StartTimer(int time)
+	{
+		
+		timerLabel.Text = "TIME : " + time;
+		timeLeft = time;
+		timer.Start();
+		GD.Print("TIME : " +timer.Paused);
+		GD.Print("TIME : LANCE");
+	}
 	private void timeUpdate()
 	{
 		timeLeft--;

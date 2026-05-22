@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dy7wsw2yotrlg"]
+
+[ext_resource type="Script" uid="uid://rdcnun3667he" path="res://Menus/PauseMenu.cs" id="1_qnjt8"]
+
+[sub_resource type="Theme" id="Theme_1qlct"]
+default_font_size = 36
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1732826414]
+process_mode = 3
+script = ExtResource("1_qnjt8")
+
+[node name="Control" type="Control" parent="." unique_id=1051481439]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme = SubResource("Theme_1qlct")
+
+[node name="Label" type="Label" parent="Control" unique_id=699622140]
+layout_mode = 0
+offset_left = -62.0
+offset_top = -185.0
+offset_right = 51.0
+offset_bottom = -135.0
+text = "PAUSE"
+
+[node name="Button" type="Button" parent="Control" unique_id=1146421790]
+layout_mode = 0
+offset_left = -94.0
+offset_top = 39.0
+offset_right = 98.0
+offset_bottom = 97.0
+text = "Reprendre"

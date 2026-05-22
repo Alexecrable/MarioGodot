@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bicqfqfebtibt"]
+
+[ext_resource type="PackedScene" uid="uid://dyflrgjc8i516" path="res://Menus/MainMenu.tscn" id="1_wbfu4"]
+[ext_resource type="Script" uid="uid://buoop8tj0xgk4" path="res://Game.cs" id="1_xkndl"]
+[ext_resource type="PackedScene" uid="uid://dy7wsw2yotrlg" path="res://Menus/PauseMenu.tscn" id="3_u44n3"]
+
+[node name="Game" type="Node2D" unique_id=1789476020]
+process_mode = 3
+script = ExtResource("1_xkndl")
+
+[node name="MainMenu" parent="." unique_id=1785195608 instance=ExtResource("1_wbfu4")]
+
+[node name="PauseMenu" parent="." unique_id=1732826414 instance=ExtResource("3_u44n3")]
+process_mode = 0
+visible = false

@@ -1,14 +1,17 @@
 using Godot;
 using System;
 
-public partial class MainMenu : Node2D
+public partial class MainMenu : CanvasLayer
 {
 	// Called when the node enters the scene tree for the first time.
-	private Button button;
+	public Button button;
+
+	[Signal]
+	public delegate void LaunchGameEventHandler();
 	public override void _Ready()
 	{
 		button = GetNode<Button>("Button");
-		button.Pressed += LaunchGame;
+		button.Pressed += StartGame;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,8 +19,9 @@ public partial class MainMenu : Node2D
 	{
 	}
 
-	private void LaunchGame()
+	private void StartGame()
 	{
-	GetTree().ChangeSceneToFile("res://World/world.tscn");
+		GD.Print("wtf les mais");
+		EmitSignal(SignalName.LaunchGame);
 	}
 }
