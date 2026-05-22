@@ -11,6 +11,8 @@ using Godot.Collections;
 public partial class Mario : CharacterBody2D, IInstaKillableObject
 {
 
+	[Signal]
+	public delegate void MarioLifeUpdateEventHandler(int lives);
 	public enum PowerEnum
 	{
 		BASE = 0,
@@ -33,6 +35,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	/////////////////////////////
 
 	public Area2D headBox, feetBox;
+	private int lives = 3;
 	public int
 		speed = 250,
 		startingGravity = 0,
@@ -115,6 +118,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		InitStates();
 		InitFireBalls();
 
+		EmitSignal(SignalName.MarioLifeUpdate,lives);
+
 	}
 
 	private void InitFireBalls()
@@ -176,6 +181,11 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			ChangeState((int)StateEnum.JUMP);
 		}
 
+	}
+
+	private void Respawn()
+	{
+		
 	}
 
 	public void InstaKill()
@@ -245,10 +255,25 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		animation.Modulate = currentColor;
 	}
 
-	private void Die()
+	private void GameOver()
 	{
 		DisconnectSignals();
 		QueueFree();
+	}
+
+	private void Die()
+	{
+		lives--;
+		EmitSignal(SignalName.MarioLifeUpdate,lives);
+		if(lives == 0)
+		{
+			GameOver();
+		}
+		else
+		{
+			Respawn();
+		}
+		
 	}
 
 	private void InitStates()

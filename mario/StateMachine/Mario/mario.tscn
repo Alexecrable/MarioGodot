@@ -216,10 +216,6 @@ sprite_frames = SubResource("SpriteFrames_vs7sc")
 animation = &"WallSlide"
 metadata/_edit_lock_ = true
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1333984708]
-position = Vector2(0, -15)
-zoom = Vector2(2, 2)
-
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1420790582]
 position = Vector2(4, -28)
 rotation = -0.13962634
@@ -278,3 +274,6 @@ metadata/_custom_type_script = "uid://dycv4om62lp72"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=963571265]
 position = Vector2(0, -14.5)
 shape = SubResource("RectangleShape2D_380el")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=941608272]
+zoom = Vector2(2, 2)
