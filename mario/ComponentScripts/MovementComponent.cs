@@ -50,6 +50,11 @@ public partial class MovementComponent : Node
 		return body.IsOnCeiling();
 	}
 
+	public bool IsOnFloor()
+	{
+		return body.IsOnFloor();
+	}
+
 	public void SpeedX()
 	{
 		CurrentSpeedX = BaseSpeedX * direction;
@@ -71,6 +76,7 @@ public partial class MovementComponent : Node
 
 	public void AccelerateToSpeedY(double _delta)
 	{
+		
 		GD.Print("accel Y " + MaxSpeedY, CurrentSpeedY, AccelY);
 		if(MaxSpeedY > CurrentSpeedY)
 		{

@@ -18,9 +18,9 @@ public partial class GoombaStateDie : GoombaState
         goomba.hurtBox.CollisionMask = 0;
         goomba.skin.Animation = "DIE";
         goomba.CollisionLayer = 0;
-        goomba.CollisionMask = 0;
+        
         movementComponent.CurrentSpeedX = 0;
-        movementComponent.Advance();
+        movementComponent.AccelY = 100;
 
         goomba.chapeau.SautChapeau();
         goomba.chapeau.CallDeferred("reparent", goomba.GetParent());
@@ -39,6 +39,11 @@ public partial class GoombaStateDie : GoombaState
 
     public override void PhysicsProcess(double _delta)
     {
+       
+
+        //movementComponent.CurrentSpeedY = (movementComponent.IsOnFloor()) ? 0 : 200;
+        movementComponent.AccelerateToSpeedY(_delta);
+        movementComponent.Advance();
     }
 
 

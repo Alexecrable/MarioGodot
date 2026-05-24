@@ -4,12 +4,12 @@ using System;
 public partial class PowerBlock : StaticBody2D
 {
 	// Called when the node enters the scene tree for the first time.
-	private Sprite2D sprite;
+	protected Sprite2D sprite;
 	private Tween jumpTween;
 	private Area2D area;
 	private Powerup powerup;
 	private Texture2D emptyTexture;
-	private bool isEmpty;
+	protected bool isEmpty;
 
 	public override void _Ready()
 	{
@@ -54,7 +54,7 @@ public partial class PowerBlock : StaticBody2D
 
 	}
 
-	private void TryToKill()
+	protected void TryToKill()
 	{
 		GD.Print("trytokill");
 		foreach (CharacterBody2D body in area.GetOverlappingBodies())
@@ -71,7 +71,7 @@ public partial class PowerBlock : StaticBody2D
 		}
 	}
 
-	private void MakeEmpty()
+	protected void MakeEmpty()
 	{
 
 		sprite.Texture = emptyTexture;

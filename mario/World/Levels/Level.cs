@@ -25,8 +25,8 @@ public partial class Level : Node
 	[Signal]
 	public delegate void CheckPointEventHandler(Vector2 pos);
 	public Vector2 spawnPoint, checkPoint;
-	private Vector2 offSetVector = new Vector2(16,16);
-	private PackedScene koopaScene, goombaScene, powerBlockScene;
+	private Vector2 offSetVector = new Vector2(16, 16);
+	private PackedScene koopaScene, goombaScene, powerBlockScene, starBlockScene, flagScene, brickScene, coinBlockScene, coinScene;
 	[Export]
 	private int time;
 	private TileMapLayer tiles;
@@ -38,6 +38,8 @@ public partial class Level : Node
 		koopaScene = ResourceLoader.Load<PackedScene>("res://StateMachine/Ennemies/Koopa/koopa.tscn");
 		goombaScene = ResourceLoader.Load<PackedScene>("res://StateMachine/Ennemies/Goomba/goomba.tscn");
 		powerBlockScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/PowerBlock/PowerBlock.tscn");
+		brickScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/BrickBlock/BrickBlock.tscn");
+		flagScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/Flags/flag.tscn");
 	}
 
 
@@ -50,22 +52,41 @@ public partial class Level : Node
 			{
 				Vector2I positionVector = new Vector2I(i, y);
 				Vector2I lol = tiles.GetCellAtlasCoords(positionVector);
-			
-				
+
+
 				switch (lol)
 				{
-					case Vector2I(1, 1):
-						GD.Print("LevelSetup : PowerBlock " + i + " " + y);
+					case Vector2I(0, 1):
 						tiles.EraseCell(new Vector2I(i, y));
-						SpawnPowerBlock(positionVector);
+						SpawnBrickBlock(positionVector);
+						break;
+					case Vector2I(1, 1):
+						tiles.EraseCell(new Vector2I(i, y));
+						SpawnCoinBrickBlock(positionVector);
 						break;
 					case Vector2I(0, 2):
 						tiles.EraseCell(new Vector2I(i, y));
-						SpawnKoopa(positionVector);
+						SpawnPowerBlock(positionVector);
 						break;
 					case Vector2I(1, 2):
 						tiles.EraseCell(new Vector2I(i, y));
+						SpawnStarBlock(positionVector);
+						break;
+					case Vector2I(0, 3):
+						tiles.EraseCell(new Vector2I(i, y));
 						SpawnGoomba(positionVector);
+						break;
+					case Vector2I(1, 3):
+						tiles.EraseCell(new Vector2I(i, y));
+						SpawnKoopa(positionVector);
+						break;
+					case Vector2I(0, 4):
+						tiles.EraseCell(new Vector2I(i, y));
+						SpawnSpawnPoint(positionVector);
+						break;
+					case Vector2I(1, 4):
+						tiles.EraseCell(new Vector2I(i, y));
+						SpawnCheckPoint(positionVector);
 						break;
 				}
 
@@ -74,6 +95,45 @@ public partial class Level : Node
 		}
 	}
 
+	private void SpawnBrickBlock(Vector2I position)
+	{
+		BrickBlock brickBlock = brickScene.Instantiate<BrickBlock>();
+		brickBlock.Position = position * 32 + offSetVector;
+		AddChild(brickBlock);
+	}
+
+	private void SpawnCoinBrickBlock(Vector2I position)
+	{
+
+	}
+
+	private void SpawnCoin(Vector2I position)
+	{
+		
+	}
+
+	private void Spawn1Up(Vector2I position)
+	{
+		
+	}
+	private void SpawnSpawnPoint(Vector2I position)
+	{
+		
+		spawnPoint = position * 32 + offSetVector;
+		
+	}
+	private void SpawnCheckPoint(Vector2I position)
+	{
+		Flag flag = flagScene.Instantiate<Flag>();
+		checkPoint = position * 32 + offSetVector;
+		flag.Position = checkPoint;
+		AddChild(flag);
+	}
+
+	private void SpawnStarBlock(Vector2I position)
+	{
+		
+	}
 	private void SpawnPowerBlock(Vector2I position)
 	{
 		PowerBlock powerBlock = powerBlockScene.Instantiate<PowerBlock>();

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bmcy7bl3732ca"]
+
+[ext_resource type="Script" uid="uid://bdbaacgqdi03f" path="res://World/Blocs/BrickBlock/BrickBlock.cs" id="1_gc3lm"]
+[ext_resource type="Texture2D" uid="uid://dwoog65grfwkd" path="res://World/Blocs/BrickBlock/Sprites/BrickBlock.png" id="2_p2j73"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6j"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_de7fl"]
+size = Vector2(32, 4)
+
+[sub_resource type="Curve" id="Curve_d23uu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w8mxa"]
+curve = SubResource("Curve_d23uu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lhxqw"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.95
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, -1, 0)
+spread = 59.45
+initial_velocity_min = 102.56
+initial_velocity_max = 145.3
+gravity = Vector3(0, 300, 0)
+scale_min = 0.39999998
+scale_max = 0.9
+alpha_curve = SubResource("CurveTexture_w8mxa")
+
+[node name="BrickBlock" type="StaticBody2D" unique_id=318698517 groups=["Blocks"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_gc3lm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1291149728]
+texture = ExtResource("2_p2j73")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=364239452]
+shape = SubResource("RectangleShape2D_aln6j")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=955446535]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=224498250 groups=["Blocks", "Blockss"]]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_de7fl")
+
+[node name="Explosion" type="GPUParticles2D" parent="." unique_id=564645970]
+emitting = false
+amount = 40
+texture = ExtResource("2_p2j73")
+lifetime = 1.1300000000000001
+one_shot = true
+explosiveness = 1.0
+randomness = 0.94
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_lhxqw")

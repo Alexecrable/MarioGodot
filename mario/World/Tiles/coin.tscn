@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dnn61733yy37f"]
+
+[ext_resource type="Texture2D" uid="uid://dft13na4qlxey" path="res://World/Tiles/coin.png" id="1_p2yeb"]
+[ext_resource type="Script" uid="uid://b4k3tm5t2dhnr" path="res://World/Tiles/Coin.cs" id="2_il1rc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_il1rc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p2yeb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqd52"]
+size = Vector2(32, 32)
+
+[node name="Coin" type="AnimatedSprite2D" unique_id=1779415678]
+sprite_frames = SubResource("SpriteFrames_il1rc")
+script = ExtResource("2_il1rc")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=793358181]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1592932089]
+shape = SubResource("RectangleShape2D_uqd52")

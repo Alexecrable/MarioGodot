@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b0e1vb0eqoqpo"]
+
+[ext_resource type="Texture2D" uid="uid://dgpstwqnoo28p" path="res://World/Blocs/Flags/SpawnFlag.png" id="1_6uqub"]
+[ext_resource type="Script" uid="uid://dksc82qgewo4g" path="res://World/Blocs/Flags/Flag.cs" id="2_6uqub"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wbani"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_6uqub")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f02xm"]
+size = Vector2(23, 32)
+
+[node name="Flag" type="AnimatedSprite2D" unique_id=224190889]
+sprite_frames = SubResource("SpriteFrames_wbani")
+script = ExtResource("2_6uqub")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=222255411]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=785162615]
+position = Vector2(1.5, 0)
+shape = SubResource("RectangleShape2D_f02xm")

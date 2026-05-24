@@ -33,7 +33,7 @@ public partial class Game : Node2D
 		currentLevel = ResourceLoader.Load<PackedScene>("res://World/Levels/levelTest.tscn").Instantiate<Level>();
 		//GetTree().Paused = true;
 		AddChild(ui);
-		//AddChild(mario);
+		AddChild(mario);
 
 	}
 
@@ -63,6 +63,8 @@ public partial class Game : Node2D
 		GetTree().Paused = false;
 		AddChild(currentLevel);
 		currentLevel.LoadLevel();
+		mario.Position = currentLevel.spawnPoint;
+		mario.Visible = true;
 		ui.Visible = true;
 		mainMenu.Visible = false;
 	}
@@ -71,6 +73,8 @@ public partial class Game : Node2D
 	{
 		GD.Print("WORLD : PRET A LANCER UN MENU");
 		GetTree().ChangeSceneToFile("res://Menus/MainMenu.tscn");
+		mainMenu.Visible = true;
+		RemoveChild(currentLevel);
 	}
 
 

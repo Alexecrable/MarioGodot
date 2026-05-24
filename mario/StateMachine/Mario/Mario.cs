@@ -157,13 +157,12 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	{
 
 		//headBox.Monitoring = false;
-		if (!isHittingUp)
-		{
+		
 			isHittingUp = true;
 
-			PowerBlock powerBlock = (PowerBlock)_body;
-			powerBlock.Collision(currentPowerUpIndex);
-		}
+			IBlock block = (IBlock)_body;
+			block.Collision(currentPowerUpIndex);
+		
 
 
 
@@ -173,13 +172,10 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void HittingDownArea(Node _body)
 	{
-		//headBox.Monitoring = false;
-		if (!isHittingDown)
-		{
-			isHittingDown = true;
+		
 
 			ChangeState((int)StateEnum.JUMP);
-		}
+		
 
 	}
 
