@@ -28,6 +28,7 @@ public partial class GoombaStateDie : GoombaState
         GD.Print("ololol", goomba.chapeau.Position);
 
         //goomba.chapeau.Reparent(goomba.GetParent());
+        goomba.GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D").Play();
 
         deathTimer.Start();
     }

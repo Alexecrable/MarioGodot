@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://c2uv65rjl5l16" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs8.png" id="34_qos4f"]
 [ext_resource type="Texture2D" uid="uid://c7cph1us2dl0n" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Head1.png" id="35_61joq"]
 [ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="36_rkqiv"]
+[ext_resource type="AudioStream" uid="uid://js20ea40ek4e" path="res://SoundsBeta/koopaBLop.ogg" id="37_o3h2m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
 radius = 17.0
@@ -240,3 +241,6 @@ shape = SubResource("RectangleShape2D_o3h2m")
 [node name="MovementComponent" type="Node" parent="." unique_id=471244811]
 script = ExtResource("36_rkqiv")
 metadata/_custom_type_script = "uid://bdywv15qsbvuj"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=411645790]
+stream = ExtResource("37_o3h2m")

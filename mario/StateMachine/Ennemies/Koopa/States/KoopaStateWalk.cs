@@ -86,6 +86,7 @@ public partial class KoopaStateWalk : KoopaState
     private void HitBoxTouched(Node _body)
     {
         GD.Print("enter state: ici" + _body.Name + koopa.hurtBox.CollisionLayer + koopa.hurtBox.CollisionMask);
+                koopa.GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D").Play();
 
         EmitSignal(SignalName.Finished, (int)KoopaStateEnum.SHELL_IDLE);
     }

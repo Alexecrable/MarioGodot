@@ -7,6 +7,7 @@ public partial class DeathFloor : Area2D
 	public override void _Ready()
 	{
 		//AreaEntered += KillEveryArea;
+		GD.Print("insta : I AM READY" + this);
 		BodyEntered += KillEveryBody;
 	}
 
@@ -19,7 +20,9 @@ public partial class DeathFloor : Area2D
 	private void KillEveryBody(Node _body)
 	{
 		IInstaKillableObject instaKillableObject = (IInstaKillableObject)_body;
+		GD.Print("insta : " + GetNode<CollisionShape2D>("CollisionShape2D").Shape);
 		instaKillableObject.InstaKill();
+		
 	}
 
 	

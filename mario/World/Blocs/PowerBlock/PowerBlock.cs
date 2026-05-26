@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class PowerBlock : StaticBody2D
+public partial class PowerBlock : StaticBody2D, IBlock
 {
 	// Called when the node enters the scene tree for the first time.
 	protected Sprite2D sprite;
@@ -23,6 +23,7 @@ public partial class PowerBlock : StaticBody2D
 
 	public void Collision(int _currentPowerUpIndex)
 	{
+		GD.Print("PowerBlock : lol");
 		if (_currentPowerUpIndex == (int)Mario.PowerEnum.BASE)
 		{
 			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();

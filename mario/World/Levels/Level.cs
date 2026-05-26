@@ -1,6 +1,5 @@
 using Godot;
-using System;
-
+using Godot.Collections;
 public partial class Level : Node
 {
 
@@ -29,17 +28,27 @@ public partial class Level : Node
 	private PackedScene koopaScene, goombaScene, powerBlockScene, starBlockScene, flagScene, brickScene, coinBlockScene, coinScene;
 	[Export]
 	private int time;
-	private TileMapLayer tiles;
+	private TileMapLayer tiles, saveTiles;
+
+	private Array<Flag> flags;
 
 
+	public void ReloadLevel()
+	{
+		tiles = (TileMapLayer)saveTiles.Duplicate();
+		LoadLevel();
+	}
 	public override void _Ready()
 	{
 		tiles = GetNode<TileMapLayer>("TileMapLayer");
+		saveTiles = (TileMapLayer)tiles.Duplicate();
 		koopaScene = ResourceLoader.Load<PackedScene>("res://StateMachine/Ennemies/Koopa/koopa.tscn");
 		goombaScene = ResourceLoader.Load<PackedScene>("res://StateMachine/Ennemies/Goomba/goomba.tscn");
 		powerBlockScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/PowerBlock/PowerBlock.tscn");
 		brickScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/BrickBlock/BrickBlock.tscn");
 		flagScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/Flags/flag.tscn");
+		coinScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/coin.tscn");
+		flags = new Array<Flag>();
 	}
 
 
@@ -88,11 +97,20 @@ public partial class Level : Node
 						tiles.EraseCell(new Vector2I(i, y));
 						SpawnCheckPoint(positionVector);
 						break;
+					case Vector2I(0, 5):
+						tiles.EraseCell(new Vector2I(i, y));
+						SpawnCoin(positionVector);
+						break;
+					case Vector2I(1, 5):
+						tiles.EraseCell(new Vector2I(i, y));
+						//SpawnCoinBrickBlock(positionVector);
+						break;
 				}
 
 
 			}
 		}
+		
 	}
 
 	private void SpawnBrickBlock(Vector2I position)
@@ -104,35 +122,71 @@ public partial class Level : Node
 
 	private void SpawnCoinBrickBlock(Vector2I position)
 	{
-
+		GD.Print("LevelCoin : ");
+		BrickBlock brickBlock = brickScene.Instantiate<BrickBlock>();
+		brickBlock.Position = position * 32 + offSetVector;
+		brickBlock.HasCoin = true;
+		AddChild(brickBlock);
 	}
 
 	private void SpawnCoin(Vector2I position)
 	{
-		
+		Coin coin = coinScene.Instantiate<Coin>();
+		coin.Position = position * 32 + offSetVector;
+		coin.Play();
+
+		AddChild(coin);
 	}
 
 	private void Spawn1Up(Vector2I position)
 	{
-		
+
 	}
 	private void SpawnSpawnPoint(Vector2I position)
 	{
-		
+
 		spawnPoint = position * 32 + offSetVector;
-		
+
 	}
 	private void SpawnCheckPoint(Vector2I position)
 	{
 		Flag flag = flagScene.Instantiate<Flag>();
 		checkPoint = position * 32 + offSetVector;
 		flag.Position = checkPoint;
+		flag.NewSpawn += SetSpawnPoint;
+		flags.Add(flag);
 		AddChild(flag);
+
 	}
 
+	public void CheckSpawn(Vector2 position)
+	{
+		foreach (Flag flaggy in flags)
+		{
+			if (position == flaggy.Position)
+			{
+				flaggy.Modulate = new Color(0.5f, 1, 0.5f);
+				spawnPoint = flaggy.Position;
+				flaggy.Reached = true;
+			}
+
+		}
+	}
+	private void SetSpawnPoint(Flag flag)
+	{
+		foreach (Flag flaggy in flags)
+		{
+			flaggy.Modulate = new Color(1, 1, 1);
+			flaggy.Reached = false;
+		}
+		flag.Modulate = new Color(0.5f, 1, 0.5f);
+		spawnPoint = flag.Position;
+		flag.Reached = true;
+
+	}
 	private void SpawnStarBlock(Vector2I position)
 	{
-		
+
 	}
 	private void SpawnPowerBlock(Vector2I position)
 	{

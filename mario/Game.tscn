@@ -13,3 +13,6 @@ script = ExtResource("1_xkndl")
 [node name="PauseMenu" parent="." unique_id=1732826414 instance=ExtResource("3_u44n3")]
 process_mode = 0
 visible = false
+
+[node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=311549380]
+volume_db = 24.0

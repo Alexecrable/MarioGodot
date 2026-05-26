@@ -10,6 +10,8 @@ using Godot.Collections;
 /// CHapeau de Mario pas toujours dans la bonne dir
 public partial class Mario : CharacterBody2D, IInstaKillableObject
 {
+	[Signal]
+	public delegate void RespawnSignalEventHandler();
 
 	[Signal]
 	public delegate void MarioLifeUpdateEventHandler(int lives);
@@ -35,7 +37,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	/////////////////////////////
 
 	public Area2D headBox, feetBox;
-	private int lives = 3;
+	public int Lives { get; set; }
 	public int
 		speed = 250,
 		startingGravity = 0,
@@ -72,7 +74,10 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private Timer invincibilityTimer, fireTimer;
 	private Color currentColor = new Color(1, 1, 1);
+
+	private uint hold;
 	/////////
+	/// 
 
 
 	public override void _Ready()
@@ -91,7 +96,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 
 
-
+		Lives = 3;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		camera = GetNode<Camera2D>("Camera2D");
 		raycastLeft = GetNode<RayCast2D>("RayCast2D2");
@@ -118,7 +123,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		InitStates();
 		InitFireBalls();
 
-		EmitSignal(SignalName.MarioLifeUpdate,lives);
+		EmitSignal(SignalName.MarioLifeUpdate, Lives);
 
 	}
 
@@ -157,12 +162,12 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	{
 
 		//headBox.Monitoring = false;
-		
-			isHittingUp = true;
 
-			IBlock block = (IBlock)_body;
-			block.Collision(currentPowerUpIndex);
-		
+		isHittingUp = true;
+
+		IBlock block = (IBlock)_body;
+		block.Collision(currentPowerUpIndex);
+
 
 
 
@@ -172,20 +177,38 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void HittingDownArea(Node _body)
 	{
-		
 
-			ChangeState((int)StateEnum.JUMP);
-		
+
+		ChangeState((int)StateEnum.JUMP);
+
 
 	}
-
+	private bool respawning = false;
 	private void Respawn()
 	{
-		
+		GD.Print("Respawn : " + this.Name +respawning);
+		if (!respawning)
+		{
+		respawning = true;
+		Timer timer = new Timer();
+		timer.WaitTime = 2;
+		timer.OneShot = true;
+		AddChild(timer);
+		timer.Timeout += () =>
+		{
+			respawning = false;	
+			CollisionLayer = hold;
+		};
+		timer.Start();
+		EmitSignal(SignalName.RespawnSignal);
+		}
+			
 	}
 
 	public void InstaKill()
 	{
+		GD.Print("mario Die");
+		hold = CollisionLayer;
 		Die();
 	}
 
@@ -259,17 +282,19 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void Die()
 	{
-		lives--;
-		EmitSignal(SignalName.MarioLifeUpdate,lives);
-		if(lives == 0)
+
+		if (Lives == 0)
 		{
 			GameOver();
 		}
 		else
 		{
+			Lives--;
+			EmitSignal(SignalName.MarioLifeUpdate, Lives);
 			Respawn();
 		}
-		
+
+
 	}
 
 	private void InitStates()

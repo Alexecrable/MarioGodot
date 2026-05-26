@@ -11,6 +11,8 @@ public partial class Game : Node2D
 	private MainMenu mainMenu;
 	private Level currentLevel;
 	private PauseMenu pauseMenu;
+	private AudioStreamPlayer2D player;
+	private PackedScene levelScene;
 	private bool isPaused = false;
 
 
@@ -18,6 +20,8 @@ public partial class Game : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/levelTest.tscn");
+		player = GetNode<AudioStreamPlayer2D>("Music");
 		pauseMenu = GetNode<PauseMenu>("PauseMenu");
 		pauseMenu.resumeButton.Pressed += PauseMenu;
 		mainMenu = GetNode<MainMenu>("MainMenu");
@@ -30,10 +34,15 @@ public partial class Game : Node2D
 		mario.MarioLifeUpdate += ui.LifeUpdate;
 		ui.Visible = false;
 		mario.Visible = false;
-		currentLevel = ResourceLoader.Load<PackedScene>("res://World/Levels/levelTest.tscn").Instantiate<Level>();
+		//currentLevel = ResourceLoader.Load<PackedScene>("res://World/Levels/levelTest.tscn").Instantiate<Level>();
 		//GetTree().Paused = true;
 		AddChild(ui);
-		AddChild(mario);
+
+		mario.MarioLifeUpdate += ui.LifeUpdate;
+
+
+		player.Stream = ResourceLoader.Load<AudioStream>("res://SoundsBeta/title.ogg");
+		player.Play();
 
 	}
 
@@ -54,6 +63,8 @@ public partial class Game : Node2D
 		pauseMenu.Visible = !pauseMenu.Visible;
 		GetTree().Paused = !GetTree().Paused;
 		isPaused = !isPaused;
+		player.Playing = !player.Playing;
+		GD.Print("pause : " + GetChildren());
 	}
 
 	private void LaunchGame()
@@ -61,12 +72,47 @@ public partial class Game : Node2D
 		GD.Print("LevelSetup : ");
 		ui.StartTimer(125);
 		GetTree().Paused = false;
+		currentLevel = levelScene.Instantiate<Level>();
 		AddChild(currentLevel);
 		currentLevel.LoadLevel();
 		mario.Position = currentLevel.spawnPoint;
 		mario.Visible = true;
 		ui.Visible = true;
 		mainMenu.Visible = false;
+		AddChild(mario);
+		mario.RespawnSignal += () =>
+		{
+			GD.Print("insta : bef" + currentLevel.spawnPoint);
+			mario.GlobalPosition = Vector2.Zero;
+			GD.Print("insta : after" + currentLevel.spawnPoint);
+			GD.Print("CONNARD : mario bougé au vecteur 0");
+
+			GetTree().Paused = true;
+			Vector2 pos = currentLevel.spawnPoint;
+
+			//GD.Print("Respawn : ");
+			RemoveChild(currentLevel);
+			CallDeferred("remove_child", currentLevel);
+			//currentLevel.QueueFree();
+			Level swapLevel = levelScene.Instantiate<Level>();
+
+			AddChild(swapLevel);
+			GD.Print("CONNARD : tree exited after addchild");
+
+			swapLevel.LoadLevel();
+			swapLevel.CheckSpawn(pos);
+			mario.Position = pos;
+			GetTree().Paused = false;
+			currentLevel = swapLevel;
+
+			//RemoveChild(currentLevel);
+
+
+
+		};
+
+		player.Stream = ResourceLoader.Load<AudioStream>("res://SoundsBeta/maintheme.mp3");
+		player.Play();
 	}
 
 	private void MarioJustDied()
