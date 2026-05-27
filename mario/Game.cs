@@ -118,7 +118,7 @@ public partial class Game : Node2D
 		currentLevel.spawnPoint = spawnPoint;
 			
 		}
-		currentLevel.CheckSpawn(currentLevel.spawnPoint);
+		
 		titleCard.setTitle(currentLevel.Name, mario.Lives);
 		//player.Stop();
 		player.Play();
@@ -139,7 +139,7 @@ public partial class Game : Node2D
 
 
 			AddChild(currentLevel);
-
+			currentLevel.CheckSpawn(spawnPoint);
 			mario.Position = currentLevel.spawnPoint + new Vector2(100,0);
 			mario.Spawn();
 			timer.QueueFree();
