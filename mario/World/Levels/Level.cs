@@ -123,6 +123,7 @@ public partial class Level : Node
 
 
 			}
+			
 		}
 		//Timer timer = new Timer();
 		//timer.WaitTime = 2;
@@ -182,6 +183,7 @@ public partial class Level : Node
 		flag.NewSpawn += SetSpawnPoint;
 		flags.Add(flag);
 		AddChild(flag);
+		GD.Print("flaggy " + flag);
 
 	}
 
@@ -190,7 +192,8 @@ public partial class Level : Node
 		foreach (Flag flaggy in flags)
 		{
 			if (position == flaggy.Position)
-			{
+			{	
+				GD.Print("Flaggy success" + flaggy);
 				flaggy.Modulate = new Color(0.5f, 1, 0.5f);
 				spawnPoint = flaggy.Position;
 				flaggy.Reached = true;
