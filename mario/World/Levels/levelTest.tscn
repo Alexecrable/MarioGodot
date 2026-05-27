@@ -30,7 +30,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_rhtxf")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w47uh"]
-size = Vector2(2864, 98)
+size = Vector2(2864, 905)
 
 [node name="LevelTest" type="Node2D" unique_id=864100633]
 process_mode = 1
@@ -61,7 +61,7 @@ collision_mask = 256
 script = ExtResource("11_el52y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathFloor" unique_id=1430439460]
-position = Vector2(640, 592)
+position = Vector2(529, 1077)
 shape = SubResource("RectangleShape2D_w47uh")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1890147410]

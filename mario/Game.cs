@@ -13,6 +13,7 @@ public partial class Game : Node2D
 	private PauseMenu pauseMenu;
 	private AudioStreamPlayer2D player;
 	private PackedScene levelScene;
+	private TitleCard titleCard;
 	private bool isPaused = false;
 
 
@@ -20,6 +21,8 @@ public partial class Game : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		titleCard = GetNode<TitleCard>("TitleCard");
+		titleCard.Visible = false;
 		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/levelTest.tscn");
 		player = GetNode<AudioStreamPlayer2D>("Music");
 		pauseMenu = GetNode<PauseMenu>("PauseMenu");
@@ -59,6 +62,7 @@ public partial class Game : Node2D
 
 	private void PauseMenu()
 	{
+		
 		ui.Visible = !ui.Visible;
 		pauseMenu.Visible = !pauseMenu.Visible;
 		GetTree().Paused = !GetTree().Paused;
@@ -67,60 +71,101 @@ public partial class Game : Node2D
 		GD.Print("pause : " + GetChildren());
 	}
 
+
 	private void LaunchGame()
 	{
 		GD.Print("LevelSetup : ");
 		ui.StartTimer(125);
 		GetTree().Paused = false;
 		currentLevel = levelScene.Instantiate<Level>();
-		AddChild(currentLevel);
-		currentLevel.LoadLevel();
-		mario.Position = currentLevel.spawnPoint;
+		titleCard.setTitle(currentLevel.Name, mario.Lives);
+		
+		Level saveLevel = (Level)currentLevel.Duplicate();
+		ShowLevelCard();
+		
 		mario.Visible = true;
 		ui.Visible = true;
 		mainMenu.Visible = false;
+
 		AddChild(mario);
+		mario.Spawn();
 		mario.RespawnSignal += () =>
 		{
-			GD.Print("insta : bef" + currentLevel.spawnPoint);
-			mario.GlobalPosition = Vector2.Zero;
-			GD.Print("insta : after" + currentLevel.spawnPoint);
-			GD.Print("CONNARD : mario bougé au vecteur 0");
+			
+			GD.Print("respacn");
+			//uint save = mario.CollisionLayer;
+			//mario.CollisionLayer = 0;
+			//RemoveChild(mario);
+			//ResourceLoader.Load<PackedScene>("res://StateMachine/Mario/mario.tscn").Instantiate<Mario>();
+			titleCard.setTitle(currentLevel.Name, mario.Lives);
 
-			GetTree().Paused = true;
-			Vector2 pos = currentLevel.spawnPoint;
+			ShowLevelCard();
 
-			//GD.Print("Respawn : ");
+			Vector2 spawn = currentLevel.spawnPoint;
 			RemoveChild(currentLevel);
-			CallDeferred("remove_child", currentLevel);
-			//currentLevel.QueueFree();
-			Level swapLevel = levelScene.Instantiate<Level>();
-
-			AddChild(swapLevel);
-			GD.Print("CONNARD : tree exited after addchild");
-
-			swapLevel.LoadLevel();
-			swapLevel.CheckSpawn(pos);
-			mario.Position = pos;
-			GetTree().Paused = false;
-			currentLevel = swapLevel;
-
+			mario.Position = spawn;
+			
 			//RemoveChild(currentLevel);
-
-
-
+			//currentLevel = (Level)saveLevel.Duplicate();
 		};
 
 		player.Stream = ResourceLoader.Load<AudioStream>("res://SoundsBeta/maintheme.mp3");
 		player.Play();
 	}
+	private void ShowLevelCard()
+	{
+		//player.Stop();
+		player.Play();
+		//GetTree().Paused = true;
+		titleCard.Visible = true;
+		Timer timer = new Timer();
+		timer.WaitTime = 4;
+		AddChild(timer);
+		timer.Timeout += () =>
+		{
 
+			//RemoveChild(currentLevel);
+
+			//Timer timer = new Timer();
+			//timer.OneShot = true;
+			//timer.WaitTime = 2;
+			//timer.Timeout += () =>
+			//{
+			//	currentLevel = levelScene.Instantiate<Level>();
+			//	AddChild(currentLevel);
+			//	currentLevel.LoadLevel();
+			//	mario.Position = spawn;
+			//	mario.CollisionLayer = save;
+			//	AddChild(mario);
+			//	GD.Print("timeout : " + mario.Position);
+			//	RemoveChild(timer);
+			//};
+			//AddChild(timer);
+			//timer.Start();
+
+
+			//AddChild(currentLevel);
+			currentLevel = levelScene.Instantiate<Level>();
+			currentLevel.spawnPoint = mario.Position;
+			AddChild(currentLevel);
+			currentLevel.init();
+			currentLevel.LoadLevel();
+			currentLevel.CheckSpawn(currentLevel.spawnPoint);
+			mario.Position = currentLevel.spawnPoint;
+			mario.Spawn();
+			timer.QueueFree();
+			titleCard.Visible = false;
+			GetTree().Paused = false;
+		};
+		timer.Start();
+
+	}
 	private void MarioJustDied()
 	{
-		GD.Print("WORLD : PRET A LANCER UN MENU");
-		GetTree().ChangeSceneToFile("res://Menus/MainMenu.tscn");
-		mainMenu.Visible = true;
-		RemoveChild(currentLevel);
+		//GD.Print("WORLD : PRET A LANCER UN MENU");
+		//GetTree().ChangeSceneToFile("res://Menus/MainMenu.tscn");
+		//mainMenu.Visible = true;
+		//RemoveChild(currentLevel);
 	}
 
 
