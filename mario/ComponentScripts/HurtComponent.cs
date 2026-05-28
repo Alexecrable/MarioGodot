@@ -4,7 +4,7 @@ using System;
 public partial class HurtComponent : Area2D
 {
 	[Signal]
-	public delegate void HurtEventHandler();
+public delegate void HurtEventHandler(Area2D area);
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -19,6 +19,6 @@ public partial class HurtComponent : Area2D
 	private void MakeHurt(Area2D _area)
 	{
 		GD.Print("HurtComponent : Signal Sent");
-		EmitSignal(SignalName.Hurt);
+		EmitSignal(SignalName.Hurt, _area);
 	}
 }

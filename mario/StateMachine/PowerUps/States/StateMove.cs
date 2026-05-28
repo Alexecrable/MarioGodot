@@ -22,8 +22,8 @@ public partial class StateMove : PowerState
     }
     public override void PhysicsProcess(double delta)
     {
-        movementComponent.CurrentSpeedY = powerUp.IsOnFloor() ? 0 : 200;
-       
+        
+        movementComponent.AccelerateToSpeedY(delta);
 
     }
 	

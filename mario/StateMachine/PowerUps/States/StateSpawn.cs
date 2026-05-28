@@ -12,6 +12,7 @@ public partial class StateSpawn : PowerState
 
     public override void enter()
     {
+        GD.Print("starspawn ");
         Tween spawnTweener = CreateTween();
         spawnTweener.SetTrans(Tween.TransitionType.Linear);
         spawnTweener.TweenProperty(powerUp.GetSprite(), "position", new Vector2(0,0),0.4);

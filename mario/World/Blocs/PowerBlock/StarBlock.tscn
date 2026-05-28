@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b7fv5jp4o0823"]
+
+[ext_resource type="Script" uid="uid://bxxgg1aeujrd1" path="res://World/Blocs/PowerBlock/StarBlock.cs" id="1_gln5o"]
+[ext_resource type="Texture2D" uid="uid://d1nv3k4ct0evl" path="res://World/Blocs/PowerBlock/Sprites/PowerBlock.jpg" id="2_xmkx2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6j"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_de7fl"]
+size = Vector2(32, 4)
+
+[node name="StarBlock" type="StaticBody2D" unique_id=318698517 groups=["Blocks"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_gln5o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1291149728]
+texture = ExtResource("2_xmkx2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=364239452]
+shape = SubResource("RectangleShape2D_aln6j")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=955446535]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=224498250 groups=["Blocks", "Blockss"]]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_de7fl")

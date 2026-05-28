@@ -21,7 +21,7 @@ public partial class PowerBlock : StaticBody2D, IBlock
 		isEmpty = false;
 	}
 
-	public void Collision(int _currentPowerUpIndex)
+	public virtual void Collision(int _currentPowerUpIndex)
 	{
 		GD.Print("PowerBlock : lol");
 		if (_currentPowerUpIndex == (int)Mario.PowerEnum.BASE)

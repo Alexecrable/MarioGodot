@@ -6,10 +6,10 @@ public partial class StarBlock : PowerBlock
     // Called when the node enters the scene tree for the first time.
 
 
-    public new void  Collision(int _currentPowerUpIndex)
+    public override void  Collision(int _currentPowerUpIndex)
     {
         //Changer cte ligne pr load un objet ETOILE plutot
-        Powerup powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//FireFlower/fireFlower.tscn").Instantiate<FireFlower>();
+        Powerup powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps/Star/star.tscn").Instantiate<Star>();
         if (!isEmpty)
         {
             powerup.Position = Position + new Vector2(0, -30);

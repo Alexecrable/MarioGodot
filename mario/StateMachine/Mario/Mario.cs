@@ -19,7 +19,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	{
 		BASE = 0,
 		BIG = 1,
-		FIRE = 2
+		FIRE = 2,
+		STAR = 3
 	}
 	public enum StateEnum
 	{
@@ -38,6 +39,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public Area2D headBox, feetBox;
 	public int Lives { get; set; }
+	public bool invincible = false;
 	public int
 		speed = 250,
 		startingGravity = 0,
@@ -186,23 +188,23 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	private bool respawning = false;
 	private void Respawn()
 	{
-		GD.Print("Respawn : " + this.Name +respawning);
+		GD.Print("Respawn : " + this.Name + respawning);
 		if (!respawning)
 		{
-		respawning = true;
-		Timer timer = new Timer();
-		timer.WaitTime = 2;
-		timer.OneShot = true;
-		AddChild(timer);
-		timer.Timeout += () =>
-		{
-			respawning = false;	
-			CollisionLayer = hold;
-		};
-		timer.Start();
-		EmitSignal(SignalName.RespawnSignal);
+			respawning = true;
+			Timer timer = new Timer();
+			timer.WaitTime = 2;
+			timer.OneShot = true;
+			AddChild(timer);
+			timer.Timeout += () =>
+			{
+				respawning = false;
+				CollisionLayer = hold;
+			};
+			timer.Start();
+			EmitSignal(SignalName.RespawnSignal);
 		}
-			
+
 	}
 
 	public void InstaKill()
@@ -212,25 +214,36 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		Die();
 	}
 
-	private void GetHurt()
+	private void GetHurt(Area2D area)
 	{
+
 		if (currentPowerUpIndex == 0)
 		{
 			Die();
 		}
 		else
 		{
-			currentColor = new Color(1, 1, 1);
-			animation.Modulate = currentColor;
-			currentPowerUpIndex--;
-			hurtComponent.SetDeferred("monitoring", false);
-			invincibilityTimer.Start();
-			ChangeState((int)StateEnum.HURT);
-			tween = CreateTween();
-			tween.SetTrans(Tween.TransitionType.Sine);
-			tween.SetLoops();
-			tween.TweenProperty(animation, "modulate", new Color(0, 0, 0), 0.2);
-			tween.TweenProperty(animation, "modulate", new Color(1, 1, 1), 0.2);
+			if (!invincible)
+			{
+
+				currentColor = new Color(1, 1, 1);
+				animation.Modulate = currentColor;
+				currentPowerUpIndex--;
+				hurtComponent.SetDeferred("monitoring", false);
+				invincibilityTimer.Start();
+				ChangeState((int)StateEnum.HURT);
+				tween = CreateTween();
+				tween.SetTrans(Tween.TransitionType.Sine);
+				tween.SetLoops();
+				tween.TweenProperty(animation, "modulate", new Color(0, 0, 0), 0.2);
+				tween.TweenProperty(animation, "modulate", new Color(1, 1, 1), 0.2);
+			}
+			else
+			{
+				GD.Print("starRampage ");
+				IInstaKillableObject mort = (IInstaKillableObject)area.GetParent();
+				mort.InstaKill();
+			}
 
 		}
 	}
@@ -244,10 +257,15 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	}
 	public void GetPower(int _powerId)
 	{
-		currentPowerUpIndex = _powerId;
-		if (invincibilityTimer.TimeLeft > 0)
+		int save = currentPowerUpIndex;
+		if (invincibilityTimer.TimeLeft > 0 && currentPowerUpIndex != (int)PowerEnum.STAR)
 		{
 			invincibilityTimer.Stop();
+
+		}
+		if (_powerId > currentPowerUpIndex)
+		{
+			currentPowerUpIndex = _powerId;
 
 		}
 		switch (currentPowerUpIndex)
@@ -259,6 +277,33 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 				currentColor = new Color(1, 0, 1);
 				animation.Modulate = currentColor;
 				Scale = new Vector2(1, 1.5f);
+				break;
+			case (int)Mario.PowerEnum.STAR:
+
+				//Changer ça pr lancer une fonction ou je tue tout sur mon passage plutot
+				tween = CreateTween();
+				tween.SetTrans(Tween.TransitionType.Sine);
+				tween.SetLoops();
+				tween.TweenProperty(animation, "modulate", new Color(1, 1, 1), 0.1);
+				tween.TweenProperty(animation, "modulate", new Color(1, 0, 0), 0.1);
+				tween.TweenProperty(animation, "modulate", new Color(0, 1, 0), 0.1);
+				tween.TweenProperty(animation, "modulate", new Color(1, 1, 0), 0.1);
+				tween.TweenProperty(animation, "modulate", new Color(0, 0, 1), 0.1);
+				tween.TweenProperty(animation, "modulate", new Color(1, 0, 1), 0.1);
+				Timer starTimer = new Timer();
+				starTimer.WaitTime = 10;
+				starTimer.OneShot = true;
+				invincible = true;
+				starTimer.Timeout += () =>
+				{
+					invincible = false;
+					tween.Stop();
+					animation.Modulate = currentColor;
+				};
+				AddChild(starTimer);
+				starTimer.Start();
+				currentPowerUpIndex = save;
+
 				break;
 
 		}

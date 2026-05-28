@@ -45,9 +45,11 @@ public partial class Level : Node
 		koopaScene = ResourceLoader.Load<PackedScene>("res://StateMachine/Ennemies/Koopa/koopa.tscn");
 		goombaScene = ResourceLoader.Load<PackedScene>("res://StateMachine/Ennemies/Goomba/goomba.tscn");
 		powerBlockScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/PowerBlock/PowerBlock.tscn");
+		starBlockScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/PowerBlock/StarBlock.tscn");
 		brickScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/BrickBlock/BrickBlock.tscn");
 		flagScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/Flags/flag.tscn");
 		coinScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/coin.tscn");
+		
 		flags = new Array<Flag>();
 	}
 
@@ -110,7 +112,7 @@ public partial class Level : Node
 
 			}
 		}
-		
+
 	}
 
 	private void SpawnBrickBlock(Vector2I position)
@@ -186,7 +188,9 @@ public partial class Level : Node
 	}
 	private void SpawnStarBlock(Vector2I position)
 	{
-
+		StarBlock powerBlock = starBlockScene.Instantiate<StarBlock>();
+		powerBlock.Position = position * 32 + offSetVector;
+		AddChild(powerBlock);
 	}
 	private void SpawnPowerBlock(Vector2I position)
 	{
