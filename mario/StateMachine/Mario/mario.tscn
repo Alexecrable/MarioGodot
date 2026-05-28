@@ -2,13 +2,21 @@
 
 [ext_resource type="Script" uid="uid://bht473p5de1mi" path="res://StateMachine/Mario/Mario.cs" id="1_wrvex"]
 [ext_resource type="Texture2D" uid="uid://ci4gdin6okmxf" path="res://StateMachine/Mario/Sprites/Falling/Falling1.png" id="2_wve2w"]
+[ext_resource type="Texture2D" uid="uid://n42ga8hsynsh" path="res://StateMachine/Mario/Sprites/Die/Die1.png" id="3_gwaip"]
 [ext_resource type="Texture2D" uid="uid://q0sakhhh546p" path="res://StateMachine/Mario/Sprites/Falling/Falling2.png" id="3_nkkps"]
+[ext_resource type="Texture2D" uid="uid://dogby0omwakvw" path="res://StateMachine/Mario/Sprites/Die/Die2.png" id="4_n0vb7"]
 [ext_resource type="Texture2D" uid="uid://c0giwvnxxfyi1" path="res://StateMachine/Mario/Sprites/Falling/Falling3.png" id="4_p7tcl"]
 [ext_resource type="Texture2D" uid="uid://n8ribbxpufn8" path="res://StateMachine/Mario/Sprites/Falling/Falling4.png" id="5_8g76r"]
+[ext_resource type="Texture2D" uid="uid://b6u12bcuq2sy1" path="res://StateMachine/Mario/Sprites/Die/Die3.png" id="5_tfgfo"]
 [ext_resource type="Texture2D" uid="uid://dar2wi6yhg1es" path="res://StateMachine/Mario/Sprites/Idle/Idle1.png" id="6_lcelt"]
+[ext_resource type="Texture2D" uid="uid://d1mo8cb3tvig3" path="res://StateMachine/Mario/Sprites/Die/Die4.png" id="6_vnrwh"]
 [ext_resource type="Texture2D" uid="uid://f65uuo5j1s1d" path="res://StateMachine/Mario/Sprites/Idle/Idle2.png" id="7_ov0sn"]
+[ext_resource type="Texture2D" uid="uid://dedgguxlu0mre" path="res://StateMachine/Mario/Sprites/Die/Die5.png" id="7_yk654"]
+[ext_resource type="Texture2D" uid="uid://d2gowamgts78y" path="res://StateMachine/Mario/Sprites/Die/Die6.png" id="8_jfwyq"]
 [ext_resource type="Texture2D" uid="uid://qefep556bupo" path="res://StateMachine/Mario/Sprites/Idle/Idle3.png" id="8_t7a4b"]
+[ext_resource type="Texture2D" uid="uid://d1wdifm1le2r0" path="res://StateMachine/Mario/Sprites/Die/Die7.png" id="9_ei1fo"]
 [ext_resource type="Texture2D" uid="uid://r7nkuolljjg0" path="res://StateMachine/Mario/Sprites/Idle/Idle4.png" id="9_wwp4g"]
+[ext_resource type="Texture2D" uid="uid://tr7pjfb58ep5" path="res://StateMachine/Mario/Sprites/Die/Die8.png" id="10_n3our"]
 [ext_resource type="Texture2D" uid="uid://5cs83low7lvi" path="res://StateMachine/Mario/Sprites/Idle/Idle5.png" id="10_xgdnb"]
 [ext_resource type="Texture2D" uid="uid://cg4aqdx1xsaia" path="res://StateMachine/Mario/Sprites/Idle/Idle6.png" id="11_hpgai"]
 [ext_resource type="Texture2D" uid="uid://ckag772vcpc0g" path="res://StateMachine/Mario/Sprites/Idle/Idle7.png" id="12_ttriv"]
@@ -42,6 +50,35 @@ size = Vector2(10, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vs7sc"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gwaip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n0vb7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_tfgfo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vnrwh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yk654")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jfwyq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ei1fo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_n3our")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 9.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_wve2w")
@@ -214,7 +251,9 @@ z_index = 1
 position = Vector2(0, -16)
 scale = Vector2(0.666667, 0.5)
 sprite_frames = SubResource("SpriteFrames_vs7sc")
-animation = &"WallSlide"
+animation = &"Die"
+frame = 7
+frame_progress = 1.0
 metadata/_edit_lock_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1420790582]

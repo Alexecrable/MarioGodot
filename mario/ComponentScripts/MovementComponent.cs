@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Dynamic;
+using System.Text.Json.Serialization;
 [GlobalClass]
 public partial class MovementComponent : Node
 {
@@ -108,6 +109,8 @@ public partial class MovementComponent : Node
 	{
 		return direction != 0;
 	}
+
+    
 
 	
 }

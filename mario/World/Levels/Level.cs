@@ -31,6 +31,9 @@ public partial class Level : Node
 	private TileMapLayer tiles, saveTiles;
 
 	private Array<Flag> flags;
+	private DeathFloor deathFloor;
+	private Array<Goomba> goombas;
+	
 
 
 	public void ReloadLevel()
@@ -39,6 +42,11 @@ public partial class Level : Node
 		LoadLevel();
 	}
 	public override void _Ready()
+	{
+		
+	}
+
+	public void init()
 	{
 		tiles = GetNode<TileMapLayer>("TileMapLayer");
 		saveTiles = (TileMapLayer)tiles.Duplicate();
@@ -51,12 +59,18 @@ public partial class Level : Node
 		coinScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/coin.tscn");
 		
 		flags = new Array<Flag>();
-	}
+		deathFloor = GetNode<DeathFloor>("DeathFloor");
+		GD.Print("loaad " + deathFloor);
+		goombas = new Array<Goomba>();
+		
+	}	
 
 
 
 	public void LoadLevel()
 	{
+		GD.Print("load : " + tiles + " | " + saveTiles);
+		//tiles = (TileMapLayer)saveTiles.Duplicate();
 		for (int i = 0; i < 300; i++)
 		{
 			for (int y = 0; y < 300; y++)
@@ -111,8 +125,20 @@ public partial class Level : Node
 
 
 			}
+			
 		}
-
+		//Timer timer = new Timer();
+		//timer.WaitTime = 2;
+		//timer.Timeout += () =>
+		//{
+		//	GetNode<DeathFloor>("DeathFloor").setup();
+		//	RemoveChild(timer);
+		//};
+		//AddChild(timer);
+//
+		//timer.OneShot = true;
+		//timer.Start();
+		deathFloor.setup();
 	}
 
 	private void SpawnBrickBlock(Vector2I position)
@@ -158,6 +184,7 @@ public partial class Level : Node
 		flag.NewSpawn += SetSpawnPoint;
 		flags.Add(flag);
 		AddChild(flag);
+		GD.Print("flaggy " + flag);
 
 	}
 
@@ -166,7 +193,8 @@ public partial class Level : Node
 		foreach (Flag flaggy in flags)
 		{
 			if (position == flaggy.Position)
-			{
+			{	
+				GD.Print("Flaggy success" + flaggy);
 				flaggy.Modulate = new Color(0.5f, 1, 0.5f);
 				spawnPoint = flaggy.Position;
 				flaggy.Reached = true;
@@ -202,6 +230,7 @@ public partial class Level : Node
 	{
 		Goomba goomba = goombaScene.Instantiate<Goomba>();
 		goomba.Position = position * 32 + offSetVector;
+		goombas.Add(goomba);
 		AddChild(goomba);
 	}
 	private void SpawnKoopa(Vector2I position)

@@ -29,7 +29,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		FALL = 2,
 		MOVE = 3,
 		WALLSLIDE = 4,
-		HURT = 5
+		HURT = 5,
+		DIE = 6
 	}
 	// Composants externes (Composition) //
 	private InputComponent inputComponent;
@@ -129,6 +130,15 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	}
 
+	public void Spawn()
+	{
+		currentPowerUpIndex = (int)PowerEnum.BASE;
+		Scale = new Vector2(1,1);
+		Modulate = new Color(1,1,1);
+		ChangeState((int)StateEnum.IDLE);
+		//CollisionLayer = 4 + 128 + 256;
+	}
+
 	private void InitFireBalls()
 	{
 		PackedScene fireScene = ResourceLoader.Load<PackedScene>("res://World/FireBall.tscn");
@@ -186,7 +196,9 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	}
 	private bool respawning = false;
-	private void Respawn()
+	
+
+	public void EmittingRespawnSignal()
 	{
 		GD.Print("Respawn : " + this.Name + respawning);
 		if (!respawning)
@@ -319,7 +331,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		animation.Modulate = currentColor;
 	}
 
-	private void GameOver()
+	public void GameOver()
 	{
 		DisconnectSignals();
 		QueueFree();
@@ -328,18 +340,12 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	private void Die()
 	{
 
-		if (Lives == 0)
-		{
-			GameOver();
-		}
-		else
-		{
-			Lives--;
-			EmitSignal(SignalName.MarioLifeUpdate, Lives);
-			Respawn();
-		}
+		ChangeState((int)StateEnum.DIE);
+	}
 
-
+	public void EmittingLifeUpdate()
+	{
+		EmitSignal(SignalName.MarioLifeUpdate, Lives);
 	}
 
 	private void InitStates()
@@ -352,6 +358,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			new StateRunning(this, movementComponent),
 			new StateWallSlide(this, movementComponent),
 			new StateHurt(this, movementComponent),
+			new StateDie(this, movementComponent)
 			];
 
 		foreach (MarioState state in states)
@@ -364,7 +371,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void ChangeState(int stateIndex)
 	{
-
+		GD.Print("change : " + currentStateIndex + " -> " + stateIndex + " | ");
 		int lastIndex = currentStateIndex;
 		states[currentStateIndex].Exit(stateIndex);
 		currentStateIndex = stateIndex;
@@ -375,8 +382,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		camera.GlobalPosition = new Vector2(Position.X + 30, 450);
-
+		//camera.GlobalPosition = new Vector2(Position.X + 30, 450);
+		
 	}
 
 	public override void _PhysicsProcess(double delta)

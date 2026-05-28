@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://dyflrgjc8i516" path="res://Menus/MainMenu.tscn" id="1_wbfu4"]
 [ext_resource type="Script" uid="uid://buoop8tj0xgk4" path="res://Game.cs" id="1_xkndl"]
 [ext_resource type="PackedScene" uid="uid://dy7wsw2yotrlg" path="res://Menus/PauseMenu.tscn" id="3_u44n3"]
+[ext_resource type="PackedScene" uid="uid://c4etmoo7yohsf" path="res://Menus/TitleCard.tscn" id="4_sb48q"]
+[ext_resource type="PackedScene" uid="uid://8tt16c1ff5cp" path="res://Menus/UI.tscn" id="5_t88pq"]
 
 [node name="Game" type="Node2D" unique_id=1789476020]
 process_mode = 3
@@ -16,3 +18,7 @@ visible = false
 
 [node name="Music" type="AudioStreamPlayer2D" parent="." unique_id=311549380]
 volume_db = 24.0
+
+[node name="TitleCard" parent="." unique_id=2094376535 instance=ExtResource("4_sb48q")]
+
+[node name="UI" parent="." unique_id=203483582 instance=ExtResource("5_t88pq")]

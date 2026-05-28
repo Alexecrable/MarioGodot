@@ -12,6 +12,7 @@ public partial class Flag : AnimatedSprite2D
 
 	private void FlagReached(Node _body)
 	{
+		GD.Print("flaggy " + Reached + this);
 		if (!Reached)
 		{
 			EmitSignal(SignalName.NewSpawn, this);
