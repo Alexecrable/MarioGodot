@@ -28,14 +28,13 @@ public partial class GoombaStateWalk : GoombaState
     {
         goomba.skin.Play();
         movementComponent.CurrentSpeedX = velocitySave;
-        goomba.hurtBox.AreaEntered += HitBoxTouched;
+        goomba.hurtBox.Hurt += HitBoxTouched;
     }
 
     public override void Exit(int _previousStateId)
     {
         velocitySave = movementComponent.CurrentSpeedX;
-        GD.Print("Screen Goomb " + movementComponent.CurrentSpeedX);
-        goomba.hurtBox.AreaEntered -= HitBoxTouched;
+        goomba.hurtBox.Hurt -= HitBoxTouched;
     }
 
     public override void PhysicsProcess(double _delta)

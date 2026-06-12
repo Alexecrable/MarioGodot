@@ -11,7 +11,6 @@ public partial class KoopaStateWakeUp : KoopaState
 
     public override void Enter(int _previousStateId)
     {
-        GD.Print("enter state : WakeUp" + this.Name);
     }
 
     public override void Exit(int _previousStateId)

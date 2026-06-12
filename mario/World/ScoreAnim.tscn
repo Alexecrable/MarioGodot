@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://etarxwyxhoo"]
+
+[ext_resource type="Script" uid="uid://c57am22qcv6xn" path="res://World/ScoreAnim.cs" id="1_vwscp"]
+
+[node name="ScoreAnim" type="Label" unique_id=1988828695]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_vwscp")

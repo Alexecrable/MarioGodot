@@ -21,7 +21,6 @@ public partial class MainMenu : CanvasLayer
 
 	private void StartGame()
 	{
-		GD.Print("wtf les mais");
 		EmitSignal(SignalName.LaunchGame);
 	}
 }

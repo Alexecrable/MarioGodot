@@ -19,11 +19,7 @@ public partial class KoopaStateWalk : KoopaState
         flipBufferTimer.Timeout += FlipBufferEnd;
 
     }
-    private void TurnAreaExited(Node _body)
-    {
-        GD.Print("exited " + _body);
-        FlipKoopa();
-    }
+    
 
     private void FlipKoopa()
     {
@@ -40,12 +36,10 @@ public partial class KoopaStateWalk : KoopaState
 
     public override void Enter(int _previousStateId)
     {
-        GD.Print("enter state : Walk" + this.Name);
         koopa.legs.Play();
         koopa.eyes.Play();
         movementComponent.CurrentSpeedX = velocitySave;
         movementComponent.Advance();
-        koopa.turnAroundArea.BodyExited += TurnAreaExited;
         notifier.ScreenExited += ScreenExited;
         koopa.hurtBox.AreaEntered += HitBoxTouched;
 
@@ -57,7 +51,6 @@ public partial class KoopaStateWalk : KoopaState
     public override void Exit(int _previousStateId)
     {
         velocitySave = movementComponent.CurrentSpeedX;
-        koopa.turnAroundArea.BodyExited -= TurnAreaExited;
         notifier.ScreenExited -= ScreenExited;
         koopa.hurtBox.AreaEntered -= HitBoxTouched;
 
@@ -66,11 +59,19 @@ public partial class KoopaStateWalk : KoopaState
 
     public override void PhysicsProcess(double _delta)
     {
+
         if (koopa.IsOnWall() && !flipBufferActive)
         {
             FlipKoopa();
 
 
+        }
+        else
+        {
+            if (!koopa.turnAroundRay.IsColliding())
+            {
+                FlipKoopa();
+            }
         }
 
     }
@@ -85,9 +86,8 @@ public partial class KoopaStateWalk : KoopaState
 
     private void HitBoxTouched(Node _body)
     {
-        GD.Print("enter state: ici" + _body.Name + koopa.hurtBox.CollisionLayer + koopa.hurtBox.CollisionMask);
                 koopa.GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D").Play();
-
+        GD.Print("xbox");
         EmitSignal(SignalName.Finished, (int)KoopaStateEnum.SHELL_IDLE);
     }
 }

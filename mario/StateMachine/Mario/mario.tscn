@@ -228,12 +228,11 @@ size = Vector2(10, 1.05)
 size = Vector2(17, 1.05)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_380el"]
-size = Vector2(10, 21)
+size = Vector2(8, 21)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
 process_mode = 1
-collision_layer = 388
-collision_mask = 131
+collision_layer = 0
 script = ExtResource("1_wrvex")
 
 [node name="Chapeau" type="Sprite2D" parent="." unique_id=648267001]
@@ -251,9 +250,7 @@ z_index = 1
 position = Vector2(0, -16)
 scale = Vector2(0.666667, 0.5)
 sprite_frames = SubResource("SpriteFrames_vs7sc")
-animation = &"Die"
-frame = 7
-frame_progress = 1.0
+animation = &"Idle"
 metadata/_edit_lock_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1420790582]
@@ -280,7 +277,6 @@ playback_type = 1
 [node name="HeadBox" type="Area2D" parent="." unique_id=118383199]
 position = Vector2(0, -28)
 collision_layer = 0
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadBox" unique_id=1209167452]
 scale = Vector2(1, 5)
@@ -288,8 +284,8 @@ shape = SubResource("RectangleShape2D_vx0sn")
 
 [node name="FeetBox" type="Area2D" parent="." unique_id=679397512]
 position = Vector2(0, -14)
-collision_layer = 4
-collision_mask = 8
+collision_layer = 16
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FeetBox" unique_id=456504442]
 position = Vector2(-0.5, 12.625)
@@ -307,13 +303,14 @@ metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 
 [node name="HurtComponent" type="Area2D" parent="." unique_id=1006124545]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 0
 script = ExtResource("36_alf4d")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=963571265]
 position = Vector2(0, -14.5)
 shape = SubResource("RectangleShape2D_380el")
+debug_color = Color(0.973972, 0, 0.4335659, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=941608272]
 zoom = Vector2(2, 2)

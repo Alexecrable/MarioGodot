@@ -11,7 +11,14 @@ public partial class KoopaStateDie : KoopaState
 
     public override void Enter(int _previousStateId)
     {
-        GD.Print("enter state : Die" + this.Name);
+        ScoreAnim scoreAnim = new ScoreAnim();
+        scoreAnim.ScoreToShow = 100;
+        scoreAnim.GlobalPosition = koopa.GlobalPosition ;
+        koopa.AddSibling(scoreAnim);
+        GD.Print(scoreAnim.GlobalPosition + "score a");
+
+        koopa.EmitSignal(Goomba.SignalName.DiedSignal, 100);
+        koopa.EmitSignal(Koopa.SignalName.DiedSignal, 200);
         koopa.QueueFree();
     }
 

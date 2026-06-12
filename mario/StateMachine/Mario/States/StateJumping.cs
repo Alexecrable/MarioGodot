@@ -33,7 +33,7 @@ public partial class StateJumping : MarioState
     override public void Enter(int _stateID)
     {
         //mario.Velocity += new Vector2(0, 50);
-        GD.Print("enter jump");
+        
         GD.Print(movementComponent.CurrentSpeedX);
         mario.animation.Animation = "Jumping";
         mario.sfxPlayer.Stream = jumpSFX;
@@ -44,8 +44,9 @@ public partial class StateJumping : MarioState
         timer.Start();
         movementComponent.CurrentSpeedY = mario.startJumpGravity;
 
-        mario.feetBox.CollisionLayer = 4;
-        mario.feetBox.CollisionMask = 8;
+       
+
+        GD.Print("enter state : jumping");
     }
 
 

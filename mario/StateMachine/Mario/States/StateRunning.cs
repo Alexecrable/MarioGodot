@@ -35,8 +35,8 @@ public partial class StateRunning : MarioState
         movementComponent.CurrentSpeedX = mario.speed;
         mario.chapeau.Offset = new Vector2(13 * (mario.rightInput - mario.leftInput),4);
 
-        mario.feetBox.CollisionLayer = 0;
-        mario.feetBox.CollisionMask = 0;
+     
+        GD.Print("enter state : running");
     }
 
     override public void Exit(int _stateID)
@@ -48,6 +48,8 @@ public partial class StateRunning : MarioState
 
     override public void PhysicsProcess(double _delta)
     {
+                GD.Print("mariovit: " + movementComponent.CurrentSpeedX);
+
         movementComponent.SpeedX();
         movementComponent.Advance();
         if (mario.rightInput - mario.leftInput < 0)

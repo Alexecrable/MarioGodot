@@ -29,6 +29,10 @@ public partial class StateWallSlide : MarioState
         movementComponent.Advance();
         mario.animation.FlipH = mario.raycastLeft.IsColliding();
         mario.particles.Emitting = true;
+
+        GD.Print("enter state : wallslide");
+
+
         if (mario.animation.FlipH)
         {
             mario.particles.Position = new Vector2(-6, -14);
@@ -44,9 +48,7 @@ public partial class StateWallSlide : MarioState
         }
         mario.sfxPlayer.Play();
 
-        mario.feetBox.CollisionLayer = 4;
-        mario.feetBox.CollisionMask = 8;
-
+       
     }
 
 // 10 3

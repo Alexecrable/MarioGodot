@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://d0qwnsqts7v33" path="res://World/Chapeau.cs" id="16_e3tbb"]
 [ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="16_qmmba"]
 [ext_resource type="AudioStream" uid="uid://bga34uq4vlxas" path="res://SoundsBeta/scream.ogg" id="18_huosm"]
+[ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="19_0r87e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
 animations = [{
@@ -74,19 +75,21 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 13.0
-height = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0r87e"]
+size = Vector2(22, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qmmba"]
 radius = 13.038404
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qmmba"]
-size = Vector2(26, 30)
+size = Vector2(23, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbo4n"]
+size = Vector2(19, 23)
 
 [node name="Goomba" type="CharacterBody2D" unique_id=819979439]
-collision_layer = 272
-collision_mask = 19
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_ns1iw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1455411747]
@@ -94,8 +97,9 @@ sprite_frames = SubResource("SpriteFrames_x11xh")
 animation = &"WALK"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=616647000]
-position = Vector2(-2, 0)
-shape = SubResource("CapsuleShape2D_b5ej4")
+visible = false
+position = Vector2(-3, 1)
+shape = SubResource("RectangleShape2D_0r87e")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1424409436]
 rect = Rect2(-16, -23, 32, 46)
@@ -109,14 +113,16 @@ script = ExtResource("16_e3tbb")
 [node name="Sprite2D" type="Sprite2D" parent="Chapeau" unique_id=473815014]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chapeau" unique_id=1295237062]
+visible = false
 position = Vector2(3, 1)
 shape = SubResource("CircleShape2D_qmmba")
 
 [node name="Area2D" type="Area2D" parent="Chapeau" unique_id=629388292]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Chapeau/Area2D" unique_id=1091538690]
+visible = false
 position = Vector2(3, 1)
 shape = SubResource("CircleShape2D_qmmba")
 
@@ -124,13 +130,25 @@ shape = SubResource("CircleShape2D_qmmba")
 script = ExtResource("16_qmmba")
 metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=938043319]
-collision_layer = 8
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=922681933]
-position = Vector2(-3, 1)
-shape = SubResource("RectangleShape2D_qmmba")
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1269803370]
 stream = ExtResource("18_huosm")
+
+[node name="GoombaHurtComponent" type="Area2D" parent="." unique_id=703573021]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("19_0r87e")
+metadata/_custom_type_script = "uid://dycv4om62lp72"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoombaHurtComponent" unique_id=922681933]
+position = Vector2(-2.5, 0.5)
+shape = SubResource("RectangleShape2D_qmmba")
+debug_color = Color(4.668683e-06, 0.6457076, 0.2609373, 0.41960785)
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1994767368]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox" unique_id=1936589072]
+position = Vector2(-2.5, -1.5)
+shape = SubResource("RectangleShape2D_rbo4n")
+debug_color = Color(0.97009283, 0, 0.46019125, 0.41960785)

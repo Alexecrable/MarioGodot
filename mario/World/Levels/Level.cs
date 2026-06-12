@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Godot;
 using Godot.Collections;
 public partial class Level : Node
@@ -23,6 +24,8 @@ public partial class Level : Node
 
 	[Signal]
 	public delegate void CheckPointEventHandler(Vector2 pos);
+	[Signal]
+	public delegate void ScoreUpdateEventHandler(int score);
 	public Vector2 spawnPoint, checkPoint;
 	private Vector2 offSetVector = new Vector2(16, 16);
 	private PackedScene koopaScene, goombaScene, powerBlockScene, starBlockScene, flagScene, brickScene, coinBlockScene, coinScene;
@@ -33,6 +36,8 @@ public partial class Level : Node
 	private Array<Flag> flags;
 	private DeathFloor deathFloor;
 	private Array<Goomba> goombas;
+
+	private int score;
 	
 
 
@@ -168,7 +173,7 @@ public partial class Level : Node
 
 	private void Spawn1Up(Vector2I position)
 	{
-
+		//TODO : FAIRE LE 1up
 	}
 	private void SpawnSpawnPoint(Vector2I position)
 	{
@@ -231,12 +236,14 @@ public partial class Level : Node
 		Goomba goomba = goombaScene.Instantiate<Goomba>();
 		goomba.Position = position * 32 + offSetVector;
 		goombas.Add(goomba);
+		goomba.DiedSignal += ScoreUp;
 		AddChild(goomba);
 	}
 	private void SpawnKoopa(Vector2I position)
 	{
 		Koopa koopa = koopaScene.Instantiate<Koopa>();
 		koopa.Position = position * 32 + offSetVector;
+		koopa.DiedSignal += ScoreUp;
 		AddChild(koopa);
 	}
 
@@ -244,6 +251,13 @@ public partial class Level : Node
 	public override void _Process(double delta)
 	{
 
+	}
+
+	private void ScoreUp(int _score)
+	{
+		score += _score;
+		//Signal pour update l'HUD
+		EmitSignal(SignalName.ScoreUpdate, score);
 	}
 
 	public int GetTime()

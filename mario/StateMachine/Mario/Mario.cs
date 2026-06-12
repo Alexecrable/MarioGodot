@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using Godot;
 using Godot.Collections;
 
@@ -95,6 +97,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		inputComponent = GetNode<InputComponent>("InputComponent");
 		movementComponent = GetNode<MovementComponent>("MovementComponent");
 		movementComponent.Init(this);
+		movementComponent.BaseSpeedX = speed;
 		hurtComponent = GetNode<HurtComponent>("HurtComponent");
 
 
@@ -122,7 +125,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		invincibilityTimer.WaitTime = 3;
 		invincibilityTimer.OneShot = true;
 		AddChild(invincibilityTimer);
-		ConnectSignals();
 		InitStates();
 		InitFireBalls();
 
@@ -132,9 +134,11 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public void Spawn()
 	{
+		ConnectSignals();
 		currentPowerUpIndex = (int)PowerEnum.BASE;
 		Scale = new Vector2(1,1);
-		Modulate = new Color(1,1,1);
+		animation.Modulate = new Color(1,1,1);
+		currentColor = Modulate;
 		ChangeState((int)StateEnum.IDLE);
 		//CollisionLayer = 4 + 128 + 256;
 	}
@@ -190,7 +194,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	private void HittingDownArea(Node _body)
 	{
 
-
 		ChangeState((int)StateEnum.JUMP);
 
 
@@ -200,7 +203,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public void EmittingRespawnSignal()
 	{
-		GD.Print("Respawn : " + this.Name + respawning);
 		if (!respawning)
 		{
 			respawning = true;
@@ -221,15 +223,13 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public void InstaKill()
 	{
-		GD.Print("mario Die");
 		hold = CollisionLayer;
 		Die();
 	}
 
 	private void GetHurt(Area2D area)
 	{
-
-		if (currentPowerUpIndex == 0)
+		if (currentPowerUpIndex == 0 && !invincible)
 		{
 			Die();
 		}
@@ -252,7 +252,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			}
 			else
 			{
-				GD.Print("starRampage ");
 				IInstaKillableObject mort = (IInstaKillableObject)area.GetParent();
 				mort.InstaKill();
 			}
@@ -339,7 +338,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void Die()
 	{
-
+		DisconnectSignals();
 		ChangeState((int)StateEnum.DIE);
 	}
 
@@ -371,7 +370,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void ChangeState(int stateIndex)
 	{
-		GD.Print("change : " + currentStateIndex + " -> " + stateIndex + " | ");
 		int lastIndex = currentStateIndex;
 		states[currentStateIndex].Exit(stateIndex);
 		currentStateIndex = stateIndex;
@@ -383,11 +381,18 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	public override void _Process(double delta)
 	{
 		//camera.GlobalPosition = new Vector2(Position.X + 30, 450);
+
 		
 	}
 
+	
 	public override void _PhysicsProcess(double delta)
 	{
+
+	
+
+
+
 		inputComponent.takeInputs();
 		leftInput = inputComponent.getLeftInput();
 		rightInput = inputComponent.getRightInput();
@@ -419,6 +424,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		{
 			headBox.Monitoring = true;
 			feetBox.Monitoring = true;
+			feetBox.Monitorable = true;
 			feetBox.Modulate = new Color(1, 1, 1, 1);
 
 		}
@@ -428,6 +434,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			{
 				headBox.Monitoring = false;
 				feetBox.Monitoring = true;
+				feetBox.Monitorable = true;
 				feetBox.Modulate = new Color(1, 1, 1, 1);
 
 			}
@@ -435,6 +442,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			{
 				headBox.Monitoring = false;
 				feetBox.Monitoring = false;
+				feetBox.Monitorable = false;
 				feetBox.Modulate = new Color(0, 0, 0, 0);
 			}
 		}
@@ -442,7 +450,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public override void _ExitTree()
 	{
-		GD.Print("Mario : LEAVE");
 		//base._ExitTree();
 	}
 	private void LaunchFireBall()
@@ -454,7 +461,6 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		//pourrait etre gourmand si on a des millins de boules ?
 
 		//Pb : la fire Ball disappear en boucle si touche le wall ??
-		GD.Print("Fireballs : " + fireBalls);
 		foreach (FireBall fireBall in fireBalls)
 		{
 			if (!fireBall.Used)

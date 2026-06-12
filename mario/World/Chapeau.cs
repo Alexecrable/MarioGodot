@@ -22,8 +22,7 @@ public partial class Chapeau : RigidBody2D
 
 	public void SautChapeau()
 	{
-		CollisionMask = 3;
-		area.CollisionMask = 128;
+		
         SetDeferred("freeze",false);
         float rand = (GD.Randf()*2) - 1;
         GD.Print("rand " + rand );

@@ -30,7 +30,6 @@ public abstract partial class Powerup : CharacterBody2D, IStateMachine, IInstaKi
 		movementComponent = new MovementComponent();
 		AddChild(movementComponent);
 		movementComponent.Init(this);
-		CollisionMask = 0;
 		skin = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		sfxPlayer = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 		spawnTimer = new Timer();

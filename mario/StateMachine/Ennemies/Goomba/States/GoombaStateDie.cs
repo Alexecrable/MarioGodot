@@ -14,10 +14,15 @@ public partial class GoombaStateDie : GoombaState
 
     public override void Enter(int _previousStateId)
     {
-        goomba.hurtBox.CollisionLayer = 0;
-        goomba.hurtBox.CollisionMask = 0;
+
+        ScoreAnim scoreAnim = new ScoreAnim();
+        scoreAnim.ScoreToShow = 100;
+        scoreAnim.GlobalPosition = goomba.GlobalPosition ;
+        goomba.AddSibling(scoreAnim);
+        GD.Print(scoreAnim.GlobalPosition + "score a");
+
+        goomba.EmitSignal(Goomba.SignalName.DiedSignal, 100);
         goomba.skin.Animation = "DIE";
-        goomba.CollisionLayer = 0;
         
         movementComponent.CurrentSpeedX = 0;
         movementComponent.AccelY = 100;
@@ -25,8 +30,8 @@ public partial class GoombaStateDie : GoombaState
         goomba.chapeau.SautChapeau();
         goomba.chapeau.CallDeferred("reparent", goomba.GetParent());
         //goomba.chapeau.Position = goomba.Position;
-        GD.Print("ololol", goomba.chapeau.Position);
-
+        goomba.CollisionLayer = 0;
+        goomba.CollisionMask = 1;
         //goomba.chapeau.Reparent(goomba.GetParent());
         goomba.GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D").Play();
 

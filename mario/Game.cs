@@ -18,7 +18,7 @@ public partial class Game : Node2D
 
 	public override void _Ready()
 	{
-
+		//Engine.TimeScale = 0.5;
 		//recuperation des Nodes de la scene
 		titleCard = GetNode<TitleCard>("TitleCard");
 		player = GetNode<AudioStreamPlayer2D>("Music");
@@ -71,20 +71,18 @@ public partial class Game : Node2D
 		pauseMenu.Visible = !pauseMenu.Visible;
 		GetTree().Paused = !GetTree().Paused;
 		player.Playing = !player.Playing;
-		GD.Print("pause : " + GetChildren());
 	}
 
 
 	private void LaunchGame()
 	{
-		GD.Print("LevelSetup : ");
 		ui.StartTimer(125);
 		GetTree().Paused = false;
 
 		AddChild(mario);
 
 
-		ShowLevelCard();
+		ShowLevelCard("init launch");
 
 		mario.Visible = true;
 		ui.Visible = true;
@@ -94,23 +92,22 @@ public partial class Game : Node2D
 		{
 			spawnPoint = currentLevel.spawnPoint;
 			mario.Position = Vector2.Zero;
-			
 
 			RemoveChild(currentLevel);
-			ShowLevelCard();
+			ShowLevelCard("respanw signal");
 
 
 
 		};
 		SwitchMusic("maintheme.mp3");
 	}
-	private void ShowLevelCard()
+	private void ShowLevelCard(String origin)
 	{
 
 		currentLevel = levelScene.Instantiate<Level>();
 
 		
-
+		currentLevel.ScoreUpdate += ui.ScoreUpdate;
 		currentLevel.init();
 		currentLevel.LoadLevel();
 		if(spawnPoint != Vector2.Zero)
@@ -119,7 +116,7 @@ public partial class Game : Node2D
 			
 		}
 		
-		titleCard.setTitle(currentLevel.Name, mario.Lives);
+		titleCard.setTitle(currentLevel.Name + origin, mario.Lives);
 		//player.Stop();
 		player.Play();
 		//GetTree().Paused = true;
@@ -140,7 +137,7 @@ public partial class Game : Node2D
 
 			AddChild(currentLevel);
 			currentLevel.CheckSpawn(spawnPoint);
-			mario.Position = currentLevel.spawnPoint + new Vector2(100,0);
+			mario.Position = currentLevel.spawnPoint;
 			mario.Spawn();
 			timer.QueueFree();
 			titleCard.Visible = false;

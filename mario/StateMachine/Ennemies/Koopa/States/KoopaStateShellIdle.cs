@@ -14,6 +14,7 @@ public partial class KoopaStateShellIdle : KoopaState
         koopaBody = koopa.GetNode<Node2D>("Body");
         enterStateDelay = new Timer();
         enterStateDelay.WaitTime = 0.1;
+        enterStateDelay.OneShot = true;
         enterStateDelay.Timeout += EndDelay;
         AddChild(enterStateDelay);
         
@@ -24,7 +25,7 @@ public partial class KoopaStateShellIdle : KoopaState
     private void EndDelay()
     {
         //koopa.hurtBox.CollisionLayer = 8;
-        koopa.hurtBox.CollisionMask = 4;
+        GD.Print("koopaED");
     }
 
     private void Hittt(Node2D _body)
@@ -51,13 +52,11 @@ public partial class KoopaStateShellIdle : KoopaState
     }
     public override void Enter(int _previousStateId)
     {
-        GD.Print("enter state : ShellIdle" + this.Name);
         koopaBody.Hide();
         movementComponent.CurrentSpeedX = 0;
         movementComponent.Advance();
         isShell = true;
-        koopa.hurtBox.CollisionLayer = 0;
-        koopa.hurtBox.CollisionMask = 0;
+        
         enterStateDelay.Start();
         koopa.hurtBox.AreaEntered += Hittt;
         koopa.hurtBox.BodyEntered += Hittt;

@@ -32,8 +32,7 @@ public partial class Ui : CanvasLayer
 		timerLabel.Text = "TIME : " + time;
 		timeLeft = time;
 		timer.Start();
-		GD.Print("TIME : " +timer.Paused);
-		GD.Print("TIME : LANCE");
+	
 	}
 	private void timeUpdate()
 	{

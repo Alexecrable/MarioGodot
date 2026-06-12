@@ -44,10 +44,11 @@ public partial class Koopa : Ennemi
     
 
     private Array<KoopaState> states;
-    public Area2D turnAroundArea;
+    public RayCast2D turnAroundRay;
     private VisibleOnScreenNotifier2D notifier;
     public AnimatedSprite2D legs,eyes,shell;
-    public Area2D marioNotif, hurtBox;
+    public Area2D marioNotif;
+    public HurtComponent hurtBox;
     private MovementComponent movementComponent;
     public int xVel;
 
@@ -61,8 +62,8 @@ public partial class Koopa : Ennemi
         marioNotif = GetNode<Area2D>("MarioLookArea");
         marioNotif.BodyEntered += MarioSpotted;
         marioNotif.BodyExited += MarioLost;
-        turnAroundArea = GetNode<Area2D>("TurnAroundArea");
-        hurtBox = GetNode<Area2D>("HurtBox");
+        turnAroundRay = GetNode<RayCast2D>("TurnAroundRay");
+        hurtBox = GetNode<HurtComponent>("HurtBox");
         movementComponent = GetNode<MovementComponent>("MovementComponent");
         movementComponent.Init(this);
         movementComponent.CurrentSpeedY = 200;
@@ -75,7 +76,6 @@ public partial class Koopa : Ennemi
 
     private void MarioLost(Node body)
     {
-        GD.Print("deconnexion");
         if(eyes.Animation == "SHOCKED")
         {
         eyes.AnimationFinished -= ShockFinish;
@@ -85,7 +85,6 @@ public partial class Koopa : Ennemi
     }
     private void MarioSpotted(Node body)
     {
-        GD.Print("connection");
         eyes.AnimationFinished += ShockFinish;
         eyes.Animation = "SHOCKED";
         eyes.Play();
@@ -93,7 +92,6 @@ public partial class Koopa : Ennemi
 
     private void ShockFinish()
     {
-        GD.Print("shocked !!!");
         eyes.AnimationFinished -= ShockFinish;
         eyes.Pause();
         eyes.Animation = "ANGRY";
@@ -124,11 +122,11 @@ public partial class Koopa : Ennemi
 
     public override void ChangeState(int _stateIndex)
     {
+        GD.Print("Koopa : " + currentStateIndex + " -> " + _stateIndex);
         int lastIndex = currentStateIndex;
         states[currentStateIndex].Exit(_stateIndex);
         currentStateIndex = _stateIndex;
         states[currentStateIndex].Enter(lastIndex);
-        GD.Print("go to state " + currentStateIndex);
 
     }
 
@@ -136,6 +134,8 @@ public partial class Koopa : Ennemi
     {
         states[currentStateIndex].PhysicsProcess(_delta);
         MoveAndSlide();
+
+        
     }
 
     public VisibleOnScreenNotifier2D getNotifier()

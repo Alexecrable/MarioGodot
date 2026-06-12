@@ -26,17 +26,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 9.0
-height = 32.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tcmyv"]
-radius = 9.0
-height = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tcmyv"]
+size = Vector2(18, 30)
 
 [node name="FireFlower" type="CharacterBody2D" unique_id=1116609167]
 collision_layer = 0
-collision_mask = 3
 script = ExtResource("1_mpmov")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1434454301]
@@ -45,14 +39,14 @@ position = Vector2(0, 30)
 sprite_frames = SubResource("SpriteFrames_x11xh")
 frame_progress = 0.566272
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1723374662]
-shape = SubResource("CapsuleShape2D_b5ej4")
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=80484720]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=920548144]
+shape = SubResource("RectangleShape2D_tcmyv")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1470653824]
 collision_layer = 0
-collision_mask = 128
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1981309456]
-shape = SubResource("CapsuleShape2D_tcmyv")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1010690149]
+shape = SubResource("RectangleShape2D_tcmyv")

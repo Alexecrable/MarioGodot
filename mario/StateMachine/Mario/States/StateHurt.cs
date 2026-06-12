@@ -50,8 +50,8 @@ public partial class StateHurt : MarioState
         GetTree().Paused = true;
         hurtTimer.Start();
 
-        mario.feetBox.CollisionLayer = 0;
-        mario.feetBox.CollisionMask = 0;
+       
+        GD.Print("enter state : hurt");
     }
 
     private void HurtTimeOut()

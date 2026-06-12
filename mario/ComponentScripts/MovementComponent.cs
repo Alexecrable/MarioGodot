@@ -42,7 +42,6 @@ public partial class MovementComponent : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void Advance()
 	{
-		GD.Print("POWER " + body.Name + " : " + CurrentSpeedX + " | " + CurrentSpeedY);
 		body.Velocity = new Vector2(CurrentSpeedX, CurrentSpeedY);
 	}
 
@@ -63,8 +62,7 @@ public partial class MovementComponent : Node
 
 	public void AccelerateToSpeedX(double _delta)
 	{
-		GD.Print("maxSpeed : " + MaxSpeedX);
-		GD.Print("current : " + CurrentSpeedX * direction);
+		
 		CurrentSpeedX += AccelX * direction * (float) _delta;
 		if(MaxSpeedX < CurrentSpeedX * direction)
 		{
@@ -78,7 +76,6 @@ public partial class MovementComponent : Node
 	public void AccelerateToSpeedY(double _delta)
 	{
 		
-		GD.Print("accel Y " + MaxSpeedY, CurrentSpeedY, AccelY);
 		if(MaxSpeedY > CurrentSpeedY)
 		{
 			CurrentSpeedY += AccelY * (float) _delta;

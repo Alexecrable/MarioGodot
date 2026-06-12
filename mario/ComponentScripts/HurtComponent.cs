@@ -9,6 +9,7 @@ public delegate void HurtEventHandler(Area2D area);
 	public override void _Ready()
 	{
 		AreaEntered += MakeHurt;
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,7 +19,9 @@ public delegate void HurtEventHandler(Area2D area);
 
 	private void MakeHurt(Area2D _area)
 	{
-		GD.Print("HurtComponent : Signal Sent");
+		GD.Print("xbox2");
 		EmitSignal(SignalName.Hurt, _area);
 	}
+
+	
 }

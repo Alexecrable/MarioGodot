@@ -11,7 +11,6 @@ public partial class KoopaStateIdle : KoopaState
 
     public override void Enter(int _previousStateId)
     {
-        GD.Print("enter state : Idle" + this.Name);
         notifier.ScreenEntered += ScreenEntered;
 
         movementComponent.CurrentSpeedX = 0;

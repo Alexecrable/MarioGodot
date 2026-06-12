@@ -19,7 +19,8 @@ public partial class Goomba : Ennemi
 
     private Array<GoombaState> states;
     private VisibleOnScreenNotifier2D notifier;
-    public Area2D hurtBox;
+    public HurtComponent hurtBox;
+    public Area2D hitBox;
     private MovementComponent movementComponent;
     public int currentYVelocity = 0;
     public int currentXVelocity = 0;
@@ -38,7 +39,8 @@ public partial class Goomba : Ennemi
         skin.Animation = "WALK";
         movementComponent = GetNode<MovementComponent>("MovementComponent");
         movementComponent.Init(this);
-        hurtBox = GetNode<Area2D>("HurtBox");
+        hitBox = GetNode<Area2D>("HitBox");
+        hurtBox = GetNode<HurtComponent>("GoombaHurtComponent");
         skin.Pause();
         InitState();
     }

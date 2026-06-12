@@ -23,15 +23,17 @@ public partial class StateDie : MarioState
 
     override public void Enter(int _stateID)
     {
+        
         mario.animation.Animation = "Die";
         mario.animation.Play();
         mario.animation.AnimationFinished += DeathFinished;
         movementComponent.CurrentSpeedX = 0;
         movementComponent.CurrentSpeedY = 0;
         movementComponent.Advance();
-        mario.animation.Animation = "Die";
         mario.animation.Play();
         //mario.CollisionLayer = 0;
+
+        GD.Print("enter state : Die" );
     }
 
     private void DeathFinished()
@@ -52,12 +54,14 @@ public partial class StateDie : MarioState
 
     private void Respawn()
     {
+        
         mario.EmittingRespawnSignal();
     }
 
    
     override public void Exit(int _stateID)
     {
+        
         //mario.Velocity = VelocitySave;
         //tween.Stop();
         //GetTree().Paused = false;
@@ -65,7 +69,6 @@ public partial class StateDie : MarioState
 
     override public void PhysicsProcess(double delta)
     {
-        GD.Print("Dying : " + mario.Velocity, " | " + mario.Position);
 
         //movementComponent.Advance();
     }

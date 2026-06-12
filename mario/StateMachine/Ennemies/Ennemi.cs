@@ -7,6 +7,8 @@ public abstract partial class Ennemi : CharacterBody2D, IStateMachine, IInstaKil
     private int xdddddd = 32;
     [Signal]
     public delegate void InstaKillSignalEventHandler();
+    [Signal]
+    public delegate void DiedSignalEventHandler(int score);
 	public AnimatedSprite2D skin;
     public int currentStateIndex, lastStateIndex;
 

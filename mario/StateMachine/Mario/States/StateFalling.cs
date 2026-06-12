@@ -9,8 +9,7 @@ public partial class StateFalling : MarioState
     public StateFalling(Mario _mario, MovementComponent _movement) : base(_mario)
     {
         movementComponent = _movement;
-                GD.Print("mariogravAccel" + mario.gravityAccel);
-
+    
     }
 
 
@@ -20,8 +19,8 @@ public partial class StateFalling : MarioState
     {
         mario.animation.Animation = "Falling";
         mario.animation.Play();
-        mario.feetBox.CollisionLayer = 4;
-        mario.feetBox.CollisionMask = 8;
+        
+        GD.Print("enter state : falling");
     }
 
 
@@ -33,7 +32,6 @@ public partial class StateFalling : MarioState
 
     override public void PhysicsProcess(double _delta)
     {
-        //GD.Print("falling");
         //if (!mario.IsGoingDown() && mario.yVelocity > 0)
         //{
         //    mario.SetGoingDown();
@@ -46,10 +44,8 @@ public partial class StateFalling : MarioState
         {
             movementComponent.CurrentSpeedY = 10;
             //mario.SetGoingDown();
-            GD.Print("mari  " + mario.yVelocity);
         }
         movementComponent.Advance();
-        //GD.Print("floor " + mario.IsOnFloor());
         if (mario.IsOnFloor())
         {
 

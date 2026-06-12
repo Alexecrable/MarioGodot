@@ -13,7 +13,6 @@ public partial class StateMove : PowerState
     public override void enter()
     {
         powerUp.GetSprite().Play();
-        powerUp.CollisionMask = 3;
         movementComponent.CurrentSpeedX = powerUp.xVelocity;
     }
     public override void exit()
