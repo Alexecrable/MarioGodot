@@ -76,37 +76,42 @@ public partial class KoopaStateShellMove : KoopaState
             if (coll.GetNormal() == Vector2.Left || coll.GetNormal() == Vector2.Right)
             {
                 GodotObject godotObject = coll.GetCollider();
+                if(godotObject == null){
+                    return;
+                }
+                GD.Print("meurtre de " + godotObject);
                 try
                 {
                     IInstaKillableObject ennemi = (IInstaKillableObject)godotObject;
                     GD.Print("essai meurtre : 1");
                     
-                    try
-                    {
-                        Koopa otherKoop = (Koopa)ennemi;
-                        GD.Print("essai meurtre : 2");
-
-                        if (otherKoop.currentStateIndex == (int)KoopaStateEnum.SHELL_MOVE)
-                        {
-                            koopa.InstaKill();
-                            GD.Print("essai meurtre : 3");   
-                        }
-                        else
-                        {
-                            otherKoop.InstaKill();
-                            return;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        GD.Print("pas un ennemu");
-                    }
+                    //try
+                    //{
+                    //    Koopa otherKoop = (Koopa)ennemi;
+                    //    GD.Print("essai meurtre : 2");
+//
+                    //    if (otherKoop.currentStateIndex == (int)KoopaStateEnum.SHELL_MOVE)
+                    //    {
+                    //        koopa.InstaKill();
+                    //        GD.Print("essai meurtre : 3");   
+                    //    }
+                    //    else
+                    //    {
+                    //        otherKoop.InstaKill();
+                    //        GD.Print("essai meurtre : 35");
+                    //        return;
+                    //    }
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //    GD.Print("essai meurtre : 4");
+                    //}
                     ennemi.InstaKill();
                     return;
                 }
                 catch (Exception e)
                 {
-                    GD.Print("echecmeurtre" + e);
+                    GD.Print("essai meurtre : echec" + e);
                 }
                 try
                 {
@@ -118,6 +123,7 @@ public partial class KoopaStateShellMove : KoopaState
                 {
                     GD.Print("slideTest: Echec " + e);
                 }
+                GD.Print("meurtre final");
                 FlipKoopa();
                 return;
 
