@@ -126,6 +126,7 @@ animations = [{
 size = Vector2(18, 30)
 
 [node name="Star" type="CharacterBody2D" unique_id=214631992]
+z_index = -11
 collision_layer = 0
 script = ExtResource("1_uwmbv")
 
@@ -139,7 +140,7 @@ shape = SubResource("RectangleShape2D_fxb7q")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1540708078]
 collision_layer = 0
-collision_mask = 128
+collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1928672945]
 shape = SubResource("RectangleShape2D_fxb7q")

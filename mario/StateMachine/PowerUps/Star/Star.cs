@@ -11,22 +11,26 @@ public partial class Star : Powerup
 		base._Ready();
         powerEnum = (int)Mario.PowerEnum.STAR;
 		xVelocity = 100;
+		yVelocity = 0;
 	}
 
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-            GD.Print("starspawning" + GetSprite().Position);
+           
 			if (IsOnFloor())
 			{
-				movementComponent.CurrentSpeedY = -300;
+				movementComponent.CurrentSpeedY = yVelocity;
 			}
         base._PhysicsProcess(delta);
 
 			//movementComponent.AccelerateToSpeedY(delta);
-			
+	}
 
+	public void Start()
+	{
+		yVelocity = -300;
 	}
 
 

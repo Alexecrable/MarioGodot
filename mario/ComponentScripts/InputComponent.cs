@@ -5,7 +5,7 @@ using System.Numerics;
 [GlobalClass]
 public partial class InputComponent : Node
 {	
-	private float rightInput, leftInput, jumpInput;
+	private float rightInput, leftInput, jumpInput, downInput;
 	private bool actionInput;
 	
 	// Called when the node enters the scene tree for the first time.
@@ -14,6 +14,7 @@ public partial class InputComponent : Node
 		rightInput = 0;
 		leftInput = 0;
 		jumpInput = 0;
+		downInput = 0;
 		actionInput = false;
 	}
 
@@ -27,6 +28,8 @@ public partial class InputComponent : Node
 		leftInput = Input.GetActionStrength("left");
 		jumpInput = Input.GetActionStrength("jump");
 		actionInput = Input.IsActionJustPressed("action");
+		downInput = Input.GetActionStrength("down");
+		GD.Print("down: " + downInput);
 		
 
 	}
@@ -49,6 +52,11 @@ public partial class InputComponent : Node
 	public bool getActionInput()
 	{
 		return actionInput;
+	}
+
+	public float getDownInput()
+	{
+		return downInput;
 	}
 
 }

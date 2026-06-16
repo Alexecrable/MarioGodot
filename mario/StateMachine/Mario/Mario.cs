@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using Godot;
 using Godot.Collections;
@@ -17,6 +18,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	[Signal]
 	public delegate void MarioLifeUpdateEventHandler(int lives);
+	private PackedScene jumpEffet;
 	public enum PowerEnum
 	{
 		BASE = 0,
@@ -32,12 +34,13 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		MOVE = 3,
 		WALLSLIDE = 4,
 		HURT = 5,
-		DIE = 6
+		DIE = 6,
+		CROUCH = 7
 	}
 	// Composants externes (Composition) //
 	private InputComponent inputComponent;
 	private MovementComponent movementComponent;
-	private HurtComponent hurtComponent;
+	public HurtComponent hurtComponent;
 	/////////////////////////////
 
 	public Area2D headBox, feetBox;
@@ -60,6 +63,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		rightInput,
 		leftInput,
 		jumpInput,
+		downInput,
 		currentHorizontalVelocity = 250;
 	public bool actionInput,
 		isHittingDown,
@@ -74,13 +78,13 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	private Tween tween;
 
 	private Camera2D camera;
-	public RayCast2D raycastRight, raycastLeft;
+	public RayCast2D raycastRight, raycastLeft, ceilingChecker;
 	public AudioStreamPlayer2D sfxPlayer;
 
 	private Timer invincibilityTimer, fireTimer;
 	private Color currentColor = new Color(1, 1, 1);
 
-	private uint hold;
+	private uint holdLayer, holdMask;
 	/////////
 	/// 
 
@@ -100,13 +104,14 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		movementComponent.BaseSpeedX = speed;
 		hurtComponent = GetNode<HurtComponent>("HurtComponent");
 
-
+		jumpEffet = ResourceLoader.Load<PackedScene>("res://World/jumpEffect.tscn");
 
 		Lives = 3;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		camera = GetNode<Camera2D>("Camera2D");
 		raycastLeft = GetNode<RayCast2D>("RayCast2D2");
 		raycastRight = GetNode<RayCast2D>("RayCast2D");
+		ceilingChecker = GetNode<RayCast2D>("CeilingChecker");
 		particles = GetNode<GpuParticles2D>("GPUParticles2D");
 		sfxPlayer = GetNode<AudioStreamPlayer2D>("SFXPlayer");
 		headBox = GetNode<Area2D>("HeadBox");
@@ -136,8 +141,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	{
 		ConnectSignals();
 		currentPowerUpIndex = (int)PowerEnum.BASE;
-		Scale = new Vector2(1,1);
-		animation.Modulate = new Color(1,1,1);
+		Scale = new Vector2(1, 1);
+		animation.Modulate = new Color(1, 1, 1);
 		currentColor = Modulate;
 		ChangeState((int)StateEnum.IDLE);
 		//CollisionLayer = 4 + 128 + 256;
@@ -193,13 +198,20 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void HittingDownArea(Node _body)
 	{
-
-		ChangeState((int)StateEnum.JUMP);
+		GD.Print("xbox1");
+		if (!invincible && (currentStateIndex != (int)Mario.StateEnum.DIE))
+		{
+			GpuParticles2D particles = jumpEffet.Instantiate<GpuParticles2D>();
+			particles.Position = Position;
+			particles.Emitting = true;
+			AddSibling(particles);
+			ChangeState((int)StateEnum.JUMP);
+		}
 
 
 	}
 	private bool respawning = false;
-	
+
 
 	public void EmittingRespawnSignal()
 	{
@@ -213,7 +225,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			timer.Timeout += () =>
 			{
 				respawning = false;
-				CollisionLayer = hold;
+				CollisionLayer = holdLayer;
+				CollisionMask = holdMask;
 			};
 			timer.Start();
 			EmitSignal(SignalName.RespawnSignal);
@@ -223,7 +236,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public void InstaKill()
 	{
-		hold = CollisionLayer;
+
 		Die();
 	}
 
@@ -338,6 +351,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void Die()
 	{
+		holdLayer = CollisionLayer;
+		holdMask = CollisionMask;
 		DisconnectSignals();
 		ChangeState((int)StateEnum.DIE);
 	}
@@ -357,7 +372,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			new StateRunning(this, movementComponent),
 			new StateWallSlide(this, movementComponent),
 			new StateHurt(this, movementComponent),
-			new StateDie(this, movementComponent)
+			new StateDie(this, movementComponent),
+			new StateCrouching(this, movementComponent)
 			];
 
 		foreach (MarioState state in states)
@@ -382,26 +398,30 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	{
 		//camera.GlobalPosition = new Vector2(Position.X + 30, 450);
 
-		
+
 	}
 
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 
-	
 
 
+		if (ceilingChecker.IsColliding() && currentStateIndex != (int)Mario.StateEnum.CROUCH)
+		{
+			ChangeState((int)Mario.StateEnum.CROUCH);
+		}
 
 		inputComponent.takeInputs();
 		leftInput = inputComponent.getLeftInput();
 		rightInput = inputComponent.getRightInput();
 		jumpInput = inputComponent.getJumpInput();
+		downInput = inputComponent.getDownInput();
 		actionInput = inputComponent.getActionInput();
 
 		movementComponent.SetDirection(inputComponent.getLeftInput(), inputComponent.getRightInput());
 		movementComponent.SetJump(inputComponent.getJumpInput());
-
+		movementComponent.SetDownInput(downInput);
 		states[currentStateIndex].PhysicsProcess(delta);
 
 
@@ -411,6 +431,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		{
 			LaunchFireBall();
 		}
+
 
 		CheckForHitting();
 		MoveAndSlide();
@@ -423,8 +444,11 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		if (movementComponent.CurrentSpeedY < 0)
 		{
 			headBox.Monitoring = true;
-			feetBox.Monitoring = true;
-			feetBox.Monitorable = true;
+			//feetBox.Monitoring = true;
+			//feetBox.Monitorable = true;
+
+			feetBox.CollisionLayer = 16;
+			feetBox.CollisionMask = 32;
 			feetBox.Modulate = new Color(1, 1, 1, 1);
 
 		}
@@ -433,16 +457,20 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 			if (movementComponent.CurrentSpeedY > 0)
 			{
 				headBox.Monitoring = false;
-				feetBox.Monitoring = true;
-				feetBox.Monitorable = true;
+				//feetBox.Monitoring = true;
+				//feetBox.Monitorable = true;
+				feetBox.CollisionLayer = 16;
+				feetBox.CollisionMask = 32;
 				feetBox.Modulate = new Color(1, 1, 1, 1);
 
 			}
 			else
 			{
 				headBox.Monitoring = false;
-				feetBox.Monitoring = false;
-				feetBox.Monitorable = false;
+				//feetBox.Monitoring = false;
+				//feetBox.Monitorable = false;
+				feetBox.CollisionLayer = 0;
+				feetBox.CollisionMask = 0;
 				feetBox.Modulate = new Color(0, 0, 0, 0);
 			}
 		}

@@ -20,7 +20,7 @@ public partial class DeathFloor : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		GD.Print("insta : process " + Monitoring);
+		GD.Print("insta : process; " + Monitoring);
 	}
 
 	public void setup()
@@ -33,14 +33,24 @@ public partial class DeathFloor : Area2D
 	private void KillEveryBody(Node _body)
 	{
 	
-		//BodyEntered -= KillEveryBody;
-		IInstaKillableObject instaKillableObject = (IInstaKillableObject)_body;
-		CharacterBody2D body = (CharacterBody2D)_body;
-		//body.Position = Vector2.Zero;
-		GD.Print("insta : " + timer.TimeLeft + " | " + body.Position);
-		instaKillableObject.InstaKill();
-
-		
+		try
+		{
+			Mario mario = (Mario)_body;
+			mario.InstaKill();
+		}
+		catch 
+		{
+			try
+			{
+				FireBall fireBall = (FireBall)_body;
+				fireBall.Disappear("deahtfloor");
+			}
+			catch
+			{
+				
+			_body.QueueFree();
+			}
+		}
 	}
 	
 

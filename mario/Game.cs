@@ -134,7 +134,7 @@ public partial class Game : Node2D
 
 			ui.StartTimer(currentLevel.GetTime());
 
-
+			currentLevel.LevelFinish += LevelFinished;
 			AddChild(currentLevel);
 			currentLevel.CheckSpawn(spawnPoint);
 			mario.Position = currentLevel.spawnPoint;
@@ -145,6 +145,20 @@ public partial class Game : Node2D
 		};
 		timer.Start();
 
+	}
+
+	private void LevelFinished()
+	{
+		GD.Print("niveau fini oep");
+		RemoveChild(currentLevel);
+		Timer time = new Timer();
+		time.WaitTime = 5;
+		time.Timeout += () =>
+		{
+			QueueFree();
+		};
+		AddChild(time);
+		time.Start();
 	}
 
 

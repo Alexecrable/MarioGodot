@@ -16,8 +16,8 @@ public partial class KoopaStateDie : KoopaState
         scoreAnim.GlobalPosition = koopa.GlobalPosition ;
         koopa.AddSibling(scoreAnim);
         GD.Print(scoreAnim.GlobalPosition + "score a");
-
-        koopa.EmitSignal(Goomba.SignalName.DiedSignal, 100);
+        koopa.CollisionLayer = 0;
+        koopa.CollisionMask = 1;
         koopa.EmitSignal(Koopa.SignalName.DiedSignal, 200);
         koopa.QueueFree();
     }

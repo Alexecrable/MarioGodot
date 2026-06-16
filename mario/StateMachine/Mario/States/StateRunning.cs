@@ -82,6 +82,13 @@ public partial class StateRunning : MarioState
                 {
                     EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
                 }
+                else
+                {
+                    if (movementComponent.WantsToCrouch())
+                    {
+                        EmitSignal(SignalName.Finished, (int)Mario.StateEnum.CROUCH);
+                    }
+                }
             }
 
         }

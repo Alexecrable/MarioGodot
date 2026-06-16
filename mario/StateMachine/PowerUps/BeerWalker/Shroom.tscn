@@ -55,7 +55,7 @@ scale = Vector2(0.21875, 0.43749997)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1728835852]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1938192553]
 shape = SubResource("RectangleShape2D_1r3vg")

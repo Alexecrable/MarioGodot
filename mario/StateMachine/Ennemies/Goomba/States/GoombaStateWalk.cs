@@ -23,11 +23,12 @@ public partial class GoombaStateWalk : GoombaState
         flipBufferActive = false;
     }
 
-    
+
     public override void Enter(int _previousStateId)
     {
         goomba.skin.Play();
         movementComponent.CurrentSpeedX = velocitySave;
+        //movementComponent.CurrentSpeedY = 200;
         goomba.hurtBox.Hurt += HitBoxTouched;
     }
 
@@ -37,9 +38,13 @@ public partial class GoombaStateWalk : GoombaState
         goomba.hurtBox.Hurt -= HitBoxTouched;
     }
 
-    public override void PhysicsProcess(double _delta)
+    private bool isTower = false;
+       public override void PhysicsProcess(double _delta)
     {
-        movementComponent.CurrentSpeedY = goomba.IsOnFloor() ? 0 : 200;
+
+        //
+        movementComponent.CurrentSpeedY = goomba.IsOnFloor() ? 0 : 60;
+        
         if (goomba.IsOnWall() && !flipBufferActive)
         {
             flipGoomb();
@@ -60,9 +65,9 @@ public partial class GoombaStateWalk : GoombaState
 
     private void ScreenExited()
     {
-        
+
         EmitSignal(SignalName.Finished, (int)GoombaStateEnum.IDLE);
-        
+
     }
 
     private void HitBoxTouched(Node _Area)

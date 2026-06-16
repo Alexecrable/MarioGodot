@@ -26,12 +26,14 @@ public partial class GoombaStateDie : GoombaState
         
         movementComponent.CurrentSpeedX = 0;
         movementComponent.AccelY = 100;
-
+        
         goomba.chapeau.SautChapeau();
         goomba.chapeau.CallDeferred("reparent", goomba.GetParent());
         //goomba.chapeau.Position = goomba.Position;
         goomba.CollisionLayer = 0;
         goomba.CollisionMask = 1;
+        goomba.hurtBox.CollisionLayer = 0;
+        goomba.hitBox.CollisionLayer = 0;
         //goomba.chapeau.Reparent(goomba.GetParent());
         goomba.GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D").Play();
 

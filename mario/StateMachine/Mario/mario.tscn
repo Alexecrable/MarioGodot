@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bht473p5de1mi" path="res://StateMachine/Mario/Mario.cs" id="1_wrvex"]
 [ext_resource type="Texture2D" uid="uid://ci4gdin6okmxf" path="res://StateMachine/Mario/Sprites/Falling/Falling1.png" id="2_wve2w"]
 [ext_resource type="Texture2D" uid="uid://n42ga8hsynsh" path="res://StateMachine/Mario/Sprites/Die/Die1.png" id="3_gwaip"]
+[ext_resource type="Texture2D" uid="uid://dghbxemthmlef" path="res://StateMachine/Mario/Sprites/Crouching/Crouching.png" id="3_n0vb7"]
 [ext_resource type="Texture2D" uid="uid://q0sakhhh546p" path="res://StateMachine/Mario/Sprites/Falling/Falling2.png" id="3_nkkps"]
 [ext_resource type="Texture2D" uid="uid://dogby0omwakvw" path="res://StateMachine/Mario/Sprites/Die/Die2.png" id="4_n0vb7"]
 [ext_resource type="Texture2D" uid="uid://c0giwvnxxfyi1" path="res://StateMachine/Mario/Sprites/Falling/Falling3.png" id="4_p7tcl"]
@@ -44,12 +45,21 @@
 [ext_resource type="Script" uid="uid://ppyisw4b1lw0" path="res://ComponentScripts/InputComponent.cs" id="34_nvpig"]
 [ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="35_vx0sn"]
 [ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="36_alf4d"]
+[ext_resource type="PackedScene" uid="uid://cvit6h2get5nj" path="res://World/jumpEffect.tscn" id="46_tfgfo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wrvex"]
 size = Vector2(10, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vs7sc"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_n0vb7")
+}],
+"loop": true,
+"name": &"Crouching",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_gwaip")
@@ -232,7 +242,7 @@ size = Vector2(8, 21)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
 process_mode = 1
-collision_layer = 0
+collision_layer = 4
 script = ExtResource("1_wrvex")
 
 [node name="Chapeau" type="Sprite2D" parent="." unique_id=648267001]
@@ -250,7 +260,7 @@ z_index = 1
 position = Vector2(0, -16)
 scale = Vector2(0.666667, 0.5)
 sprite_frames = SubResource("SpriteFrames_vs7sc")
-animation = &"Idle"
+animation = &"Crouching"
 metadata/_edit_lock_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1420790582]
@@ -303,7 +313,8 @@ metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 
 [node name="HurtComponent" type="Area2D" parent="." unique_id=1006124545]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 64
+collision_priority = 0.1
 script = ExtResource("36_alf4d")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 
@@ -314,3 +325,9 @@ debug_color = Color(0.973972, 0, 0.4335659, 0.41960785)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=941608272]
 zoom = Vector2(2, 2)
+
+[node name="jumpEffect" parent="." unique_id=1611727252 instance=ExtResource("46_tfgfo")]
+
+[node name="CeilingChecker" type="RayCast2D" parent="." unique_id=475412431]
+process_mode = 3
+target_position = Vector2(0, -30)

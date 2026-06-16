@@ -47,7 +47,7 @@ public partial class Koopa : Ennemi
     public RayCast2D turnAroundRay;
     private VisibleOnScreenNotifier2D notifier;
     public AnimatedSprite2D legs,eyes,shell;
-    public Area2D marioNotif;
+    public Area2D marioNotif, hitBox;
     public HurtComponent hurtBox;
     private MovementComponent movementComponent;
     public int xVel;
@@ -64,6 +64,7 @@ public partial class Koopa : Ennemi
         marioNotif.BodyExited += MarioLost;
         turnAroundRay = GetNode<RayCast2D>("TurnAroundRay");
         hurtBox = GetNode<HurtComponent>("HurtBox");
+        hitBox = GetNode<Area2D>("HitBox");
         movementComponent = GetNode<MovementComponent>("MovementComponent");
         movementComponent.Init(this);
         movementComponent.CurrentSpeedY = 200;

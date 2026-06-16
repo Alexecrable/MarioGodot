@@ -39,7 +39,7 @@
 [ext_resource type="AudioStream" uid="uid://js20ea40ek4e" path="res://SoundsBeta/koopaBLop.ogg" id="37_o3h2m"]
 [ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="38_xbxt1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbxt1"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfh7r"]
 size = Vector2(30, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b4ds4"]
@@ -178,17 +178,21 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1dl4"]
 size = Vector2(177, 87)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbxt1"]
+size = Vector2(26, 26)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p6egs"]
 size = Vector2(48, 32)
 
 [node name="Koopa" type="CharacterBody2D" unique_id=328616508]
 collision_layer = 2
 collision_mask = 3
+platform_floor_layers = 4294962688
 script = ExtResource("1_8764f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1782300844]
 visible = false
-shape = SubResource("RectangleShape2D_xbxt1")
+shape = SubResource("RectangleShape2D_nfh7r")
 
 [node name="Shell" type="AnimatedSprite2D" parent="." unique_id=1506461069]
 sprite_frames = SubResource("SpriteFrames_b4ds4")
@@ -200,8 +204,6 @@ position = Vector2(23, 0)
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_vbiwy")
 animation = &"NORMAL"
-frame = 1
-frame_progress = 0.35612202
 
 [node name="Legs" type="AnimatedSprite2D" parent="Body" unique_id=1294299623]
 sprite_frames = SubResource("SpriteFrames_y82nw")
@@ -211,7 +213,6 @@ frame_progress = 0.8322563
 texture = ExtResource("35_61joq")
 
 [node name="MarioLookArea" type="Area2D" parent="." unique_id=91085734]
-visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -223,11 +224,11 @@ shape = SubResource("RectangleShape2D_r1dl4")
 rect = Rect2(-10, -10, 33, 20)
 
 [node name="TurnAroundRay" type="RayCast2D" parent="." unique_id=1653482399]
-position = Vector2(36, 0)
+position = Vector2(28, 0)
 target_position = Vector2(0, 20)
 
 [node name="HitBox" type="Area2D" parent="." unique_id=156868907]
-collision_layer = 0
+collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox" unique_id=1994711365]
@@ -243,7 +244,7 @@ stream = ExtResource("37_o3h2m")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=180951452]
 collision_layer = 32
-collision_mask = 16
+collision_mask = 20
 script = ExtResource("38_xbxt1")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 

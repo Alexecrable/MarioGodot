@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 public partial class MovementComponent : Node
 {
 
-	private float direction, wantsToJump;
+	private float direction, wantsToJump, wantsToCrouch;
 	public float CurrentSpeedX{get; set;}
 	public float CurrentSpeedY{get; set;}
 	public float MaxSpeedX{get; set;}
@@ -97,6 +97,11 @@ public partial class MovementComponent : Node
 		wantsToJump = _jumpInput;
 	}
 
+	public void SetDownInput(float _downInput)
+	{
+		wantsToCrouch = _downInput;
+	}
+
 	public bool WantsJump()
 	{
 		return wantsToJump == 1;
@@ -107,6 +112,10 @@ public partial class MovementComponent : Node
 		return direction != 0;
 	}
 
+	public bool WantsToCrouch()
+	{
+		return wantsToCrouch > 0;
+	}
     
 
 	

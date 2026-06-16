@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cvit6h2get5nj"]
+
+[sub_resource type="Curve" id="Curve_aghfm"]
+_data = [Vector2(0.09693878, 1), 0.0, 0.0, 0, 0, Vector2(0.37755102, 0.94382024), 0.0, 0.0, 0, 0, Vector2(0.83673465, 0.022471905), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8eh85"]
+curve = SubResource("Curve_aghfm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c55xg"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+color = Color(0.76211226, 0.75678784, 0.97425157, 1)
+alpha_curve = SubResource("CurveTexture_8eh85")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+
+[node name="jumpEffect" type="GPUParticles2D" unique_id=1611727252]
+emitting = false
+amount = 200
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_c55xg")

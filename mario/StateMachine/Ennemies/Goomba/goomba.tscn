@@ -90,22 +90,25 @@ size = Vector2(19, 23)
 [node name="Goomba" type="CharacterBody2D" unique_id=819979439]
 collision_layer = 2
 collision_mask = 3
+platform_floor_layers = 4294967040
 script = ExtResource("1_ns1iw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1455411747]
+position = Vector2(2.5, 0)
 sprite_frames = SubResource("SpriteFrames_x11xh")
 animation = &"WALK"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=616647000]
 visible = false
-position = Vector2(-3, 1)
+position = Vector2(2.5, 1)
 shape = SubResource("RectangleShape2D_0r87e")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1424409436]
+position = Vector2(2.5, 0)
 rect = Rect2(-16, -23, 32, 46)
 
 [node name="Chapeau" type="RigidBody2D" parent="." unique_id=1297845076]
-position = Vector2(-6, -8)
+position = Vector2(-3.5, -8)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("16_e3tbb")
@@ -120,6 +123,8 @@ shape = SubResource("CircleShape2D_qmmba")
 [node name="Area2D" type="Area2D" parent="Chapeau" unique_id=629388292]
 collision_layer = 0
 collision_mask = 4
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Chapeau/Area2D" unique_id=1091538690]
 visible = false
@@ -131,9 +136,11 @@ script = ExtResource("16_qmmba")
 metadata/_custom_type_script = "uid://bdywv15qsbvuj"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1269803370]
+position = Vector2(2.5, 0)
 stream = ExtResource("18_huosm")
 
 [node name="GoombaHurtComponent" type="Area2D" parent="." unique_id=703573021]
+position = Vector2(2.5, 0)
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("19_0r87e")
@@ -145,7 +152,8 @@ shape = SubResource("RectangleShape2D_qmmba")
 debug_color = Color(4.668683e-06, 0.6457076, 0.2609373, 0.41960785)
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1994767368]
-collision_layer = 0
+position = Vector2(2.5, 0)
+collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox" unique_id=1936589072]

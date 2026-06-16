@@ -66,53 +66,29 @@ public partial class KoopaStateShellMove : KoopaState
 
     private void ManualCollision()
     {
-        if (koopa.GetSlideCollisionCount() > 0)
-        {
-            GD.Print("slidecount: " + koopa.GetSlideCollisionCount());
-        }
+
+
         for (int i = 0; i < koopa.GetSlideCollisionCount(); i++)
         {
+
             KinematicCollision2D coll = koopa.GetSlideCollision(i);
-            if (coll.GetNormal() == Vector2.Left || coll.GetNormal() == Vector2.Right)
+
+            GodotObject godotObject = coll.GetCollider();
+            try
             {
-                GodotObject godotObject = coll.GetCollider();
-                if(godotObject == null){
-                    return;
-                }
-                GD.Print("meurtre de " + godotObject);
-                try
-                {
-                    IInstaKillableObject ennemi = (IInstaKillableObject)godotObject;
-                    GD.Print("essai meurtre : 1");
-                    
-                    //try
-                    //{
-                    //    Koopa otherKoop = (Koopa)ennemi;
-                    //    GD.Print("essai meurtre : 2");
-//
-                    //    if (otherKoop.currentStateIndex == (int)KoopaStateEnum.SHELL_MOVE)
-                    //    {
-                    //        koopa.InstaKill();
-                    //        GD.Print("essai meurtre : 3");   
-                    //    }
-                    //    else
-                    //    {
-                    //        otherKoop.InstaKill();
-                    //        GD.Print("essai meurtre : 35");
-                    //        return;
-                    //    }
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    GD.Print("essai meurtre : 4");
-                    //}
-                    ennemi.InstaKill();
-                    return;
-                }
-                catch (Exception e)
-                {
-                    GD.Print("essai meurtre : echec" + e);
-                }
+                IInstaKillableObject ennemi = (IInstaKillableObject)godotObject;
+                GD.Print("essai meurtre : 1");
+                ennemi.InstaKill();
+                return;
+            }
+            catch (Exception e)
+            {
+                GD.Print("essai meurtre : echec" + e);
+            }
+
+            Vector2 normal = coll.GetNormal();
+            if (normal == Vector2.Left || normal == Vector2.Right)
+            {
                 try
                 {
                     IBlock block = (IBlock)godotObject;
@@ -123,11 +99,12 @@ public partial class KoopaStateShellMove : KoopaState
                 {
                     GD.Print("slideTest: Echec " + e);
                 }
-                GD.Print("meurtre final");
                 FlipKoopa();
-                return;
-
             }
+
+            return;
+
+
         }
     }
     private void FlipKoopa()

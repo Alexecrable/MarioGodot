@@ -9,9 +9,10 @@ public partial class StarBlock : PowerBlock
     public override void  Collision(int _currentPowerUpIndex)
     {
         //Changer cte ligne pr load un objet ETOILE plutot
-        Powerup powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps/Star/star.tscn").Instantiate<Star>();
+        Star powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps/Star/star.tscn").Instantiate<Star>();
         if (!isEmpty)
         {
+
             powerup.Position = Position + new Vector2(0, -30);
             GD.Print("collision");
             CallDeferred("add_sibling", powerup);
@@ -24,6 +25,9 @@ public partial class StarBlock : PowerBlock
             jumpTween.TweenProperty(sprite, "position", new Vector2(0, 0), 0.1);
             jumpTween.Parallel().TweenProperty(sprite, "scale", new Vector2(1, 1), 0.1);
             jumpTween.Finished += MakeEmpty;
+            jumpTween.Finished += () => {powerup.Start();
+                
+            };
             isEmpty = true;
             TryToKill();
         }

@@ -46,7 +46,7 @@ shape = SubResource("RectangleShape2D_tcmyv")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1470653824]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1010690149]
 shape = SubResource("RectangleShape2D_tcmyv")

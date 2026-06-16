@@ -70,7 +70,7 @@ public partial class FireBall : CharacterBody2D
 		movementComponent.MaxSpeedY = 200;
 	}
 
-	private void Disappear(string str)
+	public void Disappear(string str)
 	{
 		GD.Print("Fireball : Disappear"+str);
 		GlobalPosition = restingPosition;

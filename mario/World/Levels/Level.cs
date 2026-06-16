@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Net.NetworkInformation;
 using Godot;
 using Godot.Collections;
 public partial class Level : Node
@@ -26,16 +27,20 @@ public partial class Level : Node
 	public delegate void CheckPointEventHandler(Vector2 pos);
 	[Signal]
 	public delegate void ScoreUpdateEventHandler(int score);
+	[Signal]
+	public delegate void LevelFinishEventHandler();
 	public Vector2 spawnPoint, checkPoint;
 	private Vector2 offSetVector = new Vector2(16, 16);
-	private PackedScene koopaScene, goombaScene, powerBlockScene, starBlockScene, flagScene, brickScene, coinBlockScene, coinScene;
+	private PackedScene koopaScene, goombaScene, powerBlockScene, starBlockScene, flagScene, brickScene, coinBlockScene, coinScene, pipeScene;
 	[Export]
 	private int time;
 	private TileMapLayer tiles, saveTiles;
+	private Pipe savePipe;
 
 	private Array<Flag> flags;
 	private DeathFloor deathFloor;
 	private Array<Goomba> goombas;
+	private Casino casino;
 
 	private int score;
 	
@@ -62,7 +67,9 @@ public partial class Level : Node
 		brickScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/BrickBlock/BrickBlock.tscn");
 		flagScene = ResourceLoader.Load<PackedScene>("res://World/Blocs/Flags/flag.tscn");
 		coinScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/coin.tscn");
-		
+		pipeScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/Pipe.tscn");
+		casino = GetNode<Casino>("Casino");
+		casino.LevelFinish += EndLevel;
 		flags = new Array<Flag>();
 		deathFloor = GetNode<DeathFloor>("DeathFloor");
 		GD.Print("loaad " + deathFloor);
@@ -70,7 +77,11 @@ public partial class Level : Node
 		
 	}	
 
-
+	private void EndLevel()
+	{
+		//Logique fin niveau
+		EmitSignal(SignalName.LevelFinish);
+	}
 
 	public void LoadLevel()
 	{
@@ -126,6 +137,10 @@ public partial class Level : Node
 						tiles.EraseCell(new Vector2I(i, y));
 						//SpawnCoinBrickBlock(positionVector);
 						break;
+					case Vector2I(0,6):
+						tiles.EraseCell(new Vector2I(i, y));
+						SpawnPipe(positionVector);
+						break;
 				}
 
 
@@ -146,6 +161,22 @@ public partial class Level : Node
 		deathFloor.setup();
 	}
 
+	private void SpawnPipe(Vector2I position)
+	{
+		Pipe pipe = pipeScene.Instantiate<Pipe>();
+		pipe.Position = position * 32 + offSetVector;
+		if(savePipe == null)
+		{
+			savePipe = pipe;
+		}
+		else
+		{
+			savePipe.otherPipe = pipe;
+			pipe.otherPipe = savePipe;
+			savePipe = null;
+		}
+		AddChild(pipe);
+	}
 	private void SpawnBrickBlock(Vector2I position)
 	{
 		BrickBlock brickBlock = brickScene.Instantiate<BrickBlock>();

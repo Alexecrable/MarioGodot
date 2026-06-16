@@ -25,6 +25,7 @@ public partial class Chapeau : RigidBody2D
 		
         SetDeferred("freeze",false);
         float rand = (GD.Randf()*2) - 1;
+		area.Monitoring = true;
         GD.Print("rand " + rand );
         CallDeferred("apply_impulse",new Vector2(150 * rand,-120));
         CallDeferred("apply_torque",50000*rand);
@@ -34,6 +35,7 @@ public partial class Chapeau : RigidBody2D
 
 	private void PickUp(Node _body)
 	{
+		GD.Print("PICKCHAP");
 		Mario mario = (Mario)_body;
 		sprite2D.Texture = mario.GetHat(sprite2D.Texture);
 		SautChapeau();

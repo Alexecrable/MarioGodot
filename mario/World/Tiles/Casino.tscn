@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dgnslkp7cbgd4"]
+
+[ext_resource type="Texture2D" uid="uid://bx207g731yl4d" path="res://World/Tiles/casino.png" id="1_bkfts"]
+[ext_resource type="Script" uid="uid://ba6p02sa7xq7w" path="res://World/Tiles/Casino.cs" id="2_2ksb4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ksb4"]
+size = Vector2(32, 64)
+
+[node name="Casino" type="Sprite2D" unique_id=1966508645]
+texture = ExtResource("1_bkfts")
+script = ExtResource("2_2ksb4")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1014645331]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=359980493]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_2ksb4")
