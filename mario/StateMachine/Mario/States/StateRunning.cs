@@ -6,7 +6,8 @@ public partial class StateRunning : MarioState
 {
     private Timer coyoteTimer;
     private bool isCoyote;
-    public StateRunning(Mario _mario) : base(_mario)
+    private MovementComponent movementComponent;
+    public StateRunning(Mario _mario, MovementComponent _movementComponent) : base(_mario)
     {
         coyoteTimer = new Timer();
         coyoteTimer.OneShot = true;
@@ -14,6 +15,7 @@ public partial class StateRunning : MarioState
         coyoteTimer.WaitTime = 0.1;
         coyoteTimer.Timeout += CoyoteEnd;
         AddChild(coyoteTimer);
+        movementComponent = _movementComponent;
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -25,33 +27,42 @@ public partial class StateRunning : MarioState
     override public void Enter(int _stateID)
     {
         mario.animation.Animation = "Running";
-        mario.animation.Modulate = new Color(0,0,1);
+       // mario.animation.Modulate = new Color(0,0,1);
         mario.animation.Play();
-        mario.SetGoingNeutral();
+        //mario.SetGoingNeutral();
         isCoyote = false;
-        mario.yVelocity = mario.startingGravity;
+        movementComponent.CurrentSpeedY = mario.startingGravity;
+        movementComponent.CurrentSpeedX = mario.speed;
+        mario.chapeau.Offset = new Vector2(13 * (mario.rightInput - mario.leftInput),4);
+
+     
+        GD.Print("enter state : running");
     }
 
     override public void Exit(int _stateID)
     {
-        mario.animation.Modulate = new Color(1,1,1);
+       // mario.animation.Modulate = new Color(1,1,1);
         coyoteTimer.Stop();
+        mario.chapeau.Offset = new Vector2(0,0);
     }
 
-    override public void PhysicsProcess(double delta)
+    override public void PhysicsProcess(double _delta)
     {
-       
-        mario.currentHorizontalVelocity = (mario.rightInput - mario.leftInput) * mario.speed;
-		mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
+                GD.Print("mariovit: " + movementComponent.CurrentSpeedX);
+
+        movementComponent.SpeedX();
+        movementComponent.Advance();
         if (mario.rightInput - mario.leftInput < 0)
         {
             mario.animation.FlipH = true;
+            mario.chapeau.FlipH = true;
         }
         else
         {
             if ((mario.rightInput - mario.leftInput > 0))
             {
                 mario.animation.FlipH = false;
+                mario.chapeau.FlipH = false;
             }
         }
         if (!mario.IsOnFloor() && !isCoyote)
@@ -61,15 +72,22 @@ public partial class StateRunning : MarioState
         }
         else
         {
-            if (!mario.IsRunning())
+            if (!movementComponent.IsMoving())
             {
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.IDLE);
             }
             else
             {
-                if (Input.IsActionJustPressed("jump"))
+                if (movementComponent.WantsJump())
                 {
                     EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
+                }
+                else
+                {
+                    if (movementComponent.WantsToCrouch())
+                    {
+                        EmitSignal(SignalName.Finished, (int)Mario.StateEnum.CROUCH);
+                    }
                 }
             }
 

@@ -2,36 +2,45 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Runtime.CompilerServices;
- public enum GoombaStateEnum
-    {
-        IDLE = 0,
-        WALK = 1,
-        DIE = 2
-    }
+
+public enum GoombaStateEnum
+{
+    IDLE = 0,
+    WALK = 1,
+    DIE = 2
+}
 public partial class Goomba : Ennemi
 {
-    public RigidBody2D chapeau;
+    public Chapeau chapeau;
     public Sprite2D chapeauSkin;
     private Texture2D chapeauText;
 
 
+
     private Array<GoombaState> states;
     private VisibleOnScreenNotifier2D notifier;
+    public HurtComponent hurtBox;
+    public Area2D hitBox;
+    private MovementComponent movementComponent;
     public int currentYVelocity = 0;
     public int currentXVelocity = 0;
 
     public override void _Ready()
     {
-        
+
         notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
         skin = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        chapeau = GetNode<RigidBody2D>("Chapeau");
+        chapeau = GetNode<Chapeau>("Chapeau");
         chapeauSkin = chapeau.GetNode<Sprite2D>("Sprite2D");
         uint choixpeau = (GD.Randi() % 6) + 1;
-        chapeauText = ResourceLoader.Load<Texture2D>("res://StateMachine/Ennemies/Goomba/Sprites/Hats/Goombhat"+choixpeau+".png");
+        chapeauText = ResourceLoader.Load<Texture2D>("res://StateMachine/Ennemies/Goomba/Sprites/Hats/Goombhat" + choixpeau + ".png");
         chapeauSkin.Texture = chapeauText;
         chapeau.Freeze = true;
         skin.Animation = "WALK";
+        movementComponent = GetNode<MovementComponent>("MovementComponent");
+        movementComponent.Init(this);
+        hitBox = GetNode<Area2D>("HitBox");
+        hurtBox = GetNode<HurtComponent>("GoombaHurtComponent");
         skin.Pause();
         InitState();
     }
@@ -39,9 +48,9 @@ public partial class Goomba : Ennemi
     public override void InitState()
     {
         states = [
-            new GoombaStateIdle(this),
-            new GoombaStateWalk(this),
-            new GoombaStateDie(this)
+            new GoombaStateIdle(this,movementComponent),
+            new GoombaStateWalk(this, movementComponent),
+            new GoombaStateDie(this, movementComponent)
         ];
 
         foreach (GoombaState state in states)
@@ -67,8 +76,11 @@ public partial class Goomba : Ennemi
 
     public override void _PhysicsProcess(double _delta)
     {
+
         states[currentStateIndex].PhysicsProcess(_delta);
+
         MoveAndSlide();
+
     }
 
     public VisibleOnScreenNotifier2D getNotifier()
@@ -76,9 +88,9 @@ public partial class Goomba : Ennemi
         return notifier;
     }
 
-    public override void MakeHit()
+    public override void InstaKill()
     {
-        EmitSignal(SignalName.Hit);
+        ChangeState((int)GoombaStateEnum.DIE);
     }
 
 

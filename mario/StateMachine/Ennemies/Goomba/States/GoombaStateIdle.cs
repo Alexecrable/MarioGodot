@@ -4,7 +4,7 @@ using System;
 public partial class GoombaStateIdle : GoombaState
 {
 
-	public GoombaStateIdle(Goomba _goomba) : base(_goomba)
+	public GoombaStateIdle(Goomba _goomba, MovementComponent _movementComponent) : base(_goomba, _movementComponent)
     {
         VisibleOnScreenNotifier2D notifier = goomba.getNotifier();
         notifier.ScreenEntered += ScreenEntered;
@@ -13,6 +13,8 @@ public partial class GoombaStateIdle : GoombaState
     public override void Enter(int _previousStateId)
     {
         goomba.skin.Pause();
+        movementComponent.CurrentSpeedX = 0;
+        movementComponent.Advance();
     }
 
     public override void Exit(int _previousStateId)

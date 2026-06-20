@@ -3,22 +3,26 @@ using System;
 
 public partial class KoopaStateIdle : KoopaState
 {
-
-	public KoopaStateIdle(Koopa _koopa) : base(_koopa)
+    VisibleOnScreenNotifier2D notifier;
+    public KoopaStateIdle(Koopa _koopa, MovementComponent _movementComponent) : base(_koopa, _movementComponent)
     {
-        VisibleOnScreenNotifier2D notifier = koopa.getNotifier();
-        notifier.ScreenEntered += ScreenEntered;
+        notifier = koopa.getNotifier();
     }
 
     public override void Enter(int _previousStateId)
     {
+        notifier.ScreenEntered += ScreenEntered;
+
+        movementComponent.CurrentSpeedX = 0;
+        movementComponent.Advance();
     }
     public override void Exit(int _previousStateId)
     {
-        
+        notifier.ScreenEntered -= ScreenEntered;
+
     }
-	
-	public override void PhysicsProcess(double _delta)
+
+    public override void PhysicsProcess(double _delta)
     {
     }
 

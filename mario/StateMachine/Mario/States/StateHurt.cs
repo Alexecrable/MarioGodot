@@ -4,12 +4,15 @@ using System;
 public partial class StateHurt : MarioState
 {
 
-    private Vector2 VelocitySave;
+    private float XVelocitySave, yVelocitySave;
     private Timer hurtTimer;
     private Tween tween;
     private int previousStateId;
+    private MovementComponent movementComponent;
 
-    public StateHurt(Mario _mario) : base(_mario)
+    
+
+    public StateHurt(Mario _mario, MovementComponent _movementComponent) : base(_mario)
     {
         hurtTimer = new Timer();
         hurtTimer.WaitTime = 1;
@@ -17,6 +20,7 @@ public partial class StateHurt : MarioState
         hurtTimer.OneShot = true;
         AddChild(hurtTimer);
         hurtTimer.ProcessMode = Node.ProcessModeEnum.WhenPaused;
+        movementComponent = _movementComponent;
 
     }
 
@@ -25,7 +29,8 @@ public partial class StateHurt : MarioState
 
     override public void Enter(int _stateID)
     {
-        VelocitySave = mario.Velocity;
+        //XVelocitySave = movementComponent.CurrentSpeedX;
+        //yVelocitySave = movementComponent.CurrentSpeedY;
         previousStateId = _stateID;
         //mario.animation.Pause();
         //mario.Velocity = new Vector2(0, 0);
@@ -38,12 +43,15 @@ public partial class StateHurt : MarioState
         {
             case (int)Mario.PowerEnum.BASE : mario.Scale = new Vector2(1,1);
             break;
-            case (int)Mario.PowerEnum.FIRE : ;
+            case (int)Mario.PowerEnum.BIG : mario.animation.Modulate = new Color(0,0,0);
             break;
         
         }
         GetTree().Paused = true;
         hurtTimer.Start();
+
+       
+        GD.Print("enter state : hurt");
     }
 
     private void HurtTimeOut()

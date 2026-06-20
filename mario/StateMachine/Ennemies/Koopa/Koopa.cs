@@ -44,10 +44,12 @@ public partial class Koopa : Ennemi
     
 
     private Array<KoopaState> states;
-    public Area2D turnAroundArea;
+    public RayCast2D turnAroundRay;
     private VisibleOnScreenNotifier2D notifier;
     public AnimatedSprite2D legs,eyes,shell;
-    public Area2D marioNotif, hurtBox;
+    public Area2D marioNotif, hitBox;
+    public HurtComponent hurtBox;
+    private MovementComponent movementComponent;
     public int xVel;
 
 
@@ -60,9 +62,12 @@ public partial class Koopa : Ennemi
         marioNotif = GetNode<Area2D>("MarioLookArea");
         marioNotif.BodyEntered += MarioSpotted;
         marioNotif.BodyExited += MarioLost;
-        turnAroundArea = GetNode<Area2D>("TurnAroundArea");
-        hurtBox = GetNode<Area2D>("HurtBox");
-        
+        turnAroundRay = GetNode<RayCast2D>("TurnAroundRay");
+        hurtBox = GetNode<HurtComponent>("HurtBox");
+        hitBox = GetNode<Area2D>("HitBox");
+        movementComponent = GetNode<MovementComponent>("MovementComponent");
+        movementComponent.Init(this);
+        movementComponent.CurrentSpeedY = 200;
         xVel = 50;
         InitState();
     }
@@ -72,8 +77,10 @@ public partial class Koopa : Ennemi
 
     private void MarioLost(Node body)
     {
-        
+        if(eyes.Animation == "SHOCKED")
+        {
         eyes.AnimationFinished -= ShockFinish;
+        }
         eyes.Animation = "NORMAL";
         eyes.Play();
     }
@@ -94,12 +101,12 @@ public partial class Koopa : Ennemi
     public override void InitState()
     {
         states = [
-            new KoopaStateIdle(this),
-            new KoopaStateWalk(this),
-            new KoopaStateDie(this),
-            new KoopaStateShellIdle(this),
-            new KoopaStateShellMove(this),
-            new KoopaStateWakeUp(this)
+            new KoopaStateIdle(this, movementComponent),
+            new KoopaStateWalk(this, movementComponent),
+            new KoopaStateDie(this, movementComponent),
+            new KoopaStateShellIdle(this, movementComponent),
+            new KoopaStateShellMove(this, movementComponent),
+            new KoopaStateWakeUp(this, movementComponent)
         ];
 
         foreach (KoopaState state in states)
@@ -116,18 +123,21 @@ public partial class Koopa : Ennemi
 
     public override void ChangeState(int _stateIndex)
     {
+        GD.Print("Koopa : " + currentStateIndex + " -> " + _stateIndex);
         int lastIndex = currentStateIndex;
         states[currentStateIndex].Exit(_stateIndex);
         currentStateIndex = _stateIndex;
         states[currentStateIndex].Enter(lastIndex);
-        GD.Print("go to state " + currentStateIndex);
 
     }
 
     public override void _PhysicsProcess(double _delta)
     {
         states[currentStateIndex].PhysicsProcess(_delta);
+       
         MoveAndSlide();
+
+        
     }
 
     public VisibleOnScreenNotifier2D getNotifier()
@@ -135,9 +145,9 @@ public partial class Koopa : Ennemi
         return notifier;
     }
 
-    public override void MakeHit()
+    public override void InstaKill()
     {
-        //EmitSignal(SignalName.Hit);
+       ChangeState((int)KoopaStateEnum.DIE);
     }
 
 

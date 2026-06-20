@@ -35,10 +35,12 @@
 [ext_resource type="Texture2D" uid="uid://dww1nwh0n7sa1" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs7.png" id="33_ubiew"]
 [ext_resource type="Texture2D" uid="uid://c2uv65rjl5l16" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs8.png" id="34_qos4f"]
 [ext_resource type="Texture2D" uid="uid://c7cph1us2dl0n" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Head1.png" id="35_61joq"]
+[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="36_rkqiv"]
+[ext_resource type="AudioStream" uid="uid://js20ea40ek4e" path="res://SoundsBeta/koopaBLop.ogg" id="37_o3h2m"]
+[ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="38_xbxt1"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 17.0
-height = 34.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfh7r"]
+size = Vector2(30, 30)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b4ds4"]
 animations = [{
@@ -69,7 +71,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vbiwy"]
@@ -176,19 +178,21 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r1dl4"]
 size = Vector2(177, 87)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkqiv"]
-size = Vector2(24, 34)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbxt1"]
+size = Vector2(26, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3h2m"]
-size = Vector2(40, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6egs"]
+size = Vector2(32, 32)
 
 [node name="Koopa" type="CharacterBody2D" unique_id=328616508]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 3
+platform_floor_layers = 4294962688
 script = ExtResource("1_8764f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1782300844]
-shape = SubResource("CapsuleShape2D_b5ej4")
+visible = false
+shape = SubResource("RectangleShape2D_nfh7r")
 
 [node name="Shell" type="AnimatedSprite2D" parent="." unique_id=1506461069]
 sprite_frames = SubResource("SpriteFrames_b4ds4")
@@ -200,8 +204,6 @@ position = Vector2(23, 0)
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_vbiwy")
 animation = &"NORMAL"
-frame = 1
-frame_progress = 0.35612202
 
 [node name="Legs" type="AnimatedSprite2D" parent="Body" unique_id=1294299623]
 sprite_frames = SubResource("SpriteFrames_y82nw")
@@ -211,7 +213,6 @@ frame_progress = 0.8322563
 texture = ExtResource("35_61joq")
 
 [node name="MarioLookArea" type="Area2D" parent="." unique_id=91085734]
-visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -222,16 +223,31 @@ shape = SubResource("RectangleShape2D_r1dl4")
 [node name="Notifier" type="VisibleOnScreenNotifier2D" parent="." unique_id=1824997888]
 rect = Rect2(-10, -10, 33, 20)
 
-[node name="TurnAroundArea" type="Area2D" parent="." unique_id=1732208472]
+[node name="TurnAroundRay" type="RayCast2D" parent="." unique_id=1653482399]
+position = Vector2(28, 0)
+target_position = Vector2(0, 24)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TurnAroundArea" unique_id=589183979]
-position = Vector2(36, 7)
-shape = SubResource("RectangleShape2D_rkqiv")
+[node name="HitBox" type="Area2D" parent="." unique_id=156868907]
+collision_layer = 64
+collision_mask = 0
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=768057703]
-collision_layer = 34824
-collision_mask = 34820
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox" unique_id=1994711365]
+shape = SubResource("RectangleShape2D_xbxt1")
+debug_color = Color(0.9770184, 0, 0.4236398, 0.41960785)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=379434496]
-position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_o3h2m")
+[node name="MovementComponent" type="Node" parent="." unique_id=471244811]
+script = ExtResource("36_rkqiv")
+metadata/_custom_type_script = "uid://bdywv15qsbvuj"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=411645790]
+stream = ExtResource("37_o3h2m")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=180951452]
+collision_layer = 32
+collision_mask = 20
+script = ExtResource("38_xbxt1")
+metadata/_custom_type_script = "uid://dycv4om62lp72"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=110304524]
+shape = SubResource("RectangleShape2D_p6egs")
+debug_color = Color(0.22847703, 0.6383634, 3.85046e-07, 0.41960785)

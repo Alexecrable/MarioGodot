@@ -1,22 +1,17 @@
 using Godot;
 using System;
 
-public partial class World : Node2D
+public partial class PauseMenu : CanvasLayer
 {
-	Powerup power;
-	Mario mario;
+	public Button resumeButton;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		//mario = GetNode<Mario>("Mario");
-		//power = GetNode<Powerup>("Power");
+		resumeButton = GetNode<Button>("Control/Button");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-
 	}
-	
-	
 }

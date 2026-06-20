@@ -3,8 +3,12 @@ using System;
 
 public partial class StateIdle : MarioState
 {
-    public StateIdle(Mario _mario) : base(_mario)
+
+    private MovementComponent movementComponent;
+
+    public StateIdle(Mario _mario, MovementComponent _movementComponent) : base(_mario)
     {
+        movementComponent = _movementComponent;
     }
 
 
@@ -15,8 +19,13 @@ public partial class StateIdle : MarioState
         mario.animation.Animation = "Idle";
         mario.animation.Play();
 
-        mario.yVelocity = mario.startingGravity;
-        mario.SetGoingNeutral();
+        
+        movementComponent.CurrentSpeedY = 0;
+        //mario.SetGoingNeutral();
+
+      
+
+        GD.Print("enter state : idle");
     }
 
     override public void Exit(int _stateID)
@@ -24,28 +33,32 @@ public partial class StateIdle : MarioState
 
     }
 
-    override public void PhysicsProcess(double delta)
-    {
-
-
-        mario.currentHorizontalVelocity = (mario.rightInput - mario.leftInput) * mario.speed;
-        mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
-
+    override public void PhysicsProcess(double _delta)
+    {   
+        movementComponent.SpeedX();
+        movementComponent.Advance();
         if (!mario.IsOnFloor())
         {
             EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
         }
         else
         {
-            if (mario.IsRunning())
+            if (movementComponent.IsMoving())
             {
                 EmitSignal(SignalName.Finished, (int)Mario.StateEnum.MOVE);
             }
             else
             {
-                if (Input.IsActionJustPressed("jump"))
+                if (movementComponent.WantsJump())
                 {
                     EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
+                }
+                else
+                {
+                    if (movementComponent.WantsToCrouch())
+                    {
+                        EmitSignal(SignalName.Finished, (int)Mario.StateEnum.CROUCH);
+                    }
                 }
             }
 

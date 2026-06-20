@@ -6,7 +6,8 @@ public partial class StateJumping : MarioState
 
     private Timer timer;
     private AudioStreamMP3 jumpSFX;
-    public StateJumping(Mario _mario) : base(_mario)
+    MovementComponent movementComponent;
+    public StateJumping(Mario _mario, MovementComponent _movementComponent) : base(_mario)
     {
 
         timer = new Timer();
@@ -17,6 +18,7 @@ public partial class StateJumping : MarioState
 
         jumpSFX.Loop = false;
 
+        movementComponent = _movementComponent;
 
         AddChild(timer);
     }
@@ -25,21 +27,26 @@ public partial class StateJumping : MarioState
     private void timerEnd()
     {
         EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
-        mario.yVelocity = mario.endJumpGravity;
+        movementComponent.CurrentSpeedY = mario.endJumpGravity;
     }
 
     override public void Enter(int _stateID)
     {
         //mario.Velocity += new Vector2(0, 50);
-        GD.Print("enter jump");
+        
+        GD.Print(movementComponent.CurrentSpeedX);
         mario.animation.Animation = "Jumping";
         mario.sfxPlayer.Stream = jumpSFX;
 
         mario.animation.Play();
         mario.sfxPlayer.Play();
-        mario.SetGoingUp();
+        //mario.SetGoingUp();
         timer.Start();
-        mario.yVelocity = mario.startJumpGravity;
+        movementComponent.CurrentSpeedY = mario.startJumpGravity;
+
+       
+
+        GD.Print("enter state : jumping");
     }
 
 
@@ -52,32 +59,32 @@ public partial class StateJumping : MarioState
     override public void Exit(int _stateID)
     {
         //mario.SetHeadActivated(false);
+        GD.Print("exitJump");
     }
 
-    override public void PhysicsProcess(double delta)
+    override public void PhysicsProcess(double _delta)
     {
-        if (mario.maxHorizontalVelocity > mario.currentHorizontalVelocity * (mario.rightInput - mario.leftInput))
-        {
-            mario.currentHorizontalVelocity += mario.airborneHorizontalAccel * (mario.rightInput - mario.leftInput) * (float)delta;
-        }
+        movementComponent.AccelerateToSpeedX(_delta);
+        //movementComponent.AccelerateToSpeedY(_delta);
         
-
-        if (mario.jumpInput == 0)
+        
+        GD.Print(mario.jumpInput);
+        if (!movementComponent.WantsJump())
         {
             timer.Stop();
             EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
 
         }
-        if (mario.IsOnCeiling())
+        if (movementComponent.IsOnCeiling())
         {
             timer.Stop();
-            mario.yVelocity = 0;
-            mario.SetGoingDown();
+            movementComponent.CurrentSpeedY = 0;
+            //mario.SetGoingDown();
             EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
 
         }
-        mario.Velocity = new Vector2(mario.currentHorizontalVelocity, mario.yVelocity);
-
+        movementComponent.Advance();
+        GD.Print(mario.Velocity);
     }
 
 

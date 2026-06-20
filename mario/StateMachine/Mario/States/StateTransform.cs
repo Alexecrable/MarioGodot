@@ -15,6 +15,8 @@ public partial class StateTransform : MarioState
     {
         mario.animation.Animation = "Transforming";
         mario.animation.Play();
+      
+        GD.Print("enter state : transform");
 
     }
 

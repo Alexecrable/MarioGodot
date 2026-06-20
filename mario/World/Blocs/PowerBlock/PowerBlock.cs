@@ -1,34 +1,53 @@
 using Godot;
 using System;
 
-public partial class PowerBlock : StaticBody2D
+public partial class PowerBlock : StaticBody2D, IBlock
 {
 	// Called when the node enters the scene tree for the first time.
-	private Sprite2D sprite;
+	protected Sprite2D sprite;
 	private Tween jumpTween;
 	private Area2D area;
-	private Powerup powerUp;
-	private BeerWalker shroom;
+	private Powerup powerup;
 	private Texture2D emptyTexture;
-	private bool isEmpty;
+	protected bool isEmpty;
 
 	public override void _Ready()
 	{
 		area = GetNode<Area2D>("Area2D");
 		sprite = GetNode<Sprite2D>("Sprite2D");
-		shroom = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();
 		emptyTexture = ResourceLoader.Load<Texture2D>("res://World/Blocs/PowerBlock/Sprites/EmptyPowerBlock.jpg");
 		//jumpTween.SetLoops();
+
 		isEmpty = false;
 	}
 
-	public void Collision()
+	public virtual void Collision(int _currentPowerUpIndex)
 	{
+		GD.Print("PowerBlock : lol");
+		if (_currentPowerUpIndex == (int)Mario.PowerEnum.BASE)
+		{
+			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//BeerWalker/Shroom.tscn").Instantiate<BeerWalker>();
+
+		}
+		else
+		{
+			if (_currentPowerUpIndex == (int)Mario.PowerEnum.UP)
+			{
+			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//1UP/1up.tscn").Instantiate<OneUp>();
+
+			}
+			else
+			{
+			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//FireFlower/fireFlower.tscn").Instantiate<FireFlower>();
+			}
+				
+
+		}
 		if (!isEmpty)
 		{
-			shroom.Position = Position + new Vector2(0,-30);
-
-			CallDeferred("add_sibling", shroom);
+			powerup.Position = Position + new Vector2(0, -30);
+			GD.Print("collision");
+			CallDeferred("add_sibling", powerup);
 
 			jumpTween = CreateTween();
 			jumpTween.SetTrans(Tween.TransitionType.Linear);
@@ -39,13 +58,30 @@ public partial class PowerBlock : StaticBody2D
 			jumpTween.Parallel().TweenProperty(sprite, "scale", new Vector2(1, 1), 0.1);
 			jumpTween.Finished += MakeEmpty;
 			isEmpty = true;
+			TryToKill();
 		}
 
 
 	}
 
+	protected void TryToKill()
+	{
+		GD.Print("trytokill");
+		foreach (CharacterBody2D body in area.GetOverlappingBodies())
+		{
+			try
+			{
+				Ennemi ennemi = (Ennemi)body;
+				ennemi.InstaKill();
+			}
+			catch (Exception e)
+			{
+				GD.Print(body + " n'est pas un ennemi ? " + e);
+			}
+		}
+	}
 
-	private void MakeEmpty()
+	protected void MakeEmpty()
 	{
 
 		sprite.Texture = emptyTexture;

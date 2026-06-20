@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://8tt16c1ff5cp"]
+
+[ext_resource type="Script" uid="uid://7o4c61hc3exr" path="res://Menus/Ui.cs" id="1_2jy05"]
+[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_va7fs"]
+
+[sub_resource type="Theme" id="Theme_1qlct"]
+default_font_size = 36
+
+[node name="UI" type="CanvasLayer" unique_id=1732826414]
+script = ExtResource("1_2jy05")
+
+[node name="Control" type="Control" parent="." unique_id=1051481439]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme = SubResource("Theme_1qlct")
+
+[node name="Score" type="Label" parent="Control" unique_id=685869217]
+layout_mode = 0
+offset_left = -334.0
+offset_top = -225.0
+offset_right = -189.0
+offset_bottom = -175.0
+text = "Score : 0"
+
+[node name="MarioHead" type="Sprite2D" parent="Control" unique_id=325155297]
+position = Vector2(-326, -113)
+texture = ExtResource("2_va7fs")
+
+[node name="Lives" type="Label" parent="Control" unique_id=1526497126]
+layout_mode = 0
+offset_left = -302.0
+offset_top = -137.0
+offset_right = -262.0
+offset_bottom = -87.0
+text = ": 0"
+
+[node name="TimerLabel" type="Label" parent="Control" unique_id=602706954]
+layout_mode = 0
+offset_left = 802.0
+offset_top = -177.0
+offset_right = 977.0
+offset_bottom = -127.0
+text = "Time : 999"
+
+[node name="Timer" type="Timer" parent="Control" unique_id=129628056]
+process_mode = 1

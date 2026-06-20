@@ -5,11 +5,13 @@ public partial class StateWallSlide : MarioState
 {
 
     private AudioStreamMP3 wallSlideSFX;
-    public StateWallSlide(Mario _mario) : base(_mario)
+    private MovementComponent movementComponent;
+    public StateWallSlide(Mario _mario, MovementComponent _movementComponent) : base(_mario)
     {
         wallSlideSFX = GD.Load<AudioStreamMP3>("res://StateMachine/Mario/Sounds/WallSlide.mp3");
         wallSlideSFX.Loop = true;
         wallSlideSFX.LoopOffset = 0.3;
+        movementComponent = _movementComponent;
         
     }
 
@@ -19,32 +21,43 @@ public partial class StateWallSlide : MarioState
     override public void Enter(int _stateID)
     {
         mario.sfxPlayer.Stream = wallSlideSFX;
-        mario.SetGoingDown();
+        //mario.SetGoingDown();
         mario.animation.Animation = "WallSlide";
         mario.animation.Play();
-        mario.Velocity = new Vector2(0, 100);
-        mario.currentHorizontalVelocity = 0;
+        movementComponent.CurrentSpeedX = 0;
+        movementComponent.CurrentSpeedY = 100;
+        movementComponent.Advance();
         mario.animation.FlipH = mario.raycastLeft.IsColliding();
         mario.particles.Emitting = true;
+
+        GD.Print("enter state : wallslide");
+
+
         if (mario.animation.FlipH)
         {
             mario.particles.Position = new Vector2(-6, -14);
+            mario.chapeau.Offset = new Vector2(10,-3);
+            mario.chapeau.FlipH = false;
         }
         else
         {
             mario.particles.Position = new Vector2(6, -14);
+            mario.chapeau.Offset = new Vector2(-10,-3);
+            mario.chapeau.FlipH = true;
+
         }
         mario.sfxPlayer.Play();
 
+       
     }
 
-
+// 10 3
 
     override public void Exit(int _stateID)
     {
         mario.particles.Emitting = false;
         mario.sfxPlayer.Stop();
-
+        mario.chapeau.Offset = new Vector2(0,0);
     }
 
     override public void PhysicsProcess(double delta)
@@ -55,8 +68,7 @@ public partial class StateWallSlide : MarioState
        
         if (!mario.IsGrabbingWall())
         {
-            //falling
-            mario.yVelocity = 100;
+           
             EmitSignal(SignalName.Finished, (int)Mario.StateEnum.FALL);
         }
 
@@ -68,10 +80,10 @@ public partial class StateWallSlide : MarioState
             }
             else
             {
-                if (Input.IsActionJustPressed("jump"))
+                if (movementComponent.WantsJump())
                 {
                     mario.animation.FlipH = !mario.animation.FlipH;
-                    mario.currentHorizontalVelocity = mario.raycastRight.IsColliding() ? -mario.speed : mario.speed;
+                    movementComponent.CurrentSpeedX = mario.raycastRight.IsColliding() ? -mario.speed : mario.speed;
                     EmitSignal(SignalName.Finished, (int)Mario.StateEnum.JUMP);
                 }
 

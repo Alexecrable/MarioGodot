@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://etarxwyxhoo"]
+
+[ext_resource type="Script" uid="uid://c57am22qcv6xn" path="res://World/ScoreAnim.cs" id="1_vwscp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vwscp"]
+font_size = 20
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ScoreAnim" type="Label" unique_id=1988828695]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "lol"
+label_settings = SubResource("LabelSettings_vwscp")
+script = ExtResource("1_vwscp")

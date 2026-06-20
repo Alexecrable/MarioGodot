@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dnn61733yy37f"]
+
+[ext_resource type="SpriteFrames" uid="uid://bk0tkuw2740j5" path="res://World/Tiles/CoinFrames.tres" id="1_il1rc"]
+[ext_resource type="Script" uid="uid://b4k3tm5t2dhnr" path="res://World/Tiles/Coin.cs" id="2_il1rc"]
+[ext_resource type="Material" uid="uid://bsxj4xtsqadii" path="res://World/Tiles/coinExplosion.tres" id="3_uqd52"]
+[ext_resource type="AudioStream" uid="uid://cdammp7g7n1h7" path="res://SoundsBeta/coin.ogg" id="4_v6rvg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uqd52"]
+size = Vector2(32, 32)
+
+[node name="Coin" type="AnimatedSprite2D" unique_id=1779415678]
+position = Vector2(2.3841858e-07, 2.3841858e-07)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("1_il1rc")
+frame_progress = 0.69353765
+script = ExtResource("2_il1rc")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=793358181]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1592932089]
+shape = SubResource("RectangleShape2D_uqd52")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=514867948]
+emitting = false
+amount = 60
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource("3_uqd52")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GPUParticles2D" unique_id=1031601815]
+stream = ExtResource("4_v6rvg")

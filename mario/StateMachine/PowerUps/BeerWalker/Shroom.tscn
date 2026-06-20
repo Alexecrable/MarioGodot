@@ -34,14 +34,13 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5ej4"]
-radius = 9.0
-height = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1r3vg"]
+size = Vector2(18, 30)
 
 [node name="Shroom" type="CharacterBody2D" unique_id=1242023083]
 z_index = -11
-collision_layer = 16
-collision_mask = 3
+collision_layer = 0
+floor_stop_on_slope = false
 floor_block_on_wall = false
 script = ExtResource("1_aqyfy")
 
@@ -54,7 +53,12 @@ frame_progress = 0.6112652
 position = Vector2(0, -9.536743e-07)
 scale = Vector2(0.21875, 0.43749997)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1599762139]
-shape = SubResource("CapsuleShape2D_b5ej4")
+[node name="Area2D" type="Area2D" parent="." unique_id=1728835852]
+collision_layer = 0
+collision_mask = 4
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1105015707]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1938192553]
+shape = SubResource("RectangleShape2D_1r3vg")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=491661642]
+shape = SubResource("RectangleShape2D_1r3vg")
