@@ -7,6 +7,7 @@ public partial class Game : Node2D
 	//Powerup power;
 	private Mario mario;
 	private Ui ui;
+	private int totalScore;
 	private MainMenu mainMenu;
 	private Level currentLevel;
 	private PauseMenu pauseMenu;
@@ -26,15 +27,16 @@ public partial class Game : Node2D
 		mainMenu = GetNode<MainMenu>("MainMenu");
 		ui = GetNode<Ui>("UI");
 		//Chargement de scenes externes
-		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/levelTest.tscn");
+		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/levelNatha.tscn");
 		mario = ResourceLoader.Load<PackedScene>("res://StateMachine/Mario/mario.tscn").Instantiate<Mario>();
 
-
+		totalScore = 0;
 
 		titleCard.Visible = false;
 		mario.Visible = false;
 		ui.Scale = new Vector2(0.5f, 0.5f);
 		ui.Visible = false;
+		ui.TimeEnd += mario.InstaKill;
 
 
 
@@ -90,9 +92,10 @@ public partial class Game : Node2D
 
 		mario.RespawnSignal += () =>
 		{
+
 			spawnPoint = currentLevel.spawnPoint;
 			mario.Position = Vector2.Zero;
-
+			currentLevel.LevelFinish -= LevelFinished;
 			RemoveChild(currentLevel);
 			ShowLevelCard("respanw signal");
 
@@ -101,22 +104,29 @@ public partial class Game : Node2D
 		};
 		SwitchMusic("maintheme.mp3");
 	}
+
+	private void ScoreUpdate(int _score)
+	{
+		totalScore = _score;
+		ui.ScoreUpdate(_score);
+	}
 	private void ShowLevelCard(String origin)
 	{
 
 		currentLevel = levelScene.Instantiate<Level>();
 
-		
-		currentLevel.ScoreUpdate += ui.ScoreUpdate;
-		currentLevel.init();
+
+		currentLevel.ScoreUpdate += ScoreUpdate;
+
+		currentLevel.init(totalScore);
 		currentLevel.LoadLevel();
-		if(spawnPoint != Vector2.Zero)
+		if (spawnPoint != Vector2.Zero)
 		{
-		currentLevel.spawnPoint = spawnPoint;
-			
+			currentLevel.spawnPoint = spawnPoint;
+
 		}
-		
-		titleCard.setTitle(currentLevel.Name + origin, mario.Lives);
+
+		titleCard.setTitle(currentLevel.Name, mario.Lives, totalScore);
 		//player.Stop();
 		player.Play();
 		//GetTree().Paused = true;
@@ -124,13 +134,9 @@ public partial class Game : Node2D
 		Timer timer = new Timer();
 		timer.WaitTime = 4;
 		AddChild(timer);
+		ui.PauseTimer();
 		timer.Timeout += () =>
 		{
-
-
-
-
-
 
 			ui.StartTimer(currentLevel.GetTime());
 
@@ -149,16 +155,23 @@ public partial class Game : Node2D
 
 	private void LevelFinished()
 	{
+		currentLevel.LevelFinish -= LevelFinished;
+
 		GD.Print("niveau fini oep");
+		levelScene = currentLevel.GetNextLevel();
 		RemoveChild(currentLevel);
-		Timer time = new Timer();
-		time.WaitTime = 5;
-		time.Timeout += () =>
+		if (levelScene == null)
 		{
-			QueueFree();
-		};
-		AddChild(time);
-		time.Start();
+			GD.Print("CACAFIN");
+			//faire fin du jeu bravo oeeee
+		}
+		else
+		{
+			mario.DisconnectSignals();
+			ShowLevelCard("salut");
+		}
+
+
 	}
 
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i7m3wwtlb2lx"
-path="res://.godot/imported/1UP.png-fa3a111b4fa97e1d08ba740f955722f6.ctex"
+uid="uid://8s000kdpi22k"
+path="res://.godot/imported/bgSky.png-96c8a62a0780d30345c82335fcca1b7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Tiles/1UP.png"
-dest_files=["res://.godot/imported/1UP.png-fa3a111b4fa97e1d08ba740f955722f6.ctex"]
+source_file="res://World/bgSky.png"
+dest_files=["res://.godot/imported/bgSky.png-96c8a62a0780d30345c82335fcca1b7d.ctex"]
 
 [params]
 

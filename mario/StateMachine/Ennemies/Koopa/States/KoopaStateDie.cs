@@ -11,9 +11,9 @@ public partial class KoopaStateDie : KoopaState
 
     public override void Enter(int _previousStateId)
     {
-        ScoreAnim scoreAnim = new ScoreAnim();
-        scoreAnim.ScoreToShow = 100;
-        scoreAnim.GlobalPosition = koopa.GlobalPosition ;
+        ScoreAnim scoreAnim = ResourceLoader.Load<PackedScene>("res://World/ScoreAnim.tscn").Instantiate<ScoreAnim>();
+        scoreAnim.ScoreToShow = 200;
+        scoreAnim.GlobalPosition = koopa.GlobalPosition- new Vector2(16,16); ;
         koopa.AddSibling(scoreAnim);
         GD.Print(scoreAnim.GlobalPosition + "score a");
         koopa.CollisionLayer = 0;

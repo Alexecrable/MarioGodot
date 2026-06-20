@@ -31,7 +31,16 @@ public partial class PowerBlock : StaticBody2D, IBlock
 		}
 		else
 		{
+			if (_currentPowerUpIndex == (int)Mario.PowerEnum.UP)
+			{
+			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//1UP/1up.tscn").Instantiate<OneUp>();
+
+			}
+			else
+			{
 			powerup = ResourceLoader.Load<PackedScene>("res://StateMachine/PowerUps//FireFlower/fireFlower.tscn").Instantiate<FireFlower>();
+			}
+				
 
 		}
 		if (!isEmpty)

@@ -41,11 +41,18 @@ public partial class Level : Node
 	private DeathFloor deathFloor;
 	private Array<Goomba> goombas;
 	private Casino casino;
-
+	[Export]
+	private string NextLevelName;
+	private PackedScene nextLevel;
 	private int score;
-	
 
 
+
+	public PackedScene GetNextLevel()
+	{
+
+		return nextLevel;
+	}
 	public void ReloadLevel()
 	{
 		tiles = (TileMapLayer)saveTiles.Duplicate();
@@ -53,10 +60,10 @@ public partial class Level : Node
 	}
 	public override void _Ready()
 	{
-		
+
 	}
 
-	public void init()
+	public void init(int _score)
 	{
 		tiles = GetNode<TileMapLayer>("TileMapLayer");
 		saveTiles = (TileMapLayer)tiles.Duplicate();
@@ -69,13 +76,23 @@ public partial class Level : Node
 		coinScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/coin.tscn");
 		pipeScene = ResourceLoader.Load<PackedScene>("res://World/Tiles/Pipe.tscn");
 		casino = GetNode<Casino>("Casino");
+		score = _score;
 		casino.LevelFinish += EndLevel;
 		flags = new Array<Flag>();
 		deathFloor = GetNode<DeathFloor>("DeathFloor");
 		GD.Print("loaad " + deathFloor);
 		goombas = new Array<Goomba>();
-		
-	}	
+		if (NextLevelName != null)
+		{
+			nextLevel = ResourceLoader.Load<PackedScene>("res://World/Levels/" + NextLevelName + ".tscn");
+
+		}
+		else
+		{
+			nextLevel = null;
+		}
+
+	}
 
 	private void EndLevel()
 	{
@@ -87,65 +104,67 @@ public partial class Level : Node
 	{
 		GD.Print("load : " + tiles + " | " + saveTiles);
 		//tiles = (TileMapLayer)saveTiles.Duplicate();
-		for (int i = 0; i < 300; i++)
+		for (int i = 0; i < 132; i++)
 		{
-			for (int y = 0; y < 300; y++)
+			for (int y = 0; y < 30; y++)
 			{
+				
 				Vector2I positionVector = new Vector2I(i, y);
-				Vector2I lol = tiles.GetCellAtlasCoords(positionVector);
-
-
-				switch (lol)
+				
+				if (tiles.GetCellSourceId(positionVector) == 0)
 				{
-					case Vector2I(0, 1):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnBrickBlock(positionVector);
-						break;
-					case Vector2I(1, 1):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnCoinBrickBlock(positionVector);
-						break;
-					case Vector2I(0, 2):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnPowerBlock(positionVector);
-						break;
-					case Vector2I(1, 2):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnStarBlock(positionVector);
-						break;
-					case Vector2I(0, 3):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnGoomba(positionVector);
-						break;
-					case Vector2I(1, 3):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnKoopa(positionVector);
-						break;
-					case Vector2I(0, 4):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnSpawnPoint(positionVector);
-						break;
-					case Vector2I(1, 4):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnCheckPoint(positionVector);
-						break;
-					case Vector2I(0, 5):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnCoin(positionVector);
-						break;
-					case Vector2I(1, 5):
-						tiles.EraseCell(new Vector2I(i, y));
-						//SpawnCoinBrickBlock(positionVector);
-						break;
-					case Vector2I(0,6):
-						tiles.EraseCell(new Vector2I(i, y));
-						SpawnPipe(positionVector);
-						break;
+
+					Vector2I lol = tiles.GetCellAtlasCoords(positionVector);
+
+
+					switch (lol)
+					{
+						case Vector2I(0, 0):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnBrickBlock(positionVector);
+							break;
+						case Vector2I(1, 0):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnCoinBrickBlock(positionVector);
+							break;
+						case Vector2I(0, 1):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnPowerBlock(positionVector);
+							break;
+						case Vector2I(1, 1):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnStarBlock(positionVector);
+							break;
+						case Vector2I(0, 2):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnGoomba(positionVector);
+							break;
+						case Vector2I(1, 2):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnKoopa(positionVector);
+							break;
+						case Vector2I(0, 3):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnSpawnPoint(positionVector);
+							break;
+						case Vector2I(1, 3):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnCheckPoint(positionVector);
+							break;
+						case Vector2I(0, 4):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnCoin(positionVector);
+							break;
+						case Vector2I(1, 4):
+							tiles.EraseCell(new Vector2I(i, y));
+							SpawnPipe(positionVector);
+							break;
+					}
+
 				}
 
-
 			}
-			
+
 		}
 		//Timer timer = new Timer();
 		//timer.WaitTime = 2;
@@ -155,7 +174,7 @@ public partial class Level : Node
 		//	RemoveChild(timer);
 		//};
 		//AddChild(timer);
-//
+		//
 		//timer.OneShot = true;
 		//timer.Start();
 		deathFloor.setup();
@@ -165,7 +184,7 @@ public partial class Level : Node
 	{
 		Pipe pipe = pipeScene.Instantiate<Pipe>();
 		pipe.Position = position * 32 + offSetVector;
-		if(savePipe == null)
+		if (savePipe == null)
 		{
 			savePipe = pipe;
 		}
@@ -196,6 +215,7 @@ public partial class Level : Node
 	private void SpawnCoin(Vector2I position)
 	{
 		Coin coin = coinScene.Instantiate<Coin>();
+		coin.CoinPicked += ScoreUp;
 		coin.Position = position * 32 + offSetVector;
 		coin.Play();
 
@@ -229,7 +249,7 @@ public partial class Level : Node
 		foreach (Flag flaggy in flags)
 		{
 			if (position == flaggy.Position)
-			{	
+			{
 				GD.Print("Flaggy success" + flaggy);
 				flaggy.Modulate = new Color(0.5f, 1, 0.5f);
 				spawnPoint = flaggy.Position;

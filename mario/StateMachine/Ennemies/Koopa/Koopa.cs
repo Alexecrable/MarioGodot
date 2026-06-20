@@ -134,6 +134,7 @@ public partial class Koopa : Ennemi
     public override void _PhysicsProcess(double _delta)
     {
         states[currentStateIndex].PhysicsProcess(_delta);
+       
         MoveAndSlide();
 
         

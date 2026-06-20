@@ -92,7 +92,7 @@ public partial class KoopaStateShellMove : KoopaState
                 try
                 {
                     IBlock block = (IBlock)godotObject;
-                    block.Collision(1);
+                    block.Collision(4);
 
                 }
                 catch (Exception e)

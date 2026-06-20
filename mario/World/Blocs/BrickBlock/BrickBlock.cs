@@ -1,8 +1,12 @@
 using Godot;
 using System;
+using System.ComponentModel;
 
 public partial class BrickBlock : StaticBody2D, IBlock
 {
+
+    [Signal]
+    public delegate void CoinPickedEventHandler(int score);
     // Called when the node enters the scene tree for the first time.
     protected Sprite2D sprite;
     private Tween jumpTween;
@@ -35,10 +39,7 @@ public partial class BrickBlock : StaticBody2D, IBlock
         canHit = true;
     }
 
-    private void coinExplosion()
-    {
 
-    }
 
     public void Collision(int _currentPowerUpIndex)
     {
@@ -50,7 +51,7 @@ public partial class BrickBlock : StaticBody2D, IBlock
             Timer timer = new Timer();
             timer.WaitTime = 0.2;
             timer.OneShot = true;
-            canHit = false;
+            //canHit = false;
             timer.Timeout += timerEnd;
             AddChild(timer);
             timer.Start();
@@ -86,8 +87,14 @@ public partial class BrickBlock : StaticBody2D, IBlock
             coinTween.TweenProperty(coinSprite, "position", new Vector2(0, -50), 0.25);
             player.Stream = ResourceLoader.Load<AudioStream>("res://SoundsBeta/coin.ogg");
             player.Play();
+        ScoreAnim scoreAnim = ResourceLoader.Load<PackedScene>("res://World/ScoreAnim.tscn").Instantiate<ScoreAnim>();
+            scoreAnim.ScoreToShow = 50;
+
             coinTween.Finished += () =>
             {
+                EmitSignal(SignalName.CoinPicked, 50);
+                scoreAnim.GlobalPosition = coinSprite.GlobalPosition - new Vector2(16, 16);
+                AddSibling(scoreAnim);
                 particles.Position = Position + new Vector2(0, -50);
                 AddSibling(particles);
                 particles.Emitting = true;

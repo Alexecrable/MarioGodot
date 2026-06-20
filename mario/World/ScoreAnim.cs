@@ -8,6 +8,7 @@ public partial class ScoreAnim : Label
 	public override void _Ready()
 	{
 		Text = ScoreToShow.ToString();
+		GD.Print("label: " + LabelSettings);
 		Tween tween = CreateTween();
 		tween.SetTrans(Tween.TransitionType.Sine);
 		tween.SetParallel();

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b7bn2n4dnv7gl"]
+
+[ext_resource type="Script" uid="uid://cbjcewhcl4n0r" path="res://StateMachine/PowerUps/1UP/OneUp.cs" id="1_4vjkp"]
+[ext_resource type="Texture2D" uid="uid://i7m3wwtlb2lx" path="res://StateMachine/PowerUps/1UP/Sprites/1UP.png" id="2_nkemg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ff0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nkemg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fxb7q"]
+size = Vector2(18, 30)
+
+[node name="1UP" type="CharacterBody2D" unique_id=214631992]
+z_index = -11
+collision_layer = 0
+script = ExtResource("1_4vjkp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1934260082]
+position = Vector2(0, 30)
+sprite_frames = SubResource("SpriteFrames_5ff0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=977250567]
+shape = SubResource("RectangleShape2D_fxb7q")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1540708078]
+z_index = 11
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1928672945]
+shape = SubResource("RectangleShape2D_fxb7q")

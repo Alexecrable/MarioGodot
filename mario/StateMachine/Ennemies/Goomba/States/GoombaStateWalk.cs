@@ -57,6 +57,7 @@ public partial class GoombaStateWalk : GoombaState
     private void flipGoomb()
     {
         movementComponent.CurrentSpeedX = -movementComponent.CurrentSpeedX;
+        
         goomba.Scale = new Vector2(-goomba.Scale.X, goomba.Scale.Y);
         flipBufferTimer.Start();
         flipBufferActive = true;

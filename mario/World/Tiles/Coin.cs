@@ -27,7 +27,11 @@ public partial class Coin : AnimatedSprite2D
 		gpu.Reparent(GetParent());
 		player.Play();
 		gpu.Emitting = true;
-		EmitSignal(SignalName.CoinPicked);
+		EmitSignal(SignalName.CoinPicked, 50);
+        ScoreAnim scoreAnim = ResourceLoader.Load<PackedScene>("res://World/ScoreAnim.tscn").Instantiate<ScoreAnim>();
+		scoreAnim.ScoreToShow = 50;
+		scoreAnim.GlobalPosition = GlobalPosition - new Vector2(16,16);
+		AddSibling(scoreAnim);
 		QueueFree();
 	}
 }

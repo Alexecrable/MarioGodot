@@ -24,7 +24,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		BASE = 0,
 		BIG = 1,
 		FIRE = 2,
-		STAR = 3
+		STAR = 3,
+		UP = 4
 	}
 	public enum StateEnum
 	{
@@ -44,11 +45,12 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	/////////////////////////////
 
 	public Area2D headBox, feetBox;
+
 	public int Lives { get; set; }
 	public bool invincible = false;
 	public int
 		speed = 250,
-		startingGravity = 0,
+		startingGravity = 100,
 		terminalGravity = 700,
 		gravityAccel = 2000,
 		endJumpGravity = -300,
@@ -83,6 +85,8 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private Timer invincibilityTimer, fireTimer;
 	private Color currentColor = new Color(1, 1, 1);
+
+	private float cameraBaseline;
 
 	private uint holdLayer, holdMask;
 	/////////
@@ -139,6 +143,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public void Spawn()
 	{
+		cameraBaseline = 450;
 		ConnectSignals();
 		currentPowerUpIndex = (int)PowerEnum.BASE;
 		Scale = new Vector2(1, 1);
@@ -172,7 +177,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		invincibilityTimer.Timeout += InvincibilityEnd;
 	}
 
-	private void DisconnectSignals()
+	public void DisconnectSignals()
 	{
 		headBox.BodyEntered -= HittingUp;
 		feetBox.AreaEntered -= HittingDownArea;
@@ -329,6 +334,13 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 				currentPowerUpIndex = save;
 
 				break;
+			case (int)Mario.PowerEnum.UP:
+				Lives++;
+				EmittingLifeUpdate();
+
+				currentPowerUpIndex = save;
+				break;
+
 
 		}
 	}
@@ -396,7 +408,58 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		//camera.GlobalPosition = new Vector2(Position.X + 30, 450);
+		float camX = camera.GlobalPosition.X;
+		float camY = camera.GlobalPosition.Y;
+
+		if (Position.Y <= 150)
+		{
+			cameraBaseline = 225;
+		}
+		else
+		{
+			if (Position.Y >= 750)
+			{
+				cameraBaseline = 675;
+			}
+			else
+			{
+				if (Position.Y < cameraBaseline - 75)
+				{
+					GD.Print("cam : " + Position.Y + "  /  " + cameraBaseline);
+					cameraBaseline = Position.Y + 75;
+					GD.Print("cam : " + Position.Y + "  /  " + cameraBaseline);
+				}
+				else
+				{
+					if (Position.Y > cameraBaseline + 75)
+					{
+						cameraBaseline = Position.Y - 75;
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+		camera.GlobalPosition = new Vector2(Position.X, cameraBaseline);
+		//if (camY <= 225)
+		//{
+		//	camera.GlobalPosition = new Vector2(camX, 225);
+		//}
+		//else
+		//{
+		//	if (camY >= 700)
+		//	{
+		//		camera.GlobalPosition = new Vector2(camX, 650);
+		//	}
+		//	else
+		//	{
+		//		camera.GlobalPosition = new Vector2(Position.X, Position.Y);
+		//	}
+		//}
 
 
 	}
@@ -441,7 +504,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void CheckForHitting()
 	{
-		if (movementComponent.CurrentSpeedY < 0)
+		if (movementComponent.CurrentSpeedY < startingGravity)
 		{
 			headBox.Monitoring = true;
 			//feetBox.Monitoring = true;
@@ -454,7 +517,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		}
 		else
 		{
-			if (movementComponent.CurrentSpeedY > 0)
+			if (movementComponent.CurrentSpeedY > startingGravity)
 			{
 				headBox.Monitoring = false;
 				//feetBox.Monitoring = true;

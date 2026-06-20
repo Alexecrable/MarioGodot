@@ -238,7 +238,7 @@ size = Vector2(10, 1.05)
 size = Vector2(17, 1.05)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_380el"]
-size = Vector2(8, 21)
+size = Vector2(4, 16)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1121828311]
 process_mode = 1
@@ -319,7 +319,7 @@ script = ExtResource("36_alf4d")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=963571265]
-position = Vector2(0, -14.5)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_380el")
 debug_color = Color(0.973972, 0, 0.4335659, 0.41960785)
 

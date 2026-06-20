@@ -76,8 +76,11 @@ public partial class Goomba : Ennemi
 
     public override void _PhysicsProcess(double _delta)
     {
+
         states[currentStateIndex].PhysicsProcess(_delta);
+
         MoveAndSlide();
+
     }
 
     public VisibleOnScreenNotifier2D getNotifier()

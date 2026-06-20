@@ -15,9 +15,9 @@ public partial class GoombaStateDie : GoombaState
     public override void Enter(int _previousStateId)
     {
 
-        ScoreAnim scoreAnim = new ScoreAnim();
+        ScoreAnim scoreAnim = ResourceLoader.Load<PackedScene>("res://World/ScoreAnim.tscn").Instantiate<ScoreAnim>();
         scoreAnim.ScoreToShow = 100;
-        scoreAnim.GlobalPosition = goomba.GlobalPosition ;
+        scoreAnim.GlobalPosition = goomba.GlobalPosition - new Vector2(16,16);;
         goomba.AddSibling(scoreAnim);
         GD.Print(scoreAnim.GlobalPosition + "score a");
 

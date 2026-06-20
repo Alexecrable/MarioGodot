@@ -110,7 +110,7 @@ rect = Rect2(-16, -23, 32, 46)
 [node name="Chapeau" type="RigidBody2D" parent="." unique_id=1297845076]
 position = Vector2(-3.5, -8)
 collision_layer = 0
-collision_mask = 0
+collision_mask = 3
 script = ExtResource("16_e3tbb")
 
 [node name="Sprite2D" type="Sprite2D" parent="Chapeau" unique_id=473815014]

@@ -182,7 +182,7 @@ size = Vector2(177, 87)
 size = Vector2(26, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p6egs"]
-size = Vector2(48, 32)
+size = Vector2(32, 32)
 
 [node name="Koopa" type="CharacterBody2D" unique_id=328616508]
 collision_layer = 2
@@ -225,7 +225,7 @@ rect = Rect2(-10, -10, 33, 20)
 
 [node name="TurnAroundRay" type="RayCast2D" parent="." unique_id=1653482399]
 position = Vector2(28, 0)
-target_position = Vector2(0, 20)
+target_position = Vector2(0, 24)
 
 [node name="HitBox" type="Area2D" parent="." unique_id=156868907]
 collision_layer = 64
@@ -249,6 +249,5 @@ script = ExtResource("38_xbxt1")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=110304524]
-position = Vector2(8, 0)
 shape = SubResource("RectangleShape2D_p6egs")
 debug_color = Color(0.22847703, 0.6383634, 3.85046e-07, 0.41960785)

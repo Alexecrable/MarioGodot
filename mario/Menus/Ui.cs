@@ -3,6 +3,8 @@ using System;
 
 public partial class Ui : CanvasLayer
 {
+	[Signal]
+	public delegate void TimeEndEventHandler();
 	private Control control;
 	private Timer timer;
 	private Label timerLabel, LifeLabel, ScoreLabel;
@@ -26,11 +28,17 @@ public partial class Ui : CanvasLayer
 	{
 		
 	}
+
+	public void PauseTimer()
+	{
+		timer.Stop();
+	}
 	public void StartTimer(int time)
 	{
 		
 		timerLabel.Text = "TIME : " + time;
 		timeLeft = time;
+		
 		timer.Start();
 	
 	}
@@ -38,6 +46,10 @@ public partial class Ui : CanvasLayer
 	{
 		timeLeft--;
 		timerLabel.Text = "TIME : " + timeLeft;	
+		if(timeLeft == 0)
+		{
+			EmitSignal(SignalName.TimeEnd);
+		}
 	}
 
 	public void LifeUpdate(int _life)
