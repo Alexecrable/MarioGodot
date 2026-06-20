@@ -27,7 +27,7 @@ public partial class Game : Node2D
 		mainMenu = GetNode<MainMenu>("MainMenu");
 		ui = GetNode<Ui>("UI");
 		//Chargement de scenes externes
-		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/levelNatha.tscn");
+		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/.tscn");
 		mario = ResourceLoader.Load<PackedScene>("res://StateMachine/Mario/mario.tscn").Instantiate<Mario>();
 
 		totalScore = 0;
