@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://baea7jv5qvryy"]
+
+[ext_resource type="Script" uid="uid://gcpuwkx2o41h" path="res://Menus/TitleCard.cs" id="1_eavup"]
+[ext_resource type="Texture2D" uid="uid://i7m3wwtlb2lx" path="res://StateMachine/PowerUps/1UP/Sprites/1UP.png" id="2_jgb6i"]
+[ext_resource type="Texture2D" uid="uid://btampb7nvvl2p" path="res://World/Tiles/coin1.png" id="3_d3yjm"]
+
+[sub_resource type="Gradient" id="Gradient_6pcjn"]
+offsets = PackedFloat32Array(0.9968944)
+colors = PackedColorArray(0.03416149, 0.03416149, 0.03416149, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ptsgf"]
+gradient = SubResource("Gradient_6pcjn")
+
+[sub_resource type="LabelSettings" id="LabelSettings_iaw2g"]
+font_size = 90
+
+[node name="EndScreen" type="CanvasLayer" unique_id=2094376535]
+process_mode = 3
+layer = 2
+script = ExtResource("1_eavup")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1066994406]
+position = Vector2(673, 475.25)
+scale = Vector2(6.2578125, 951.5)
+texture = SubResource("GradientTexture1D_ptsgf")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="." unique_id=1427558945]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.5
+offset_top = -97.0
+offset_right = 135.5
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offsets = PackedInt32Array(124, 159)
+split_offset = 124
+
+[node name="Title" type="Label" parent="VSplitContainer" unique_id=1532432604]
+layout_mode = 2
+text = "Salute"
+label_settings = SubResource("LabelSettings_iaw2g")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer" unique_id=882359420]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VSplitContainer/HBoxContainer" unique_id=1860779692]
+layout_mode = 2
+texture = ExtResource("2_jgb6i")
+
+[node name="Lives" type="Label" parent="VSplitContainer/HBoxContainer" unique_id=242894247]
+layout_mode = 2
+text = ": 4"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VSplitContainer" unique_id=2084018380]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VSplitContainer/HBoxContainer2" unique_id=788460469]
+layout_mode = 2
+texture = ExtResource("3_d3yjm")
+
+[node name="Score" type="Label" parent="VSplitContainer/HBoxContainer2" unique_id=323239773]
+layout_mode = 2
+text = ": 4"

@@ -27,7 +27,7 @@ public partial class Game : Node2D
 		mainMenu = GetNode<MainMenu>("MainMenu");
 		ui = GetNode<Ui>("UI");
 		//Chargement de scenes externes
-		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/.tscn");
+		levelScene = ResourceLoader.Load<PackedScene>("res://World/Levels/levelAlex.tscn");
 		mario = ResourceLoader.Load<PackedScene>("res://StateMachine/Mario/mario.tscn").Instantiate<Mario>();
 
 		totalScore = 0;
@@ -164,6 +164,10 @@ public partial class Game : Node2D
 		{
 			GD.Print("CACAFIN");
 			//faire fin du jeu bravo oeeee
+			titleCard.setTitle("BRAVO", mario.Lives, totalScore);
+			//player.Stop();
+			//GetTree().Paused = true;
+			titleCard.Visible = true;
 		}
 		else
 		{
