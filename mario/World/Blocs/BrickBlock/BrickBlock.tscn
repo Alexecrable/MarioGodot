@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdbaacgqdi03f" path="res://World/Blocs/BrickBlock/BrickBlock.cs" id="1_gc3lm"]
 [ext_resource type="Texture2D" uid="uid://dwoog65grfwkd" path="res://World/Blocs/BrickBlock/Sprites/BrickBlock.png" id="2_p2j73"]
-[ext_resource type="AudioStream" uid="uid://jqd1hc1x2t5q" path="res://SoundsBeta/brickExplosion.ogg" id="3_p2j73"]
+[ext_resource type="AudioStream" uid="uid://buub5mo81il01" path="res://SoundsBeta/brickExplosion.ogg" id="3_p2j73"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6j"]
 size = Vector2(32, 32)

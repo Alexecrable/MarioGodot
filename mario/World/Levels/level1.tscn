@@ -1,13 +1,13 @@
-[gd_scene format=4 uid="uid://5ap6q416syu"]
+[gd_scene format=4 uid="uid://jkti0turxbdk"]
 
 [ext_resource type="Script" uid="uid://duofswnmhf5lo" path="res://World/Levels/Level.cs" id="1_4hto6"]
 [ext_resource type="Texture2D" uid="uid://1k3q3ba8yak1" path="res://World/Tiles/tiles.png" id="3_g7c17"]
 [ext_resource type="Texture2D" uid="uid://cl6qbox5lgi42" path="res://World/Tiles/tiles2.png" id="3_sdg80"]
 [ext_resource type="Script" uid="uid://c1wrl5dw80ebs" path="res://World/Tiles/TileMapLayer.cs" id="4_85iur"]
-[ext_resource type="Texture2D" uid="uid://b0uoym0gdvowh" path="res://World/bgCloud.png" id="4_sdg80"]
+[ext_resource type="Texture2D" uid="uid://cnoaawn3niw8n" path="res://World/bgCloud.png" id="4_sdg80"]
 [ext_resource type="PackedScene" uid="uid://dgnslkp7cbgd4" path="res://World/Tiles/Casino.tscn" id="6_rhtxf"]
-[ext_resource type="Texture2D" uid="uid://bmf3ableeba1h" path="res://World/bgHills.png" id="7_n73l0"]
-[ext_resource type="Script" uid="uid://r2pleltpd1em" path="res://World/DeathFloor.cs" id="11_el52y"]
+[ext_resource type="Texture2D" uid="uid://bb8u2fgipkdm2" path="res://World/bgHills.png" id="7_n73l0"]
+[ext_resource type="Script" uid="uid://b6sskd3fc4lmx" path="res://World/DeathFloor.cs" id="11_el52y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhtxf"]
 texture = ExtResource("3_g7c17")
@@ -377,13 +377,13 @@ sources/0 = SubResource("TileSetAtlasSource_rhtxf")
 sources/1 = SubResource("TileSetAtlasSource_n73l0")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w47uh"]
-size = Vector2(8288, 212.5)
+size = Vector2(8944, 212.5)
 
 [node name="Level1" type="Node2D" unique_id=864100633]
 process_mode = 1
 script = ExtResource("1_4hto6")
-time = 400
-NextLevelName = "levelNatha"
+time = 600
+NextLevelName = "level2"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=177785411]
 process_mode = 1
@@ -394,7 +394,7 @@ tile_set = SubResource("TileSet_yr15q")
 script = ExtResource("4_85iur")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1102385432]
-z_index = -9
+z_index = -17
 texture_repeat = 2
 scroll_scale = Vector2(0.3, 1)
 repeat_size = Vector2(1400, 0)
@@ -414,7 +414,7 @@ script = ExtResource("11_el52y")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathFloor" unique_id=1430439460]
-position = Vector2(4144, 1009)
+position = Vector2(3816, 1009)
 shape = SubResource("RectangleShape2D_w47uh")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1890147410]
@@ -425,7 +425,7 @@ metadata/_edit_lock_ = true
 position = Vector2(2864, 768)
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1624476425]
-z_index = -7
+z_index = -17
 scroll_scale = Vector2(0.7, 1)
 repeat_size = Vector2(1400, 0)
 metadata/_edit_lock_ = true

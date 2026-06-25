@@ -6,7 +6,7 @@ public partial class FireBall : CharacterBody2D
 
 	private MovementComponent movementComponent;
 	private Area2D area2D;
-	private Vector2 restingPosition = new Vector2(0,-100);
+	private Vector2 restingPosition = new Vector2(-100,-100);
 	public bool Used {get; set;}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

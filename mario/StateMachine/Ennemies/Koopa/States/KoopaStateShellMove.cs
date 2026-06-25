@@ -18,18 +18,21 @@ public partial class KoopaStateShellMove : KoopaState
         enterStateDelay = new Timer();
         enterStateDelay.WaitTime = 1;
         AddChild(enterStateDelay);
+        
 
     }
 
     public override void Enter(int _previousStateId)
     {
-
+        
         koopa.hurtBox.AreaEntered += Hittt;
 
         enterStateDelay.Start();
         enterStateDelay.Timeout += EndDelay;
         collisionLayerHold = koopa.CollisionLayer;
         collisionMaskHold = koopa.CollisionMask;
+        koopa.CollisionLayer = 2;
+        
 
 
 
@@ -37,7 +40,7 @@ public partial class KoopaStateShellMove : KoopaState
 
     public void EndDelay()
     {
-        //koopa.CollisionLayer = 16;
+        koopa.CollisionLayer = collisionLayerHold;
     }
     private void Hittt(Area2D _body)
     {
@@ -76,7 +79,7 @@ public partial class KoopaStateShellMove : KoopaState
             GodotObject godotObject = coll.GetCollider();
             try
             {
-                IInstaKillableObject ennemi = (IInstaKillableObject)godotObject;
+                Ennemi ennemi = (Ennemi)godotObject;
                 GD.Print("essai meurtre : 1");
                 ennemi.InstaKill();
                 return;

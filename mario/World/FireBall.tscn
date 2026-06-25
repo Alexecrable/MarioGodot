@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b24d1qxar6imt"]
 
 [ext_resource type="Texture2D" uid="uid://d08gmchrm6mun" path="res://StateMachine/PowerUps/FireFlower/Sprites/Fleur2.png" id="1_phsrq"]
-[ext_resource type="Script" uid="uid://dcqsnnhf3euqb" path="res://World/FireBall.cs" id="1_qjq3w"]
-[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="3_bexrn"]
+[ext_resource type="Script" uid="uid://bhkby8d2t558u" path="res://World/FireBall.cs" id="1_qjq3w"]
+[ext_resource type="Script" uid="uid://byqiwpumifbwj" path="res://ComponentScripts/MovementComponent.cs" id="3_bexrn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qjq3w"]
 

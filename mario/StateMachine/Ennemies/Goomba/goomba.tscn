@@ -15,10 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://dyn3b2bhfswst" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk8.png" id="10_0r87e"]
 [ext_resource type="Texture2D" uid="uid://cn4srmf8r3nnr" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk9.png" id="11_rbo4n"]
 [ext_resource type="Texture2D" uid="uid://dd0vmsm2v4n1s" path="res://StateMachine/Ennemies/Goomba/Sprites/Walk/GoombaWalk10.png" id="12_38no6"]
-[ext_resource type="Script" uid="uid://d0qwnsqts7v33" path="res://World/Chapeau.cs" id="16_e3tbb"]
-[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="16_qmmba"]
-[ext_resource type="AudioStream" uid="uid://bga34uq4vlxas" path="res://SoundsBeta/scream.ogg" id="18_huosm"]
-[ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="19_0r87e"]
+[ext_resource type="Script" uid="uid://iljdldyc4m8c" path="res://World/Chapeau.cs" id="16_e3tbb"]
+[ext_resource type="Script" uid="uid://byqiwpumifbwj" path="res://ComponentScripts/MovementComponent.cs" id="16_qmmba"]
+[ext_resource type="AudioStream" uid="uid://pnnj74nrwdeb" path="res://SoundsBeta/scream.ogg" id="18_huosm"]
+[ext_resource type="Script" uid="uid://bli87sinmjo6s" path="res://ComponentScripts/HurtComponent.cs" id="19_0r87e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x11xh"]
 animations = [{

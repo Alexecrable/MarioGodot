@@ -1,16 +1,16 @@
-[gd_scene format=4 uid="uid://dyek0gn3g4o6i"]
+[gd_scene format=4 uid="uid://5ap6q416syu"]
 
-[ext_resource type="Script" uid="uid://duofswnmhf5lo" path="res://World/Levels/Level.cs" id="1_o4e3u"]
-[ext_resource type="Texture2D" uid="uid://1k3q3ba8yak1" path="res://World/Tiles/tiles.png" id="2_qx1fh"]
-[ext_resource type="Texture2D" uid="uid://cl6qbox5lgi42" path="res://World/Tiles/tiles2.png" id="3_w7qxo"]
-[ext_resource type="Script" uid="uid://c1wrl5dw80ebs" path="res://World/Tiles/TileMapLayer.cs" id="4_q8k5u"]
-[ext_resource type="Texture2D" uid="uid://b0uoym0gdvowh" path="res://World/bgCloud.png" id="5_7j2d4"]
-[ext_resource type="Script" uid="uid://r2pleltpd1em" path="res://World/DeathFloor.cs" id="6_u8uvt"]
-[ext_resource type="PackedScene" path="res://World/Tiles/Casino.tscn" id="7_1xgvx"]
-[ext_resource type="Texture2D" uid="uid://bmf3ableeba1h" path="res://World/bgHills.png" id="8_8cesl"]
+[ext_resource type="Script" uid="uid://duofswnmhf5lo" path="res://World/Levels/Level.cs" id="1_ki8os"]
+[ext_resource type="Texture2D" uid="uid://1k3q3ba8yak1" path="res://World/Tiles/tiles.png" id="2_v3ws1"]
+[ext_resource type="Texture2D" uid="uid://cl6qbox5lgi42" path="res://World/Tiles/tiles2.png" id="3_jgxt4"]
+[ext_resource type="Script" uid="uid://c1wrl5dw80ebs" path="res://World/Tiles/TileMapLayer.cs" id="4_wgvbk"]
+[ext_resource type="Texture2D" uid="uid://cnoaawn3niw8n" path="res://World/bgCloud.png" id="5_22qg0"]
+[ext_resource type="Script" uid="uid://b6sskd3fc4lmx" path="res://World/DeathFloor.cs" id="6_3ft3c"]
+[ext_resource type="PackedScene" uid="uid://dgnslkp7cbgd4" path="res://World/Tiles/Casino.tscn" id="7_4iwj2"]
+[ext_resource type="Texture2D" uid="uid://bb8u2fgipkdm2" path="res://World/bgHills.png" id="8_ie6qt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhtxf"]
-texture = ExtResource("2_qx1fh")
+texture = ExtResource("2_v3ws1")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -24,7 +24,7 @@ texture_region_size = Vector2i(32, 32)
 1:4/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n73l0"]
-texture = ExtResource("3_w7qxo")
+texture = ExtResource("3_jgxt4")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -377,23 +377,23 @@ sources/0 = SubResource("TileSetAtlasSource_rhtxf")
 sources/1 = SubResource("TileSetAtlasSource_n73l0")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w47uh"]
-size = Vector2(8288, 212.5)
+size = Vector2(8832, 212.5)
 
-[node name="levelAlex" type="Node2D" unique_id=864100633]
+[node name="Level3" type="Node2D" unique_id=864100633]
 process_mode = 1
-script = ExtResource("1_o4e3u")
-time = 400
+script = ExtResource("1_ki8os")
+time = 200
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=177785411]
 process_mode = 1
 z_index = -6
 position = Vector2(1, 0)
-tile_map_data = PackedByteArray("AAAAAAYAAQABAAAAAAABAAYAAQACAAAAAAACAAYAAQACAAAAAAADAAYAAQACAAAAAAAEAAYAAQACAAAAAAAFAAYAAQACAAAAAAAGAAYAAQACAAAAAAAHAAYAAQACAAAAAAAIAAYAAQACAAAAAAAJAAYAAQADAAAAAAAAAAUAAAAAAAMAAAA=")
+tile_map_data = PackedByteArray("AABZABQAAAAAAAMAAABaABUAAQACAAAAAABZABUAAQACAAAAAABYABUAAQACAAAAAABXABUAAQAEAAMAAABbABUAAQAFAAMAAABXABQAAQAAAAIAAABXABMAAQAAAAIAAABXABIAAQAAAAIAAABXABEAAQAAAAIAAABXABAAAQAAAAIAAABXAA8AAQAAAAIAAABXAA4AAQAAAAIAAABXAA0AAQAAAAIAAABbABQAAQAAAAIAAABbABMAAQAAAAIAAABbABIAAQAAAAIAAABbABEAAQAAAAIAAABbABAAAQAAAAIAAABbAA8AAQAAAAIAAABbAA4AAQAAAAIAAABbAA0AAQAAAAIAAABXAAwAAQAAAAIAAABXAAsAAQAAAAIAAABXAAoAAQAAAAIAAABXAAkAAQAAAAIAAABXAAgAAQAAAAIAAABXAAcAAQAAAAIAAABXAAYAAQAFAAIAAABbAAwAAQAAAAIAAABbAAsAAQAAAAIAAABbAAoAAQAAAAIAAABbAAkAAQAAAAIAAABbAAgAAQAAAAIAAABbAAcAAQAAAAIAAABbAAYAAQAAAAIAAABbAAUAAQAAAAIAAABbAAQAAQAAAAIAAABbAAMAAQAAAAIAAABbAAIAAQAAAAIAAABbAAEAAQAFAAIAAABaAAEAAQACAAAAAABZAAEAAQACAAAAAABYAAEAAQACAAAAAABXAAEAAQACAAAAAABWAAEAAQACAAAAAABVAAEAAQACAAAAAABUAAEAAQACAAAAAABTAAEAAQACAAAAAABSAAEAAQACAAAAAABRAAEAAQACAAAAAABQAAEAAQACAAAAAABPAAEAAQACAAAAAABWAAYAAQACAAAAAABVAAYAAQACAAAAAABUAAYAAQACAAAAAABTAAYAAQACAAAAAABSAAYAAQACAAAAAABRAAYAAQACAAAAAABQAAYAAQACAAAAAABPAAYAAQACAAAAAABPAAUAAAABAAQAAABOAAYAAQAEAAMAAABOAAUAAQAAAAIAAABOAAQAAQAAAAIAAABOAAMAAQAAAAIAAABOAAIAAQAAAAIAAABOAAEAAQAEAAIAAABSAAUAAAABAAIAAABXAAUAAAABAAAAAABUAAMAAAAAAAEAAAAVABgAAQABAAAAAAAWABgAAQACAAAAAAAXABgAAQACAAAAAAAVABcAAAABAAQAAAAYABgAAQACAAAAAAAZABgAAQACAAAAAAAaABgAAQACAAAAAAAcABgAAQACAAAAAAAbABgAAQACAAAAAAAdABgAAQACAAAAAAAfABgAAQACAAAAAAAeABgAAQACAAAAAAAgABgAAQACAAAAAAAhABgAAQACAAAAAAAiABgAAQACAAAAAAAjABgAAQADAAAAAAAXABcAAAAAAAIAAAAYABcAAAAAAAIAAAAZABcAAAAAAAIAAAAaABcAAAAAAAIAAAAbABcAAAAAAAIAAAAcABcAAAAAAAIAAAAdABcAAAAAAAIAAAAeABcAAAAAAAIAAAAfABcAAAAAAAIAAAAgABcAAAAAAAIAAAAhABcAAAAAAAIAAAAjABcAAAABAAMAAAAoABgAAAAAAAAAAAAtABgAAAAAAAAAAAAyABgAAAAAAAAAAAA0ABQAAQAAAAMAAAA0ABMAAQAAAAIAAAA0ABIAAQAAAAIAAAA3ABcAAQAAAAMAAAA3ABYAAQAAAAIAAAA3ABUAAQAAAAIAAAA3ABQAAQAAAAIAAAA3ABMAAQAAAAIAAAA3ABIAAQAAAAEAAAA0ABEAAQAAAAIAAAA0ABAAAQAAAAIAAAA0AA8AAQAAAAIAAAA3AA8AAQAAAAMAAAA3AA4AAQAAAAIAAAA3AA0AAQAAAAIAAAA3AAwAAQAAAAEAAAA0AA4AAQAAAAIAAAA0AA0AAQAAAAIAAAA0AAwAAQAAAAEAAAA7ABcAAQAAAAMAAAA7ABYAAQAAAAIAAAA7ABUAAQAAAAEAAAA7ABIAAQAAAAMAAAA7ABEAAQAAAAIAAAA7ABAAAQAAAAIAAAA7AA8AAQAAAAIAAAA7AA4AAQAAAAIAAAA7AA0AAQAAAAIAAAA7AAwAAQAAAAEAAAA/AAwAAQAAAAAAAAA/AA8AAQAAAAEAAAA/ABAAAQAAAAIAAAA/ABEAAQAAAAIAAAA/ABIAAQAAAAIAAAA/ABMAAQAAAAIAAAA/ABQAAQAAAAIAAAA/ABUAAQAAAAIAAAA/ABYAAQAAAAIAAAA/ABcAAQAAAAMAAABFABsAAQABAAMAAABGABsAAQACAAMAAABHABsAAQACAAMAAABIABsAAQACAAMAAABJABsAAQACAAMAAABKABsAAQACAAMAAABLABsAAQACAAMAAABMABsAAQACAAMAAABNABsAAQACAAMAAABOABsAAQACAAMAAABPABsAAQACAAMAAABRABsAAQACAAMAAABQABsAAQACAAMAAABSABsAAQACAAMAAABTABsAAQACAAMAAABUABsAAQACAAMAAABVABsAAQACAAMAAABWABsAAQACAAMAAABWABoAAQACAAEAAABXABoAAQACAAEAAABYABoAAQACAAEAAABZABoAAQACAAEAAABaABoAAQADAAEAAABaABsAAQADAAMAAABZABsAAQACAAMAAABYABsAAQACAAMAAABXABsAAQACAAMAAABVABoAAQACAAEAAABUABoAAQACAAEAAABTABoAAQACAAEAAABSABoAAQACAAEAAABRABoAAQACAAEAAABQABoAAQACAAEAAABPABoAAQACAAEAAABOABoAAQACAAEAAABNABoAAQACAAEAAABMABoAAQACAAEAAABLABoAAQACAAEAAABKABoAAQACAAEAAABJABoAAQACAAEAAABIABoAAQACAAEAAABHABoAAQACAAEAAABGABoAAQACAAEAAABFABoAAQABAAEAAABJABkAAAAAAAIAAABPABkAAAAAAAIAAABUABkAAAAAAAIAAABHABkAAAABAAIAAAA0AAsAAAAAAAEAAAA1AAsAAAAAAAEAAAA2AAsAAAAAAAEAAAA3AAsAAAAAAAEAAAA4AAsAAAAAAAEAAAA5AAsAAAAAAAEAAAA6AAsAAAAAAAEAAAA7AAsAAAAAAAEAAAA8AAsAAAAAAAEAAAA9AAsAAAAAAAEAAAA+AAsAAAAAAAEAAAA/AAsAAAAAAAEAAABRAAMAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_yr15q")
-script = ExtResource("4_q8k5u")
+script = ExtResource("4_wgvbk")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1102385432]
-z_index = -9
+z_index = -17
 texture_repeat = 2
 scroll_scale = Vector2(0.3, 1)
 repeat_size = Vector2(1400, 0)
@@ -402,30 +402,29 @@ metadata/_edit_lock_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1429001002]
 texture_repeat = 2
 scale = Vector2(0.7291666, 0.93749994)
-texture = ExtResource("5_7j2d4")
+texture = ExtResource("5_22qg0")
 centered = false
 
 [node name="DeathFloor" type="Area2D" parent="." unique_id=785883863]
 position = Vector2(0, 55)
 collision_layer = 0
 collision_mask = 134
-script = ExtResource("6_u8uvt")
+script = ExtResource("6_3ft3c")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeathFloor" unique_id=1430439460]
-position = Vector2(4144, 1009)
+position = Vector2(3872, 1009)
 shape = SubResource("RectangleShape2D_w47uh")
-metadata/_edit_lock_ = true
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1890147410]
 position = Vector2(16, 528)
 metadata/_edit_lock_ = true
 
-[node name="Casino" parent="." unique_id=1966508645 instance=ExtResource("7_1xgvx")]
-position = Vector2(256, 128)
+[node name="Casino" parent="." unique_id=1966508645 instance=ExtResource("7_4iwj2")]
+position = Vector2(2864, 768)
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1624476425]
-z_index = -7
+z_index = -17
 scroll_scale = Vector2(0.7, 1)
 repeat_size = Vector2(1400, 0)
 metadata/_edit_lock_ = true
@@ -433,17 +432,14 @@ metadata/_edit_lock_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1554987464]
 position = Vector2(0, 8)
 scale = Vector2(0.7291667, 0.9291667)
-texture = ExtResource("8_8cesl")
+texture = ExtResource("8_ie6qt")
 centered = false
-metadata/_edit_lock_ = true
 
 [node name="Parallax2D3" type="Parallax2D" parent="." unique_id=858624230]
 z_index = -18
 repeat_size = Vector2(1400, 0)
-metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Parallax2D3" unique_id=107713855]
 offset_right = 1400.0
 offset_bottom = 900.0
 color = Color(1.347661e-06, 0.76434994, 0.9463981, 1)
-metadata/_edit_lock_ = true

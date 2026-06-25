@@ -50,7 +50,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 	public bool invincible = false;
 	public int
 		speed = 250,
-		startingGravity = 100,
+		startingGravity = 0,
 		terminalGravity = 700,
 		gravityAccel = 2000,
 		endJumpGravity = -300,
@@ -182,6 +182,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		headBox.BodyEntered -= HittingUp;
 		feetBox.AreaEntered -= HittingDownArea;
 		hurtComponent.Hurt -= GetHurt;
+		invincibilityTimer.Timeout -= InvincibilityEnd;
 	}
 
 	private void HittingUp(Node _body)
@@ -190,9 +191,13 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		//headBox.Monitoring = false;
 
 		isHittingUp = true;
-
-		IBlock block = (IBlock)_body;
+		try
+		{
+			IBlock block = (IBlock)_body;
 		block.Collision(currentPowerUpIndex);
+		}
+		catch(Exception e){}
+		
 
 
 
@@ -357,8 +362,10 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	public void GameOver()
 	{
-		DisconnectSignals();
-		QueueFree();
+
+		//DisconnectSignals();
+		//QueueFree();
+		GetTree().Quit();
 	}
 
 	private void Die()
@@ -504,37 +511,40 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 
 	private void CheckForHitting()
 	{
+		CollisionShape2D col = feetBox.GetNode<CollisionShape2D>("CollisionShape2D");
 		if (movementComponent.CurrentSpeedY < startingGravity)
 		{
+			col.Modulate = new Color(1,0,0);
 			headBox.Monitoring = true;
 			//feetBox.Monitoring = true;
 			//feetBox.Monitorable = true;
 
 			feetBox.CollisionLayer = 16;
 			feetBox.CollisionMask = 32;
-			feetBox.Modulate = new Color(1, 1, 1, 1);
 
 		}
 		else
 		{
 			if (movementComponent.CurrentSpeedY > startingGravity)
 			{
+				col.Modulate = new Color(0,1,0);
 				headBox.Monitoring = false;
 				//feetBox.Monitoring = true;
 				//feetBox.Monitorable = true;
 				feetBox.CollisionLayer = 16;
 				feetBox.CollisionMask = 32;
-				feetBox.Modulate = new Color(1, 1, 1, 1);
+				col.Modulate = new Color(1, 1, 1, 1);
 
 			}
 			else
 			{
 				headBox.Monitoring = false;
 				//feetBox.Monitoring = false;
+				
 				//feetBox.Monitorable = false;
+				col.Modulate = new Color(0,0,1);
 				feetBox.CollisionLayer = 0;
 				feetBox.CollisionMask = 0;
-				feetBox.Modulate = new Color(0, 0, 0, 0);
 			}
 		}
 	}

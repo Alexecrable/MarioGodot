@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b7fv5jp4o0823"]
 
-[ext_resource type="Script" uid="uid://bxxgg1aeujrd1" path="res://World/Blocs/PowerBlock/StarBlock.cs" id="1_gln5o"]
+[ext_resource type="Script" path="res://World/Blocs/PowerBlock/StarBlock.cs" id="1_gln5o"]
 [ext_resource type="Texture2D" uid="uid://d1nv3k4ct0evl" path="res://World/Blocs/PowerBlock/Sprites/PowerBlock.jpg" id="2_xmkx2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aln6j"]

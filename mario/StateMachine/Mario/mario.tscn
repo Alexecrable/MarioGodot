@@ -42,9 +42,9 @@
 [ext_resource type="Texture2D" uid="uid://cmud3fc0rntxk" path="res://StateMachine/Mario/Sprites/WallSlide/Falling..png" id="31_nkkps"]
 [ext_resource type="AudioStream" uid="uid://dqjaq376xggn1" path="res://StateMachine/Mario/Sounds/Jump.mp3" id="32_p7tcl"]
 [ext_resource type="Texture2D" uid="uid://b6ladm51dcuxd" path="res://StateMachine/Ennemies/Goomba/Sprites/Hats/Goombhat1.png" id="33_380el"]
-[ext_resource type="Script" uid="uid://ppyisw4b1lw0" path="res://ComponentScripts/InputComponent.cs" id="34_nvpig"]
-[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="35_vx0sn"]
-[ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="36_alf4d"]
+[ext_resource type="Script" uid="uid://bwjhdive086hj" path="res://ComponentScripts/InputComponent.cs" id="34_nvpig"]
+[ext_resource type="Script" uid="uid://byqiwpumifbwj" path="res://ComponentScripts/MovementComponent.cs" id="35_vx0sn"]
+[ext_resource type="Script" uid="uid://bli87sinmjo6s" path="res://ComponentScripts/HurtComponent.cs" id="36_alf4d"]
 [ext_resource type="PackedScene" uid="uid://cvit6h2get5nj" path="res://World/jumpEffect.tscn" id="46_tfgfo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wrvex"]
@@ -289,6 +289,7 @@ position = Vector2(0, -28)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HeadBox" unique_id=1209167452]
+visible = false
 scale = Vector2(1, 5)
 shape = SubResource("RectangleShape2D_vx0sn")
 
@@ -319,6 +320,7 @@ script = ExtResource("36_alf4d")
 metadata/_custom_type_script = "uid://dycv4om62lp72"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent" unique_id=963571265]
+visible = false
 position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_380el")
 debug_color = Color(0.973972, 0, 0.4335659, 0.41960785)

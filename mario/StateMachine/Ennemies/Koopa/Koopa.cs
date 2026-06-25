@@ -68,6 +68,7 @@ public partial class Koopa : Ennemi
         movementComponent = GetNode<MovementComponent>("MovementComponent");
         movementComponent.Init(this);
         movementComponent.CurrentSpeedY = 200;
+        shell.Animation = "default";
         xVel = 50;
         InitState();
     }

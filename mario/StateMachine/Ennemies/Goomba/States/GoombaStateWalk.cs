@@ -43,7 +43,7 @@ public partial class GoombaStateWalk : GoombaState
     {
 
         //
-        movementComponent.CurrentSpeedY = goomba.IsOnFloor() ? 0 : 60;
+        movementComponent.CurrentSpeedY = goomba.IsOnFloor() ? 0 : 120;
         
         if (goomba.IsOnWall() && !flipBufferActive)
         {

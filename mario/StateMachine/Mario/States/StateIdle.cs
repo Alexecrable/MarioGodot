@@ -20,7 +20,7 @@ public partial class StateIdle : MarioState
         mario.animation.Play();
 
         
-        movementComponent.CurrentSpeedY = 0;
+        movementComponent.CurrentSpeedY = mario.startingGravity;
         //mario.SetGoingNeutral();
 
       

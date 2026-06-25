@@ -1,13 +1,86 @@
 [gd_scene format=3 uid="uid://8tt16c1ff5cp"]
 
 [ext_resource type="Script" uid="uid://7o4c61hc3exr" path="res://Menus/Ui.cs" id="1_2jy05"]
-[ext_resource type="Texture2D" uid="uid://bgot53e3qimlh" path="res://StateMachine/PowerUps/BeerWalker/Sprites/BeerWalk1.png" id="2_va7fs"]
+[ext_resource type="Script" uid="uid://bwub8gc13i0i6" path="res://Menus/Mobile.cs" id="2_1qlct"]
+[ext_resource type="Texture2D" uid="uid://c40wupcu45nmj" path="res://Menus/left.png" id="3_o5aic"]
+[ext_resource type="Texture2D" uid="uid://qo6k74pcqd6r" path="res://Menus/leftDown.png" id="4_vlt2i"]
+[ext_resource type="Texture2D" uid="uid://x6c6jr8it1p2" path="res://Menus/right.png" id="5_1a807"]
+[ext_resource type="Texture2D" uid="uid://bcigtpapb2u4g" path="res://Menus/rightDown.png" id="6_r6ccb"]
+[ext_resource type="Texture2D" uid="uid://d4fqjed7s27xa" path="res://Menus/down.png" id="7_3u155"]
+[ext_resource type="Texture2D" uid="uid://cbit5x72tbg3j" path="res://Menus/jump.png" id="8_56rb6"]
+[ext_resource type="Texture2D" uid="uid://i7m3wwtlb2lx" path="res://StateMachine/PowerUps/1UP/Sprites/1UP.png" id="9_1a807"]
+
+[sub_resource type="Theme" id="Theme_va7fs"]
+default_font_size = 38
 
 [sub_resource type="Theme" id="Theme_1qlct"]
 default_font_size = 36
 
 [node name="UI" type="CanvasLayer" unique_id=1732826414]
 script = ExtResource("1_2jy05")
+
+[node name="Mobile" type="Control" parent="." unique_id=2059637745]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 700.0
+offset_top = 450.0
+offset_right = 740.0
+offset_bottom = 490.0
+theme = SubResource("Theme_va7fs")
+script = ExtResource("2_1qlct")
+
+[node name="Left" type="Button" parent="Mobile" unique_id=1934626993]
+layout_mode = 0
+offset_left = -676.0
+offset_top = 910.0
+offset_right = -604.0
+offset_bottom = 982.0
+action_mode = 0
+keep_pressed_outside = true
+icon = ExtResource("3_o5aic")
+
+[node name="LeftDown" type="Button" parent="Mobile" unique_id=1260078333]
+layout_mode = 0
+offset_left = -676.0
+offset_top = 982.0
+offset_right = -604.0
+offset_bottom = 1054.0
+action_mode = 0
+keep_pressed_outside = true
+icon = ExtResource("4_vlt2i")
+
+[node name="Right" type="Button" parent="Mobile" unique_id=222552383]
+layout_mode = 0
+offset_left = -532.0
+offset_top = 910.0
+offset_right = -460.0
+offset_bottom = 982.0
+icon = ExtResource("5_1a807")
+
+[node name="RightDown" type="Button" parent="Mobile" unique_id=972937740]
+layout_mode = 0
+offset_left = -532.0
+offset_top = 982.0
+offset_right = -460.0
+offset_bottom = 1054.0
+icon = ExtResource("6_r6ccb")
+
+[node name="Down" type="Button" parent="Mobile" unique_id=1145916469]
+layout_mode = 0
+offset_left = -604.0
+offset_top = 982.0
+offset_right = -532.0
+offset_bottom = 1054.0
+icon = ExtResource("7_3u155")
+
+[node name="Jump" type="Button" parent="Mobile" unique_id=1648636018]
+layout_mode = 0
+offset_left = 1820.0
+offset_top = 966.0
+offset_right = 1892.0
+offset_bottom = 1038.0
+icon = ExtResource("8_56rb6")
 
 [node name="Control" type="Control" parent="." unique_id=1051481439]
 layout_mode = 3
@@ -31,7 +104,7 @@ text = "Score : 0"
 
 [node name="MarioHead" type="Sprite2D" parent="Control" unique_id=325155297]
 position = Vector2(-326, -113)
-texture = ExtResource("2_va7fs")
+texture = ExtResource("9_1a807")
 
 [node name="Lives" type="Label" parent="Control" unique_id=1526497126]
 layout_mode = 0

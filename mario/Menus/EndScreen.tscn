@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://baea7jv5qvryy"]
 
-[ext_resource type="Script" uid="uid://gcpuwkx2o41h" path="res://Menus/TitleCard.cs" id="1_eavup"]
+[ext_resource type="Script" uid="uid://c0mfbxhrkifnf" path="res://Menus/TitleCard.cs" id="1_eavup"]
 [ext_resource type="Texture2D" uid="uid://i7m3wwtlb2lx" path="res://StateMachine/PowerUps/1UP/Sprites/1UP.png" id="2_jgb6i"]
 [ext_resource type="Texture2D" uid="uid://btampb7nvvl2p" path="res://World/Tiles/coin1.png" id="3_d3yjm"]
 

@@ -10,9 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://b5glsbtlc4w40" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell7.png" id="8_w6yra"]
 [ext_resource type="Texture2D" uid="uid://fpo6dmco4l48" path="res://StateMachine/Ennemies/Koopa/Sprites/Shell/Shell8.png" id="9_xt4kt"]
 [ext_resource type="Texture2D" uid="uid://db8iwb7oc78hx" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Angry1.png" id="10_klqky"]
+[ext_resource type="Texture2D" uid="uid://bl1brrjgycqse" path="res://StateMachine/Ennemies/Koopa/Sprites/Die/Die1.png" id="10_xt4kt"]
 [ext_resource type="Texture2D" uid="uid://dvijucwvwhjri" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy1.png" id="11_5uriu"]
+[ext_resource type="Texture2D" uid="uid://whor4en7qbkt" path="res://StateMachine/Ennemies/Koopa/Sprites/Die/Die2.png" id="11_klqky"]
+[ext_resource type="Texture2D" uid="uid://cd3lkl2qjqsl6" path="res://StateMachine/Ennemies/Koopa/Sprites/Die/Die3.png" id="12_5uriu"]
 [ext_resource type="Texture2D" uid="uid://coq3apan4r65j" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy2.png" id="12_ls82i"]
 [ext_resource type="Texture2D" uid="uid://dm004s78axtjh" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy3.png" id="13_jxdim"]
+[ext_resource type="Texture2D" uid="uid://c5jxeqdi1s7es" path="res://StateMachine/Ennemies/Koopa/Sprites/Die/Die4.png" id="13_ls82i"]
 [ext_resource type="Texture2D" uid="uid://dj5dp3l4wj2ns" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy4.png" id="14_nps33"]
 [ext_resource type="Texture2D" uid="uid://bglppt1k8268x" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy5.png" id="15_etx4n"]
 [ext_resource type="Texture2D" uid="uid://dc0l17qp5ibyh" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Eyes/Happy6.png" id="16_rv83b"]
@@ -35,9 +39,9 @@
 [ext_resource type="Texture2D" uid="uid://dww1nwh0n7sa1" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs7.png" id="33_ubiew"]
 [ext_resource type="Texture2D" uid="uid://c2uv65rjl5l16" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Legs/Legs8.png" id="34_qos4f"]
 [ext_resource type="Texture2D" uid="uid://c7cph1us2dl0n" path="res://StateMachine/Ennemies/Koopa/Sprites/Walk/Head1.png" id="35_61joq"]
-[ext_resource type="Script" uid="uid://bdywv15qsbvuj" path="res://ComponentScripts/MovementComponent.cs" id="36_rkqiv"]
-[ext_resource type="AudioStream" uid="uid://js20ea40ek4e" path="res://SoundsBeta/koopaBLop.ogg" id="37_o3h2m"]
-[ext_resource type="Script" uid="uid://dycv4om62lp72" path="res://ComponentScripts/HurtComponent.cs" id="38_xbxt1"]
+[ext_resource type="Script" uid="uid://byqiwpumifbwj" path="res://ComponentScripts/MovementComponent.cs" id="36_rkqiv"]
+[ext_resource type="AudioStream" uid="uid://b8ub3y51urjs5" path="res://SoundsBeta/koopaBLop.ogg" id="37_o3h2m"]
+[ext_resource type="Script" uid="uid://bli87sinmjo6s" path="res://ComponentScripts/HurtComponent.cs" id="38_xbxt1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nfh7r"]
 size = Vector2(30, 30)
@@ -72,6 +76,23 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_xt4kt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_klqky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_5uriu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ls82i")
+}],
+"loop": false,
+"name": &"die",
+"speed": 8.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vbiwy"]
@@ -196,6 +217,9 @@ shape = SubResource("RectangleShape2D_nfh7r")
 
 [node name="Shell" type="AnimatedSprite2D" parent="." unique_id=1506461069]
 sprite_frames = SubResource("SpriteFrames_b4ds4")
+animation = &"die"
+frame = 3
+frame_progress = 1.0
 
 [node name="Body" type="Node2D" parent="." unique_id=140164978]
 position = Vector2(23, 0)

@@ -19,7 +19,7 @@ public delegate void HurtEventHandler(Area2D area);
 
 	private void MakeHurt(Area2D _area)
 	{
-		GD.Print("xbox2");
+		GD.Print("xbox2" + _area.Name);
 		EmitSignal(SignalName.Hurt, _area);
 	}
 
