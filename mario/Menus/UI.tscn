@@ -1,86 +1,156 @@
 [gd_scene format=3 uid="uid://8tt16c1ff5cp"]
 
 [ext_resource type="Script" uid="uid://7o4c61hc3exr" path="res://Menus/Ui.cs" id="1_2jy05"]
-[ext_resource type="Script" uid="uid://bwub8gc13i0i6" path="res://Menus/Mobile.cs" id="2_1qlct"]
 [ext_resource type="Texture2D" uid="uid://c40wupcu45nmj" path="res://Menus/left.png" id="3_o5aic"]
-[ext_resource type="Texture2D" uid="uid://qo6k74pcqd6r" path="res://Menus/leftDown.png" id="4_vlt2i"]
 [ext_resource type="Texture2D" uid="uid://x6c6jr8it1p2" path="res://Menus/right.png" id="5_1a807"]
-[ext_resource type="Texture2D" uid="uid://bcigtpapb2u4g" path="res://Menus/rightDown.png" id="6_r6ccb"]
 [ext_resource type="Texture2D" uid="uid://d4fqjed7s27xa" path="res://Menus/down.png" id="7_3u155"]
 [ext_resource type="Texture2D" uid="uid://cbit5x72tbg3j" path="res://Menus/jump.png" id="8_56rb6"]
+[ext_resource type="Texture2D" uid="uid://s567mkslitvf" path="res://Menus/pause.png" id="8_h8xbq"]
 [ext_resource type="Texture2D" uid="uid://i7m3wwtlb2lx" path="res://StateMachine/PowerUps/1UP/Sprites/1UP.png" id="9_1a807"]
+[ext_resource type="LabelSettings" uid="uid://b5xsd0pop1wh4" path="res://new_label_settings.tres" id="9_r6ccb"]
 
-[sub_resource type="Theme" id="Theme_va7fs"]
-default_font_size = 38
+[sub_resource type="FontFile" id="FontFile_1a807"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/36/0/ascent = 0.0
+cache/0/36/0/descent = 0.0
+cache/0/36/0/underline_position = 0.0
+cache/0/36/0/underline_thickness = 0.0
+cache/0/36/0/scale = 1.0
+cache/0/17/0/ascent = 0.0
+cache/0/17/0/descent = 0.0
+cache/0/17/0/underline_position = 0.0
+cache/0/17/0/underline_thickness = 0.0
+cache/0/17/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
+cache/0/19/0/ascent = 0.0
+cache/0/19/0/descent = 0.0
+cache/0/19/0/underline_position = 0.0
+cache/0/19/0/underline_thickness = 0.0
+cache/0/19/0/scale = 1.0
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/21/0/ascent = 0.0
+cache/0/21/0/descent = 0.0
+cache/0/21/0/underline_position = 0.0
+cache/0/21/0/underline_thickness = 0.0
+cache/0/21/0/scale = 1.0
+cache/0/22/0/ascent = 0.0
+cache/0/22/0/descent = 0.0
+cache/0/22/0/underline_position = 0.0
+cache/0/22/0/underline_thickness = 0.0
+cache/0/22/0/scale = 1.0
+cache/0/23/0/ascent = 0.0
+cache/0/23/0/descent = 0.0
+cache/0/23/0/underline_position = 0.0
+cache/0/23/0/underline_thickness = 0.0
+cache/0/23/0/scale = 1.0
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/25/0/ascent = 0.0
+cache/0/25/0/descent = 0.0
+cache/0/25/0/underline_position = 0.0
+cache/0/25/0/underline_thickness = 0.0
+cache/0/25/0/scale = 1.0
+cache/0/26/0/ascent = 0.0
+cache/0/26/0/descent = 0.0
+cache/0/26/0/underline_position = 0.0
+cache/0/26/0/underline_thickness = 0.0
+cache/0/26/0/scale = 1.0
+cache/0/27/0/ascent = 0.0
+cache/0/27/0/descent = 0.0
+cache/0/27/0/underline_position = 0.0
+cache/0/27/0/underline_thickness = 0.0
+cache/0/27/0/scale = 1.0
+cache/0/28/0/ascent = 0.0
+cache/0/28/0/descent = 0.0
+cache/0/28/0/underline_position = 0.0
+cache/0/28/0/underline_thickness = 0.0
+cache/0/28/0/scale = 1.0
+cache/0/29/0/ascent = 0.0
+cache/0/29/0/descent = 0.0
+cache/0/29/0/underline_position = 0.0
+cache/0/29/0/underline_thickness = 0.0
+cache/0/29/0/scale = 1.0
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/31/0/ascent = 0.0
+cache/0/31/0/descent = 0.0
+cache/0/31/0/underline_position = 0.0
+cache/0/31/0/underline_thickness = 0.0
+cache/0/31/0/scale = 1.0
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/33/0/ascent = 0.0
+cache/0/33/0/descent = 0.0
+cache/0/33/0/underline_position = 0.0
+cache/0/33/0/underline_thickness = 0.0
+cache/0/33/0/scale = 1.0
+cache/0/34/0/ascent = 0.0
+cache/0/34/0/descent = 0.0
+cache/0/34/0/underline_position = 0.0
+cache/0/34/0/underline_thickness = 0.0
+cache/0/34/0/scale = 1.0
+cache/0/35/0/ascent = 0.0
+cache/0/35/0/descent = 0.0
+cache/0/35/0/underline_position = 0.0
+cache/0/35/0/underline_thickness = 0.0
+cache/0/35/0/scale = 1.0
+cache/0/37/0/ascent = 0.0
+cache/0/37/0/descent = 0.0
+cache/0/37/0/underline_position = 0.0
+cache/0/37/0/underline_thickness = 0.0
+cache/0/37/0/scale = 1.0
+cache/0/38/0/ascent = 0.0
+cache/0/38/0/descent = 0.0
+cache/0/38/0/underline_position = 0.0
+cache/0/38/0/underline_thickness = 0.0
+cache/0/38/0/scale = 1.0
+cache/0/39/0/ascent = 0.0
+cache/0/39/0/descent = 0.0
+cache/0/39/0/underline_position = 0.0
+cache/0/39/0/underline_thickness = 0.0
+cache/0/39/0/scale = 1.0
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
 
 [sub_resource type="Theme" id="Theme_1qlct"]
+default_font = SubResource("FontFile_1a807")
 default_font_size = 36
 
 [node name="UI" type="CanvasLayer" unique_id=1732826414]
 script = ExtResource("1_2jy05")
-
-[node name="Mobile" type="Control" parent="." unique_id=2059637745]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = 700.0
-offset_top = 450.0
-offset_right = 740.0
-offset_bottom = 490.0
-theme = SubResource("Theme_va7fs")
-script = ExtResource("2_1qlct")
-
-[node name="Left" type="Button" parent="Mobile" unique_id=1934626993]
-layout_mode = 0
-offset_left = -676.0
-offset_top = 910.0
-offset_right = -604.0
-offset_bottom = 982.0
-action_mode = 0
-keep_pressed_outside = true
-icon = ExtResource("3_o5aic")
-
-[node name="LeftDown" type="Button" parent="Mobile" unique_id=1260078333]
-layout_mode = 0
-offset_left = -676.0
-offset_top = 982.0
-offset_right = -604.0
-offset_bottom = 1054.0
-action_mode = 0
-keep_pressed_outside = true
-icon = ExtResource("4_vlt2i")
-
-[node name="Right" type="Button" parent="Mobile" unique_id=222552383]
-layout_mode = 0
-offset_left = -532.0
-offset_top = 910.0
-offset_right = -460.0
-offset_bottom = 982.0
-icon = ExtResource("5_1a807")
-
-[node name="RightDown" type="Button" parent="Mobile" unique_id=972937740]
-layout_mode = 0
-offset_left = -532.0
-offset_top = 982.0
-offset_right = -460.0
-offset_bottom = 1054.0
-icon = ExtResource("6_r6ccb")
-
-[node name="Down" type="Button" parent="Mobile" unique_id=1145916469]
-layout_mode = 0
-offset_left = -604.0
-offset_top = 982.0
-offset_right = -532.0
-offset_bottom = 1054.0
-icon = ExtResource("7_3u155")
-
-[node name="Jump" type="Button" parent="Mobile" unique_id=1648636018]
-layout_mode = 0
-offset_left = 1820.0
-offset_top = 966.0
-offset_right = 1892.0
-offset_bottom = 1038.0
-icon = ExtResource("8_56rb6")
 
 [node name="Control" type="Control" parent="." unique_id=1051481439]
 layout_mode = 3
@@ -91,36 +161,111 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
+scale = Vector2(3, 3)
 theme = SubResource("Theme_1qlct")
 
 [node name="Score" type="Label" parent="Control" unique_id=685869217]
 layout_mode = 0
-offset_left = -334.0
-offset_top = -225.0
-offset_right = -189.0
-offset_bottom = -175.0
+offset_left = -222.66666
+offset_top = -120.666664
+offset_right = -77.66666
+offset_bottom = -70.666664
 text = "Score : 0"
+label_settings = ExtResource("9_r6ccb")
 
 [node name="MarioHead" type="Sprite2D" parent="Control" unique_id=325155297]
-position = Vector2(-326, -113)
+position = Vector2(-214.66666, -8.666664)
 texture = ExtResource("9_1a807")
 
 [node name="Lives" type="Label" parent="Control" unique_id=1526497126]
 layout_mode = 0
-offset_left = -302.0
-offset_top = -137.0
-offset_right = -262.0
-offset_bottom = -87.0
+offset_left = -190.66666
+offset_top = -32.666664
+offset_right = -150.66666
+offset_bottom = 17.333336
 text = ": 0"
+label_settings = ExtResource("9_r6ccb")
 
 [node name="TimerLabel" type="Label" parent="Control" unique_id=602706954]
 layout_mode = 0
-offset_left = 802.0
-offset_top = -177.0
-offset_right = 977.0
-offset_bottom = -127.0
+offset_left = 481.33334
+offset_top = -128.66667
+offset_right = 656.3334
+offset_bottom = -78.66667
 text = "Time : 999"
+label_settings = ExtResource("9_r6ccb")
 
 [node name="Timer" type="Timer" parent="Control" unique_id=129628056]
 process_mode = 1
+
+[node name="Left" type="TouchScreenButton" parent="." unique_id=1848938629]
+position = Vector2(56, 1064)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("3_o5aic")
+passby_press = true
+action = "left"
+visibility_mode = 1
+
+[node name="Left2" type="TouchScreenButton" parent="." unique_id=1194737273]
+position = Vector2(48, 1312)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("3_o5aic")
+passby_press = true
+action = "left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="." unique_id=1469043258]
+position = Vector2(448, 1080)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("5_1a807")
+passby_press = true
+action = "right"
+visibility_mode = 1
+
+[node name="Right2" type="TouchScreenButton" parent="." unique_id=724495844]
+position = Vector2(456, 1312)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("5_1a807")
+passby_press = true
+action = "right"
+visibility_mode = 1
+
+[node name="Jump" type="TouchScreenButton" parent="." unique_id=1781910396]
+position = Vector2(2480, 1320)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("8_56rb6")
+passby_press = true
+action = "jump"
+visibility_mode = 1
+
+[node name="Down" type="TouchScreenButton" parent="." unique_id=1506076848]
+position = Vector2(248, 1312)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("7_3u155")
+passby_press = true
+action = "down"
+visibility_mode = 1
+
+[node name="Down3" type="TouchScreenButton" parent="." unique_id=641729044]
+position = Vector2(40, 1328)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("7_3u155")
+passby_press = true
+action = "down"
+visibility_mode = 1
+
+[node name="Down2" type="TouchScreenButton" parent="." unique_id=1137640452]
+position = Vector2(451, 1312)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("7_3u155")
+passby_press = true
+action = "down"
+visibility_mode = 1
+
+[node name="Pause" type="TouchScreenButton" parent="." unique_id=127363626]
+position = Vector2(2448, 296)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("8_h8xbq")
+passby_press = true
+action = "pause"
+visibility_mode = 1

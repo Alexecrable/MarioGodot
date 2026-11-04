@@ -295,6 +295,7 @@ public partial class Mario : CharacterBody2D, IInstaKillableObject
 		if (invincibilityTimer.TimeLeft > 0 && currentPowerUpIndex != (int)PowerEnum.STAR)
 		{
 			invincibilityTimer.Stop();
+			InvincibilityEnd();
 
 		}
 		if (_powerId > currentPowerUpIndex)

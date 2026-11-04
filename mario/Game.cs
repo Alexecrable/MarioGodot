@@ -72,7 +72,7 @@ public partial class Game : Node2D
 		ui.Visible = !ui.Visible;
 		pauseMenu.Visible = !pauseMenu.Visible;
 		GetTree().Paused = !GetTree().Paused;
-		player.Playing = !player.Playing;
+		player.StreamPaused = !player.StreamPaused;
 	}
 
 
@@ -156,7 +156,7 @@ public partial class Game : Node2D
 	private void LevelFinished()
 	{
 		currentLevel.LevelFinish -= LevelFinished;
-
+		spawnPoint = Vector2.Zero;
 		GD.Print("niveau fini oep");
 		levelScene = currentLevel.GetNextLevel();
 		RemoveChild(currentLevel);

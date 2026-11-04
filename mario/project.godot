@@ -17,13 +17,15 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Mario"
 run/main_scene="uid://bicqfqfebtibt"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
-config/icon="res://StateMachine/Mario/icon.svg"
+config/icon="uid://bgot53e3qimlh"
 
 [display]
 
 window/size/viewport_width=1400
 window/size/viewport_height=900
 window/size/mode=3
+window/stretch/mode="viewport"
+window/stretch/aspect="ignore"
 
 [dotnet]
 
@@ -70,3 +72,4 @@ down={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
